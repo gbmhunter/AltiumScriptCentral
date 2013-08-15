@@ -8,8 +8,8 @@ A collection of useful Altium scripts.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/08/14
-- Version: v1.1.0.0
+- Last Modified: 2013/08/15
+- Version: v2.0.0.0
 - Company: CladLabs
 - Language: Delphi
 - Compiler: Altium Script Engine
@@ -29,6 +29,21 @@ A Altium script, written in Delphi, that changes the font size (width and height
 PlaceNettedVia.pas
 ------------------
 Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
+
+Pre-Release Checks
+------------------
+
+Pre-release checks are designed to be run before the board is released to the manufacturer.
+
+CheckNoSupplierPartNumShown
+---------------------------
+
+Checks that no supplier part numbers are shown on the schematics.
+
+CheckPowerPortOrientation
+-------------------------
+
+Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
 
 External Dependencies
 =====================
@@ -56,6 +71,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v2.0.0.0 2013/08/15 Added pre-release checks folder, with port symbols and supplier part number checks. Added main form to run these from. Added relevant sections to the README. Added script project to root directory.
 v1.1.0.0 2013/08/14 Added PlaceNettedVia.pas. Changed name to AltiumScripts (repo will now hold all scripts). Added basic usage and updated 'External Dependencies' in README. Moves scripts into the src/ directory.
 v1.0.0.0 2013/08/08 Initial commit. Script written and tested (it works). 
 ======== ========== ===================================================================================================
