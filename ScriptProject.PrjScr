@@ -112,7 +112,23 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 
 [Document6]
-DocumentPath=src\PrereleaseChecks\CheckLayers.pas
+DocumentPath=src\PrereleaseChecks\CheckLayers.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
+[Document7]
+DocumentPath=src\PrereleaseChecks\MainScript.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -138,6 +154,7 @@ GenerateBOM=0
 0=pcbObject
 1=pcbObject
 2=eTrackObject
+3=PCBServer
 
 [OutputGroup1]
 Name=Netlist Outputs

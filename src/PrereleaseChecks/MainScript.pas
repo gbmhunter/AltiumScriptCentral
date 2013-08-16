@@ -34,7 +34,7 @@ begin
 
     CheckPowerPortOrientation(MemoInfo);
     CheckNoSupplierPartNumShown(MemoInfo);
-    CheckLayers(MemoInfo);
+    //CheckLayers(MemoInfo);
 end;
 
 
