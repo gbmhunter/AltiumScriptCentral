@@ -1,6 +1,6 @@
 {
 type TextOutput = Class
-	private
+    private
 
     // These methods and properties are all usable by instances of the class
     published
@@ -28,12 +28,13 @@ End;
 
 procedure TFormMainScript.ButRunPreReleaseChecksClick(Sender: TObject);
 var
-	textOutput : TextOutput;
+    textOutput : TextOutput;
 begin
     // Run pre-release checks
 
     CheckPowerPortOrientation(MemoInfo);
     CheckNoSupplierPartNumShown(MemoInfo);
+    CheckLayers(MemoInfo);
 end;
 
 
