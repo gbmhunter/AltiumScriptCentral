@@ -3,5 +3,6 @@ Sub RunMainScript
 End Sub
 
 Sub Button1Click(Sender)
-	CheckLayers(MemoOutput)
+    CheckLayers(MemoOutput)
+    CheckPowerPortOrientation(MemoOutput)
 End Sub
