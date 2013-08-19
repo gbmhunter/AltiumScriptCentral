@@ -11,6 +11,7 @@ Sub Button1Click(Sender)
     CheckLayers()
     CheckPowerPortOrientation()
     CheckNoSupplierPartNumShown()
+    CheckTentedVias()
 End Sub
 
 Sub StdOut(msg)

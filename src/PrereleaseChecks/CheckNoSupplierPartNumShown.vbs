@@ -57,7 +57,7 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
 
         ' If this is SCH document
         If document.DM_DocumentKind = "SCH" Then
-            sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
+            Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             'ShowMessage(document.DM_FullPath);
             If sheet Is Nothing Then
                 StdErr("ERROR: No sheet found." + VbCr + VbLf)

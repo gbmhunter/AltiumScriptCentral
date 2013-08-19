@@ -8,8 +8,8 @@ A collection of useful Altium scripts.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/08/19
-- Version: v4.0.0.0
+- Last Modified: 2013/08/20
+- Version: v5.0.0.0
 - Company: CladLabs
 - Language: Delphi
 - Compiler: Altium Script Engine
@@ -22,11 +22,11 @@ A collection of useful Altium scripts.
 Description
 ===========
 
-ChangeDesignatorFontSize.pas
+ChangeDesignatorFontSize.vbs
 ----------------------------
 A Altium script, written in Delphi, that changes the font size (width and height) of all component designators on the PCB.
 
-PlaceNettedVia.pas
+PlaceNettedVia.vbs
 ------------------
 Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
 
@@ -35,20 +35,25 @@ Pre-Release Checks
 
 Pre-release checks are designed to be run before the board is released to the manufacturer.
 
-CheckLayers
------------
+CheckLayers.vbs
+---------------
 
 Checks that the mechanical layers of the PCB have the correct objects on them.
 
-CheckNoSupplierPartNumShown
----------------------------
+CheckNoSupplierPartNumShown.vbs
+-------------------------------
 
 Checks that no supplier part numbers are shown on the schematics.
 
-CheckPowerPortOrientation
--------------------------
+CheckPowerPortOrientation.vbs
+-----------------------------
 
 Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
+
+CheckTentedVias.vbs
+-------------------
+
+Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
 
 External Dependencies
 =====================
@@ -76,6 +81,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v5.0.0.0 2013/08/20 Added check for number of tented vias. If ratio of tented vias is not greater than 0.9, script assumes you have forgotten to tent them. Added relevant info to README. Changed .pas extensions in README to .vbs, and added missing ones.
 v4.0.0.0 2013/08/19 Added check for project compilation (before any other checks are done). Added StdOut() and StdErr() functions for scripts to use, stopped them from directly writing to the memo object. Updated GUI with errors text output.
 v3.1.3.0 2013/08/19 Converted ChangeDesignatorFontSize, PlaceNettedVia from Delphi to VB script (now .vbs).
 v3.1.2.0 2013/08/19 Converted CheckNoSupplierPartNumShown from Delphi to VB script (now .vbs). Deleted old MainForm.pas.
