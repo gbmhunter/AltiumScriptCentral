@@ -127,6 +127,22 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
+[Document7]
+DocumentPath=src\PrereleaseChecks\CheckProjectCompiles.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
 [PCBConfiguration1]
 ReleaseItemId=
 CurrentRevision=
@@ -144,6 +160,9 @@ GenerateBOM=0
 7=iterator
 8=violationCnt
 9=docNum
+0=DM_DocumentKind
+10=document.DM_DocumentKind
+11=document.DM_FullPath
 
 [OutputGroup1]
 Name=Netlist Outputs

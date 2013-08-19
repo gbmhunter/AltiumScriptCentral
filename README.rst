@@ -9,7 +9,7 @@ A collection of useful Altium scripts.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/08/19
-- Version: v3.1.3.0
+- Version: v4.0.0.0
 - Company: CladLabs
 - Language: Delphi
 - Compiler: Altium Script Engine
@@ -76,6 +76,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v4.0.0.0 2013/08/19 Added check for project compilation (before any other checks are done). Added StdOut() and StdErr() functions for scripts to use, stopped them from directly writing to the memo object. Updated GUI with errors text output.
 v3.1.3.0 2013/08/19 Converted ChangeDesignatorFontSize, PlaceNettedVia from Delphi to VB script (now .vbs).
 v3.1.2.0 2013/08/19 Converted CheckNoSupplierPartNumShown from Delphi to VB script (now .vbs). Deleted old MainForm.pas.
 v3.1.1.0 2013/08/19 Converted CheckPowerPortOrientation from Delphi to VB script (now .vbs).

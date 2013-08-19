@@ -1,7 +1,7 @@
-Sub CheckPowerPortOrientation(output) 'As TMemo
-	Dim workspace 	' As IWorkspace
-    Dim pcbProject 	' As IProject
-    Dim powerObj	' As ISch_PowerObject
+Sub CheckPowerPortOrientation() 'As TMemo
+    Dim workspace   ' As IWorkspace
+    Dim pcbProject  ' As IProject
+    Dim powerObj    ' As ISch_PowerObject
     Dim document    ' As IDocument
     Dim sheet       ' As ISch_Document
     Dim iterator    ' As ISch_Iterator
@@ -10,12 +10,12 @@ Sub CheckPowerPortOrientation(output) 'As TMemo
 
     violationCnt = 0
 
-    output.Text = output.Text + "Check power port orientations..." + VbCr + VbLf
+    StdOut("Check power port orientations...")
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-    	Exit Sub
-	End If
+        Exit Sub
+    End If
 
     ' Get pcb project interface
     Set workspace = GetWorkspace
@@ -34,14 +34,14 @@ Sub CheckPowerPortOrientation(output) 'As TMemo
 
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             If sheet Is Nothing Then
-            	ShowMessage("Please compile project.")
-            	Exit Sub
-           	End If
+                StdErr("ERROR: Please compile project." + VbCr + VbLf)
+                Exit Sub
+            End If
 
             ' Set up iterator to look for popwer port objects only
             Set iterator = sheet.SchIterator_Create
             If iterator Is Nothing Then
-            	Exit Sub
+                Exit Sub
             End If
 
             iterator.AddFilter_ObjectSet(MkSet(ePowerObject))
@@ -67,7 +67,7 @@ Sub CheckPowerPortOrientation(output) 'As TMemo
 
                 ' Go to next object
                 If iterator.NextSchObject Is Nothing Then
-                	Exit Do
+                    Exit Do
                 End If
                 Set powerObj = iterator.NextSchObject
             Loop
@@ -75,10 +75,10 @@ Sub CheckPowerPortOrientation(output) 'As TMemo
     Next
 
     If(violationCnt > 0) Then
-        output.Text = output.Text + "VIOLATION: Power ports with incorrect orientation found! Number = " + IntToStr(violationCnt) + "." + VbCr + VbLf
+        StdErr("ERROR: Power ports with incorrect orientation violation found! Number of violations = " + IntToStr(violationCnt) + "." + VbCr + VbLf)
     End If
     If(violationCnt = 0) Then
-        output.Text = output.Text + "No power port violations found." + VbCr + VbLf
+        StdOut("No power port violations found." + VbCr + VbLf)
     End If
 
 End Sub

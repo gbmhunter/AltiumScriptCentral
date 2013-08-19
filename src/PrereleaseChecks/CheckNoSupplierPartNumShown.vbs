@@ -1,4 +1,4 @@
-Sub CheckNoSupplierPartNumShown(textOutput) ' As TMemo
+Sub CheckNoSupplierPartNumShown() ' As TMemo
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument
@@ -12,13 +12,13 @@ Sub CheckNoSupplierPartNumShown(textOutput) ' As TMemo
     Dim violationFnd        ' As Boolean
     Dim violationCount      ' As Integer
 
-    textOutput.Text = textOutput.Text + "Looking for visible supplier part numbers..." + VbLf + VbCr
+    StdOut("Looking for visible supplier part numbers...")
 
     violationFnd = false
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-        textOutput.Text = textOutput.Text + "Schematic server not online." + VbLf + VbCr
+        StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
         Exit Sub
     End If
 
@@ -27,7 +27,7 @@ Sub CheckNoSupplierPartNumShown(textOutput) ' As TMemo
     Set pcbProject = workspace.DM_FocusedProject
 
     If pcbProject Is Nothing Then
-        ShowMessage("Current Project is not a PCB Project")
+        StdErr("ERROR: Current Project is not a PCB Project" + VbLf + VbCr)
         Exit Sub
     End If
 
@@ -46,7 +46,7 @@ Sub CheckNoSupplierPartNumShown(textOutput) ' As TMemo
         ' Try Again to open the flattened document
         Set flatHierarchy = PCBProject.DM_DocumentFlattened
         If flatHierarchy Is Nothing Then
-           textOutput.Text = textOutput.Text + "ERROR: Compile the project before running this script." + VbCr + VbLf
+           StdErr("ERROR: Compile the project before running this script." + VbCr + VbLf)
            Exit Sub
         End If
     End If
@@ -60,14 +60,14 @@ Sub CheckNoSupplierPartNumShown(textOutput) ' As TMemo
             sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             'ShowMessage(document.DM_FullPath);
             If sheet Is Nothing Then
-                textOutput.Text = textOutput.Text + "ERROR: No sheet found." + VbCr + VbLf
+                StdErr("ERROR: No sheet found." + VbCr + VbLf)
                 Exit Sub
             End If
 
             ' Set up iterator to look for power port objects only
             Set iterator = sheet.SchIterator_Create
             If iterator Is Nothing Then
-                ShowMessage("ERROR: Iterator could not be created.")
+                StdErr("ERROR: Iterator could not be created.")
                 Exit Sub
             End If
 
@@ -104,10 +104,10 @@ Sub CheckNoSupplierPartNumShown(textOutput) ' As TMemo
     Next ' For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
 
     If violationFnd = false Then
-        textOutput.Text = textOutput.Text + "No supplier part number violations found." + VbCr + VbLf
+        StdOut("No supplier part number violations found." + VbCr + VbLf)
     End If
     If violationFnd = true Then
-        textOutput.Text = textOutput.Text + "VIOLATION: Supplier part numbers visible on sheet. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf
+        StdErr("ERROR: Supplier part number visible on sheet violation found. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf)
     End If
 
 End Sub
