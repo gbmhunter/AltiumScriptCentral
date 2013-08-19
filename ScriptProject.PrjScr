@@ -64,54 +64,6 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 
 [Document3]
-DocumentPath=src\PrereleaseChecks\CheckNoSupplierPartNumShown.pas
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-
-[Document4]
-DocumentPath=src\PrereleaseChecks\CheckPowerPortOrientation.pas
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-
-[Document5]
-DocumentPath=src\PrereleaseChecks\MainScript.pas
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-
-[Document6]
 DocumentPath=src\PrereleaseChecks\CheckLayers.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -127,7 +79,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document7]
+[Document4]
 DocumentPath=src\PrereleaseChecks\MainScript.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -143,8 +95,24 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document8]
+[Document5]
 DocumentPath=src\PrereleaseChecks\CheckPowerPortOrientation.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
+[Document6]
+DocumentPath=src\PrereleaseChecks\CheckNoSupplierPartNumShown.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -167,10 +135,15 @@ Variant=[No Variations]
 GenerateBOM=0
 
 [Generic_Watches]
-0=pcbObject
-1=pcbObject
+1=SCHServer
 2=eTrackObject
 3=PCBServer
+4=document.DM_FullPath
+5=SCHServer.GetSchDocumentByPath(document.DM_FullPath)
+6=powerObj
+7=iterator
+8=violationCnt
+9=docNum
 
 [OutputGroup1]
 Name=Netlist Outputs

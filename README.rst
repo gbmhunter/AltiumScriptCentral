@@ -9,7 +9,7 @@ A collection of useful Altium scripts.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/08/19
-- Version: v3.1.1.0
+- Version: v3.1.2.0
 - Company: CladLabs
 - Language: Delphi
 - Compiler: Altium Script Engine
@@ -76,6 +76,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v3.1.2.0 2013/08/19 Converted CheckNoSupplierPartNumShown from Delphi to VB script (now .vbs). Deleted old MainForm.pas.
 v3.1.1.0 2013/08/19 Converted CheckPowerPortOrientation from Delphi to VB script (now .vbs).
 v3.1.0.0 2013/08/16 Converted layer script to Visual Basic script. Plan is to convert all scripts eventually.
 v3.0.0.0 2013/08/16 Added layer check script, which checks that PCB layers have the correct objects on them.
