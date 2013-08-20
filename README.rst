@@ -30,12 +30,12 @@ Tools
 Tools are designed to automate some process in Altium.
 
 ========================================    ==================================================================
-Filename									Description
-========================================	==================================================================
-ChangeDesignatorFontSize.vbs				A Altium script, written in Delphi, that changes the font size (width and height) of all component designators on the PCB.
-PlaceNettedVia.vbs							Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
-PushProjectParametersToSchematics.vbs		Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
-========================================	==================================================================
+Filename                                    Description
+========================================    ==================================================================
+ChangeDesignatorFontSize.vbs                A Altium script, written in Delphi, that changes the font size (width and height) of all component designators on the PCB.
+PlaceNettedVia.vbs                          Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
+PushProjectParametersToSchematics.vbs       Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
+========================================    ==================================================================
 
 Pre-Release Checks
 ------------------
@@ -43,14 +43,14 @@ Pre-Release Checks
 Pre-release checks are designed to be run before the board is released to the manufacturer.
 
 ========================================    ==================================================================
-Filename									Description
-========================================	==================================================================
-CheckLayers.vbs								Checks that the mechanical layers of the PCB have the correct objects on them.
-CheckNameVersionDate.vbs					Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
-CheckNoSupplierPartNumShown.vbs				Checks that no supplier part numbers are shown on the schematics.
-CheckPowerPortOrientation.vbs				Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
-CheckTentedVias.vbs							Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
-========================================	==================================================================
+Filename                                    Description
+========================================    ==================================================================
+CheckLayers.vbs                             Checks that the mechanical layers of the PCB have the correct objects on them.
+CheckNameVersionDate.vbs                    Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
+CheckNoSupplierPartNumShown.vbs             Checks that no supplier part numbers are shown on the schematics.
+CheckPowerPortOrientation.vbs               Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
+CheckTentedVias.vbs                         Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
+========================================    ==================================================================
 
 External Dependencies
 =====================
@@ -73,6 +73,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v7.0.0.2 2013/08/20 Fixing issue with description tables in README. Replaced all tab characters with spaces.
 v7.0.0.1 2013/08/20 Tabulated the script file names and descriptions in the README. Removed unused limitations section. Added information about MainScript.vbs to README. Added info about CheckNameVerisonDate.vbs to README.
 v7.0.0.0 2013/08/20 Added PushProjectParametersToSchematics.vbs, which copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information. Updated README accordingly. Added button for this on main script form.
 v6.1.0.0 2013/08/20 Renamed CheckDate.vbs to CheckNameVerisonDate.vbs. Made script now check for version number also (in the format v2.3).
