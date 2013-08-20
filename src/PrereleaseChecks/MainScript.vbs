@@ -3,6 +3,8 @@ Sub RunMainScript
 End Sub
 
 Sub Button1Click(Sender)
+	ConfigInit() 
+
     ' Important to check if project compiles first
     If(CheckProjectCompiles() = false) Then
         Exit Sub

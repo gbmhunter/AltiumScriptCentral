@@ -1,5 +1,4 @@
 
-Dim violationCnt    'as Integer
 Dim pcbBoard        'as IPCB_Board
 
 Sub CheckLayers()
@@ -12,7 +11,7 @@ Sub CheckLayers()
     dim LS 'as String
     dim docNum
 
-    StdOut("Checking layers...")
+    StdOut("Checking layers..." + VbCr + VbLf)
     violationCnt = 0
 
     ' Obtain the PCB server interface.
@@ -51,18 +50,21 @@ Sub CheckLayers()
         Exit Sub
     End If
 
-    ' ======================
-    ' BOARD OUTLINE (Mech 1)
-    ' ======================
-     CheckBoardOutlineLayer()
-
-    ' 3D Models (Mech 2)
+    CheckBoardOutlineLayer()
+    CheckTopMechBodyLayer()
+	CheckBotMechBodyLayer()
 
 End Sub
 
 Sub CheckBoardOutlineLayer()
     Dim pcbIterator
     Dim pcbObject
+    Dim violationCnt    'As Integer
+
+    StdOut("Checking board outline layer...")
+
+	' Init violation count
+    violationCnt = 0
 
     ' Get iterator, limiting search to mech 1 layer
     Set pcbIterator = pcbBoard.BoardIterator_Create
@@ -72,7 +74,7 @@ Sub CheckBoardOutlineLayer()
     End If
 
     pcbIterator.AddFilter_ObjectSet(AllObjects)
-    pcbIterator.AddFilter_LayerSet(MkSet(eMechanical1))
+    pcbIterator.AddFilter_LayerSet(MkSet(BOARD_OUTLINE_LAYER))
     pcbIterator.AddFilter_Method(eProcessAll)
 
     ' Search  and  count  pads
@@ -80,7 +82,7 @@ Sub CheckBoardOutlineLayer()
     While Not(pcbObject Is Nothing)
         ' Make sure that only tracks/arcs are present on this layer
         If(pcbObject.ObjectId <> eTrackObject) and (pcbObject.ObjectId <> eArcObject) Then
-            Inc(violationCnt)
+            violationCnt = violationCnt + 1
         End If
         Set pcbObject =  pcbIterator.NextPCBObject
     WEnd
@@ -88,10 +90,85 @@ Sub CheckBoardOutlineLayer()
     pcbBoard.BoardIterator_Destroy(pcbIterator)
 
     ' OUTPUT
-    If(violationCnt = 0) Then
-        StdOut(" No board outline layer violations found." + vbCr + vbLf)
-    End If
+	StdOut(" Board outline layer check complete." + vbCr + vbLf)
+
     If(violationCnt <> 0) Then
         StdErr("ERROR: Board outline layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+    End If
+End Sub
+
+Sub CheckTopMechBodyLayer()
+    Dim pcbIterator
+    Dim pcbObject
+    Dim violationCnt    'As Integer
+
+    StdOut("Checking top mechanical body layer...")
+
+    ' Get iterator, limiting search to specific layer
+    Set pcbIterator = pcbBoard.BoardIterator_Create
+    If pcbIterator Is Nothing Then
+        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Exit Sub
+    End If
+
+    pcbIterator.AddFilter_ObjectSet(AllObjects)
+    pcbIterator.AddFilter_LayerSet(MkSet(TOP_MECH_BODY_LAYER))
+    pcbIterator.AddFilter_Method(eProcessAll)
+
+    ' Search  and  count  pads
+    Set pcbObject =  pcbIterator.FirstPCBObject
+    While Not(pcbObject Is Nothing)
+        ' Make sure that only tracks/arcs/3d bodies are present on this layer
+        If(pcbObject.ObjectId <> eTrackObject) and (pcbObject.ObjectId <> eArcObject) And (pcbObject.ObjectId <> eComponentBodyObject) Then
+            violationCnt = violationCnt + 1
+        End If
+        Set pcbObject =  pcbIterator.NextPCBObject
+    WEnd
+
+    pcbBoard.BoardIterator_Destroy(pcbIterator)
+
+    ' OUTPUT
+	StdOut(" Top mech body layer check complete." + vbCr + vbLf)
+
+    If(violationCnt <> 0) Then
+        StdErr("ERROR: Top mech body layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+    End If
+End Sub
+
+Sub CheckBotMechBodyLayer()
+    Dim pcbIterator
+    Dim pcbObject
+    Dim violationCnt    'As Integer
+
+    StdOut("Checking bottom mechanical body layer...")
+
+    ' Get iterator, limiting search to specific layer
+    Set pcbIterator = pcbBoard.BoardIterator_Create
+    If pcbIterator Is Nothing Then
+        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Exit Sub
+    End If
+
+    pcbIterator.AddFilter_ObjectSet(AllObjects)
+    pcbIterator.AddFilter_LayerSet(MkSet(BOT_MECH_BODY_LAYER))
+    pcbIterator.AddFilter_Method(eProcessAll)
+
+    ' Search  and  count  pads
+    Set pcbObject =  pcbIterator.FirstPCBObject
+    While Not(pcbObject Is Nothing)
+        ' Make sure that only tracks/arcs/3d bodies are present on this layer
+        If(pcbObject.ObjectId <> eTrackObject) and (pcbObject.ObjectId <> eArcObject) And (pcbObject.ObjectId <> eComponentBodyObject) Then
+            violationCnt = violationCnt + 1
+        End If
+        Set pcbObject =  pcbIterator.NextPCBObject
+    WEnd
+
+    pcbBoard.BoardIterator_Destroy(pcbIterator)
+
+    ' OUTPUT
+	StdOut(" Bottom mechanical body layer check complete." + vbCr + vbLf)
+
+    If(violationCnt <> 0) Then
+        StdErr("ERROR: Bottom mechanical body layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
     End If
 End Sub

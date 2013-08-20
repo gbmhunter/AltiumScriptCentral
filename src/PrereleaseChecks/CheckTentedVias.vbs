@@ -72,7 +72,7 @@ Sub CheckTentedVias()
         'StdOut("Exp = " + IntToStr(pcbObject.Cache.SolderMaskExpansion) + ",")
         'StdOut("Valid = " + IntToStr(pcbObject.Cache.SolderMaskExpansionValid) + ";")
 
-        If pcbObject.Cache.SolderMaskExpansionValid = eCacheInvalid Then
+        If pcbObject.Cache.SolderMaskExpansion*2 <= -pcbObject.Size Then
             ' Via is tented (both sides)
             tentedViaCount = tentedViaCount + 1
         Else
@@ -94,8 +94,8 @@ Sub CheckTentedVias()
     ' Output
     StdOut("Tented via ratio = " + FormatNumber(tentedViaRatio) + ". Tented via check complete." + vbCr + vbLf)
 
-    If(tentedViaRatio < 0.9) Then
-        StdErr("ERROR: Tented via ratio < 0.9 violation found (ratio = " + FormatNumber(tentedViaRatio) + "). Have you forgotten to tent vias?" + vbCr + vbLf)
+    If(tentedViaRatio < MIN_TENTED_VIA_RATIO) Then
+        StdErr("ERROR: Tented via ratio violation found (ratio = " + FormatNumber(tentedViaRatio) + ", minimum allowed ratio = " + FormatNumber(MIN_TENTED_VIA_RATIO) + "). Have you forgotten to tent vias?" + vbCr + vbLf)
     End If
 
 End Sub
