@@ -8,8 +8,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/08/20
-- Version: v7.0.0.1
+- Last Modified: 2013/08/21
+- Version: v7.0.1.0
 - Company: CladLabs
 - Language: Delphi
 - Compiler: Altium Script Engine
@@ -22,25 +22,35 @@ A collection of useful Altium scripts, written in VBScript.
 Description
 ===========
 
-**MainScript.vbs**: This is the main script which when run will load up a form that can run all of the other scripts.
+Core Files
+----------
 
-Tools
------
-
-Tools are designed to automate some process in Altium.
+All are located in *./src/*.
 
 ========================================    ==================================================================
 Filename                                    Description
 ========================================    ==================================================================
-ChangeDesignatorFontSize.vbs                A Altium script, written in Delphi, that changes the font size (width and height) of all component designators on the PCB.
+Config.vbs                                  Contains configuration settings.
+Main.vbs                                    This is the main script which when run will load up a form that can run all of the other scripts.
+========================================    ==================================================================
+
+Tools
+-----
+
+Tools are designed to automate some process in Altium. All are located in *./src/Tools/*.
+
+========================================    ==================================================================
+Filename                                    Description
+========================================    ==================================================================
+ChangeDesignatorFontSize.vbs                Changes the font size (width and height) of all component designators on the PCB.
 PlaceNettedVia.vbs                          Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
 PushProjectParametersToSchematics.vbs       Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
 ========================================    ==================================================================
 
-Pre-Release Checks
+Checks
 ------------------
 
-Pre-release checks are designed to be run before the board is released to the manufacturer.
+Checks are scripts designed to be run before the board is released to the manufacturer. All are located in *./src/Checks/*. 
 
 ========================================    ==================================================================
 Filename                                    Description
@@ -73,6 +83,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v7.0.1.0 2013/08/21 Re-arranged folder structure. Added ./src/Tools folder, put all tool scripts in this. Renamed ./src/PrereleaseChecks folder to just ./src/Checks, and moved MainScript.vbs into ./src folder, and renamed it to just Main.vbs. Updated script project file with new paths. Added folders to README under appropriate sections. Added core files section to README.
 v7.0.0.2 2013/08/20 Fixing issue with description tables in README. Replaced all tab characters with spaces.
 v7.0.0.1 2013/08/20 Tabulated the script file names and descriptions in the README. Removed unused limitations section. Added information about MainScript.vbs to README. Added info about CheckNameVerisonDate.vbs to README.
 v7.0.0.0 2013/08/20 Added PushProjectParametersToSchematics.vbs, which copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information. Updated README accordingly. Added button for this on main script form.
