@@ -3,17 +3,22 @@ Sub RunMainScript
 End Sub
 
 Sub Button1Click(Sender)
-	ConfigInit() 
+    ConfigInit()
 
+    ' PROJECT
     ' Important to check if project compiles first
     If(CheckProjectCompiles() = false) Then
         Exit Sub
     End If
 
+    ' SCHEMATICS
     CheckLayers()
     CheckPowerPortOrientation()
     CheckNoSupplierPartNumShown()
+
+    ' PCB
     CheckTentedVias()
+    CheckDate()
 End Sub
 
 Sub StdOut(msg)

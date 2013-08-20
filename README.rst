@@ -9,7 +9,7 @@ A collection of useful Altium scripts.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/08/20
-- Version: v5.1.0.0
+- Version: v6.0.0.0
 - Company: CladLabs
 - Language: Delphi
 - Compiler: Altium Script Engine
@@ -81,6 +81,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v6.0.0.0 2013/08/20 Date checker script for PCB added. Uses regex built into VBScript.
 v5.1.0.0 2013/08/20 Added config file, and added a few variables to it. Fixed tented via bug using manual/auto parameter, now uses expansion value. Will not work if expansion overridden manually.
 v5.0.0.0 2013/08/20 Added check for number of tented vias. If ratio of tented vias is not greater than 0.9, script assumes you have forgotten to tent them. Added relevant info to README. Changed .pas extensions in README to .vbs, and added missing ones.
 v4.0.0.0 2013/08/19 Added check for project compilation (before any other checks are done). Added StdOut() and StdErr() functions for scripts to use, stopped them from directly writing to the memo object. Updated GUI with errors text output.
