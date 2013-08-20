@@ -18,7 +18,7 @@ Sub Button1Click(Sender)
 
     ' PCB
     CheckTentedVias()
-    CheckDate()
+    CheckNameVersionDate()
 End Sub
 
 Sub StdOut(msg)

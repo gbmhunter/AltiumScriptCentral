@@ -176,7 +176,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 
 [Document10]
-DocumentPath=src\PrereleaseChecks\CheckDate.vbs
+DocumentPath=src\PrereleaseChecks\CheckNameVersionDate.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0

@@ -1,15 +1,17 @@
+Sub CheckNameVersionDate()
 
-Sub CheckDate()
-   	Dim workspace           'As IWorkspace
+    Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject
     Dim document            'As IDocument
     Dim pcbBoard            'As IPCB_Board
     Dim pcbObject           'As IPCB_Primitive;
     Dim docNum              'As Integer
-    Dim dateFound			'As Boolean
+    Dim dateFound           'As Boolean
+    Dim versionFound        'As Boolean
 
     StdOut("Checking PCB date...")
 
+    versionFound = false
     dateFound = false
 
     ' Obtain the PCB server interface.
@@ -65,13 +67,26 @@ Sub CheckDate()
         'StdOut("Exp = " + IntToStr(pcbObject.Cache.SolderMaskExpansion) + ",")
         'StdOut("Valid = " + IntToStr(pcbObject.Cache.SolderMaskExpansionValid) + ";")
 
-        Set myRegExp = New RegExp
-		myRegExp.IgnoreCase = True
-		myRegExp.Global = True
+        ' Project and version regex
+        Set reNameVersion = New RegExp
+        reNameVersion.IgnoreCase = True
+        reNameVersion.Global = True
         ' Look for date in pattern yyyy/mm/dd
-		myRegExp.Pattern = "[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]"
+        reNameVersion.Pattern = "v[0-9]*\.[0-9]*"
 
-        If myRegExp.Test(pcbObject.Text) Then
+        If reNameVersion.Test(pcbObject.Text) Then
+            'StdOut("Version found!")
+            versionFound = true
+        End If
+
+        ' Date regex
+        Set reDate = New RegExp
+        reDate.IgnoreCase = True
+        reDate.Global = True
+        ' Look for date in pattern yyyy/mm/dd
+        reDate.Pattern = "[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]"
+
+        If reDate.Test(pcbObject.Text) Then
             'StdOut("Date found!")
             dateFound = true
         End If
@@ -84,10 +99,19 @@ Sub CheckDate()
 
     If Not dateFound Then
         StdErr("ERROR: Date not found violation. Please add the date to the PCB in the format yyyy/mm/dd" + vbCr + vbLf)
+    Else
+    	Stdout("Date found. ")
+    End If
+
+    If Not versionFound Then
+        StdErr("ERROR: Version not found violation. Please add the version to the PCB in the format v[0-9]*\.[0-9]*" + vbCr + vbLf)
+    Else
+    	StdOut("Verison found. ")
     End If
 
     ' Output
     StdOut("Date checker complete." + vbCr + vbLf)
 
 End Sub
+
 
