@@ -2,14 +2,14 @@
 Altium Scripts
 ========================
 
-----------------------------------------------------------
-A collection of useful Altium scripts.
-----------------------------------------------------------
+-----------------------------------------------------------
+A collection of useful Altium scripts, written in VBScript.
+-----------------------------------------------------------
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/08/20
-- Version: v6.1.0.0
+- Version: v7.0.0.0
 - Company: CladLabs
 - Language: Delphi
 - Compiler: Altium Script Engine
@@ -29,6 +29,11 @@ A Altium script, written in Delphi, that changes the font size (width and height
 PlaceNettedVia.vbs
 ------------------
 Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
+
+PushProjectParametersToSchematics.vbs
+-------------------------------------
+
+Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
 
 Pre-Release Checks
 ------------------
@@ -81,6 +86,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v7.0.0.0 2013/08/20 Added PushProjectParametersToSchematics.vbs, which copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information. Updated README accordingly. Added button for this on main script form.
 v6.1.0.0 2013/08/20 Renamed CheckDate.vbs to CheckNameVerisonDate.vbs. Made script now check for version number also (in the format v2.3).
 v6.0.0.0 2013/08/20 Date checker script for PCB added. Uses regex built into VBScript.
 v5.1.0.0 2013/08/20 Added config file, and added a few variables to it. Fixed tented via bug using manual/auto parameter, now uses expansion value. Will not work if expansion overridden manually.

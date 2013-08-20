@@ -3,7 +3,7 @@ object FormMainScript: TFormMainScript
   Top = 0
   Caption = 'FormMainScript'
   ClientHeight = 758
-  ClientWidth = 723
+  ClientWidth = 1060
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -46,7 +46,7 @@ object FormMainScript: TFormMainScript
     Height = 25
     Caption = 'Run Pre-release Checks'
     TabOrder = 0
-    OnClick = Button1Click
+    OnClick = ButRunChecks
   end
   object MemoStdOut: TMemo
     Left = 41
@@ -61,5 +61,14 @@ object FormMainScript: TFormMainScript
     Width = 655
     Height = 259
     TabOrder = 2
+  end
+  object ButPushProjectParameters: TButton
+    Left = 754
+    Top = 48
+    Width = 206
+    Height = 24
+    Caption = 'Push Project Parameters To Schematics'
+    TabOrder = 3
+    OnClick = PushProjectParameters
   end
 end

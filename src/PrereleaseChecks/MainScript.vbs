@@ -2,7 +2,7 @@ Sub RunMainScript
     FormMainScript.ShowModal
 End Sub
 
-Sub Button1Click(Sender)
+Sub ButRunChecks(Sender)
     ConfigInit()
 
     ' PROJECT
@@ -19,6 +19,10 @@ Sub Button1Click(Sender)
     ' PCB
     CheckTentedVias()
     CheckNameVersionDate()
+End Sub
+
+Sub PushProjectParameters(Sender)
+    PushProjectParametersToSchematics()
 End Sub
 
 Sub StdOut(msg)
