@@ -9,7 +9,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/08/22
-- Version: v9.0.0.0
+- Version: v9.0.0.1
 - Company: CladLabs
 - Language: Delphi
 - Compiler: Altium Script Engine
@@ -55,10 +55,13 @@ Checks are scripts designed to be run before the board is released to the manufa
 ========================================    ==================================================================
 Filename                                    Description
 ========================================    ==================================================================
+CheckCapsShowCapacitanceAndVoltage.vbs		Checks that all capacitors on the schematics show both capacitance and voltage. Uses regex patterns to find visible parameters which follow the correct format (e.g. 2.0uF, 22mF, 10.00F, 6.3V, 12V) of components whose designators start with "C".
 CheckLayers.vbs                             Checks that the mechanical layers of the PCB have the correct objects on them.
 CheckNameVersionDate.vbs                    Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
 CheckNoSupplierPartNumShown.vbs             Checks that no supplier part numbers are shown on the schematics.
+CheckPcbTextHasCorrectOrientation.vbs       Checks that PCB text has the correct orientation (so it is readable), that is text on the top overlay IS NOT mirrored, and text on the bottom layer IS mirrored.
 CheckPowerPortOrientation.vbs               Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
+CheckProjectCompiles.vbs                    Makes sure that the project compiles successfully.
 CheckTentedVias.vbs                         Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
 ========================================    ==================================================================
 
@@ -83,6 +86,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v9.0.0.1 2013/08/22 Added info to README for missing scripts.
 v9.0.0.0 2013/08/22 Added script that makes sure PCB text has the correct orientation (CheckPcbTextHasCorrectOrientation()). Text on the top overlay must not be mirrored, text on the bottom overlay must be mirrored.
 v8.0.0.0 2013/08/22 Added script that checks that capacitors on schematic are displaying both capacitance and voltage (CheckCapsShowCapacitanceAndVoltage.vbs). Added 'ERROR:' to the start of error messages in CheckProjectCompiles.vbs.
 v7.1.0.0 2013/08/22 Added more PCB layer constants to Config.vbs. Added check for top and bottom dimension layers to CheckLayers.vbs.
