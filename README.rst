@@ -9,9 +9,9 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/08/22
-- Version: v9.0.0.1
+- Version: v9.0.0.2
 - Company: CladLabs
-- Language: Delphi
+- Language: VBScript
 - Compiler: Altium Script Engine
 - uC Model: n/a
 - Computer Architecture: n/a
@@ -86,6 +86,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v9.0.0.2 2013/08/22 Fixed programming language from 'Delphi' to 'VBScript' in README.
 v9.0.0.1 2013/08/22 Added info to README for missing scripts.
 v9.0.0.0 2013/08/22 Added script that makes sure PCB text has the correct orientation (CheckPcbTextHasCorrectOrientation()). Text on the top overlay must not be mirrored, text on the bottom overlay must be mirrored.
 v8.0.0.0 2013/08/22 Added script that checks that capacitors on schematic are displaying both capacitance and voltage (CheckCapsShowCapacitanceAndVoltage.vbs). Added 'ERROR:' to the start of error messages in CheckProjectCompiles.vbs.
