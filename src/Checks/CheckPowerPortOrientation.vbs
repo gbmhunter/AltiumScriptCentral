@@ -74,12 +74,12 @@ Sub CheckPowerPortOrientation() 'As TMemo
         End If
     Next
 
-    If(violationCnt > 0) Then
+    If(violationCnt = 0) Then
+        StdOut("No power port violations found. ")
+    Else
         StdErr("ERROR: Power ports with incorrect orientation violation found! Number of violations = " + IntToStr(violationCnt) + "." + VbCr + VbLf)
     End If
-    If(violationCnt = 0) Then
-        StdOut("No power port violations found." + VbCr + VbLf)
-    End If
 
+    StdOut("Power port checking finished." + VbCr + VbLf)
 End Sub
 

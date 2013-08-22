@@ -1,12 +1,12 @@
 Sub CheckTentedVias()
-    Dim workspace 			'As IWorkspace
-    Dim pcbProject 			'As IProject
-    Dim document 			'As IDocument
-    Dim violationCnt 		'As Integer
-    Dim pcbBoard        	'As IPCB_Board
-    Dim pcbObject       	'As IPCB_Primitive;
+    Dim workspace           'As IWorkspace
+    Dim pcbProject          'As IProject
+    Dim document            'As IDocument
+    Dim violationCnt        'As Integer
+    Dim pcbBoard            'As IPCB_Board
+    Dim pcbObject           'As IPCB_Primitive;
     Dim docNum              'As Integer
-    Dim tentedViaCount    	'As Integer
+    Dim tentedViaCount      'As Integer
     Dim nonTentedViaCount   'As Integer
 
     ' Zero count variables
@@ -19,6 +19,7 @@ Sub CheckTentedVias()
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
         StdErr("ERROR: PCB server not online." + VbCr + VbLf)
+        StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
 
@@ -28,6 +29,7 @@ Sub CheckTentedVias()
 
     IF pcbProject Is Nothing Then
         StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
+        StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
 
@@ -49,6 +51,7 @@ Sub CheckTentedVias()
 
     If pcbBoard Is Nothing Then
         StdErr("ERROR: No PCB document found. Path used = " + document.DM_FullPath + "." + vbCr + vbLf)
+        StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
 
@@ -58,6 +61,7 @@ Sub CheckTentedVias()
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
         StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
 

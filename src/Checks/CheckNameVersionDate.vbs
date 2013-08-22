@@ -17,6 +17,7 @@ Sub CheckNameVersionDate()
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
         StdErr("ERROR: PCB server not online." + VbCr + VbLf)
+        StdOut("Date checker complete." + vbCr + vbLf)   
         Exit Sub
     End If
 
@@ -26,6 +27,7 @@ Sub CheckNameVersionDate()
 
     IF pcbProject Is Nothing Then
         StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
+        StdOut("Date checker complete." + vbCr + vbLf)
         Exit Sub
     End If
 
@@ -43,6 +45,7 @@ Sub CheckNameVersionDate()
 
     If pcbBoard Is Nothing Then
         StdErr("ERROR: No PCB document found. Path used = " + document.DM_FullPath + "." + vbCr + vbLf)
+        StdOut("Date checker complete." + vbCr + vbLf)
         Exit Sub
     End If
 
@@ -52,6 +55,7 @@ Sub CheckNameVersionDate()
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
         StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        StdOut("Date checker complete." + vbCr + vbLf)
         Exit Sub
     End If
 
@@ -100,13 +104,13 @@ Sub CheckNameVersionDate()
     If Not dateFound Then
         StdErr("ERROR: Date not found violation. Please add the date to the PCB in the format yyyy/mm/dd" + vbCr + vbLf)
     Else
-    	Stdout("Date found. ")
+        Stdout("Date found. ")
     End If
 
     If Not versionFound Then
         StdErr("ERROR: Version not found violation. Please add the version to the PCB in the format v[0-9]*\.[0-9]*" + vbCr + vbLf)
     Else
-    	StdOut("Verison found. ")
+        StdOut("Verison found. ")
     End If
 
     ' Output

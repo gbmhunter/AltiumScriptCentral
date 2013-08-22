@@ -6,7 +6,7 @@ Sub CheckPcbTextHasCorrectOrientation()
     Dim pcbBoard            'As IPCB_Board
     Dim pcbObject           'As IPCB_Primitive;
     Dim docNum              'As Integer
-    Dim violationCount		'As Integer
+    Dim violationCount      'As Integer
 
     StdOut("Checking PCB text has correct orientation...")
 
@@ -15,6 +15,7 @@ Sub CheckPcbTextHasCorrectOrientation()
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
         StdErr("ERROR: PCB server not online." + VbCr + VbLf)
+        StdOut("PCB text orientation check complete." + vbCr + vbLf)
         Exit Sub
     End If
 
@@ -24,6 +25,7 @@ Sub CheckPcbTextHasCorrectOrientation()
 
     IF pcbProject Is Nothing Then
         StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
+        StdOut("PCB text orientation check complete." + vbCr + vbLf)
         Exit Sub
     End If
 
@@ -41,6 +43,7 @@ Sub CheckPcbTextHasCorrectOrientation()
 
     If pcbBoard Is Nothing Then
         StdErr("ERROR: No PCB document found. Path used = " + document.DM_FullPath + "." + vbCr + vbLf)
+        StdOut("PCB text orientation check complete." + vbCr + vbLf)
         Exit Sub
     End If
 
@@ -50,6 +53,7 @@ Sub CheckPcbTextHasCorrectOrientation()
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
         StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        StdOut("PCB text orientation check complete." + vbCr + vbLf)   
         Exit Sub
     End If
 
@@ -65,11 +69,11 @@ Sub CheckPcbTextHasCorrectOrientation()
         'StdOut("Exp = " + IntToStr(pcbObject.Cache.SolderMaskExpansion) + ",")
         'StdOut("Valid = " + IntToStr(pcbObject.Cache.SolderMaskExpansionValid) + ";")
         If(pcbObject.Layer = eTopOverlay) And (pcbObject.MirrorFlag = true) Then
-        	violationCount = violationCount + 1
+            violationCount = violationCount + 1
         End If
 
         If(pcbObject.Layer = eBottomOverlay) And (pcbObject.MirrorFlag = false) Then
-        	violationCount = violationCount + 1
+            violationCount = violationCount + 1
         End If
 
         Set pcbObject =  pcbIterator.NextPCBObject
@@ -79,7 +83,7 @@ Sub CheckPcbTextHasCorrectOrientation()
 
    ' If violations then print to StdErr
     If Not violationCount = 0 Then
-    	StdErr("ERROR: PCB text orientation violation(s) found. Please make sure text on the top layer is not mirrored, and text on the bottom layer is mirrored. Num. violations = " + IntToStr(violationCount) + "." + vbCr + vbLf)
+        StdErr("ERROR: PCB text orientation violation(s) found. Please make sure text on the top layer is not mirrored, and text on the bottom layer is mirrored. Num. violations = " + IntToStr(violationCount) + "." + vbCr + vbLf)
     End If
 
     ' Output

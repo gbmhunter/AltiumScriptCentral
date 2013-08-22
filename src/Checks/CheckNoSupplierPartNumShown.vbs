@@ -9,12 +9,11 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
     Dim compIterator        ' As ISch_Iterator
     Dim component           ' As IComponent
     Dim parameter, parameter2 ' As ISch_Parameter
-    Dim violationFnd        ' As Boolean
     Dim violationCount      ' As Integer
 
     StdOut("Looking for visible supplier part numbers...")
 
-    violationFnd = false
+    violationCount = 0
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
@@ -82,7 +81,6 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
                 Do While Not (parameter Is Nothing)
                     ' Check for supplier part number parameter thats visible on sheet
                     If(parameter.Name = "Supplier Part Number 1") and (parameter.IsHidden = false) Then
-                        violationFnd = true
                         violationCount = violationCount + 1
                     End If
 
@@ -103,11 +101,11 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
 
     Next ' For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
 
-    If violationFnd = false Then
-        StdOut("No supplier part number violations found." + VbCr + VbLf)
-    End If
-    If violationFnd = true Then
+    If violationCount = 0 Then
+        StdOut("No supplier part number violations found. ")
+    Else
         StdErr("ERROR: Supplier part number visible on sheet violation found. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf)
     End If
 
+    StdOut("Supplier part number checking finished." + VbCr + VbLf)
 End Sub

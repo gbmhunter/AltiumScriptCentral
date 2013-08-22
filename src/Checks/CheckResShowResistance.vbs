@@ -1,4 +1,4 @@
-Sub CheckCapsShowCapacitanceAndVoltage() ' As TMemo
+Sub CheckResShowResistance() ' As TMemo
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument
@@ -11,7 +11,7 @@ Sub CheckCapsShowCapacitanceAndVoltage() ' As TMemo
     Dim parameter           ' As ISch_Parameter
     Dim violationCount      ' As Integer
 
-    StdOut("Checking capacitors display both capacitance and voltage...")
+    StdOut("Checking resistors display their resistance...")
 
     violationCount = 0
 
@@ -63,23 +63,23 @@ Sub CheckCapsShowCapacitanceAndVoltage() ' As TMemo
             Set component = Iterator.FirstSchObject
             Do While Not (component Is Nothing)
 
-                ' First, make sure component is a capacitor
+                ' First, make sure component is a resistor
 
                 Set regex = New RegExp
                 regex.IgnoreCase = True
                 regex.Global = True
-                ' Look for designator that starts with C and is followed by one or more numbers
-                regex.Pattern = "C[0-9][0-9]*"
+                ' Look for designator that starts with R and is followed by one or more numbers
+                regex.Pattern = "R[0-9][0-9]*"
 
                 ' Check for pattern match
                 If regex.Test(component.Designator.Text) Then
-                    'StdOut("Capacitor found!")
-                    If Not LookForCapacitanceAndVoltage(component) Then
+                    'StdOut("Resistor found!")
+                    If Not LookForResistance(component) Then
                         violationCount = violationCount + 1
                     End If
                 Else
-                    'StdOut("Component not a capacitor.")
-                    ' If not capacitor, go to next component
+                    'StdOut("Component not a resistor.")
+                    ' If not resistor, go to next component
                 End If
 
                 Set component = iterator.NextSchObject
@@ -92,17 +92,14 @@ Sub CheckCapsShowCapacitanceAndVoltage() ' As TMemo
     Next ' For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
 
     If violationCount = 0 Then
-        StdOut("No cap voltage/capacitance violations found. ")
+        StdOut("No resistor violations found." + VbCr + VbLf)
     Else
-        StdErr("ERROR: Cap voltage/capacitance violation(s) found. Make sure both the voltage and capacitance is displayed on the schematics for every capacitor. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf)
+        StdErr("ERROR: Resistor violation(s) found. Make sure the resistance is displayed on the schematics for every resistor. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf)
     End If
-
-    StdOut("Cap checking finished." + VbCr + VbLf)
 End Sub
 
-Function LookForCapacitanceAndVoltage(component)
-    Dim capacitanceFound    ' As Boolean
-    Dim voltageFound        ' As Boolean
+Function LookForResistance(component)
+    Dim resistanceFound    ' As Boolean
 
     ' Create component iterator, masking only parameters
     compIterator = component.SchIterator_Create
@@ -111,8 +108,7 @@ Function LookForCapacitanceAndVoltage(component)
     Set parameter = compIterator.FirstSchObject
 
     ' Reset flags
-    capacitanceFound = false
-    voltageFound = false
+    resistanceFound = false
 
     ' Loop through all parameters in object
     Do While Not (parameter Is Nothing)
@@ -123,33 +119,21 @@ Function LookForCapacitanceAndVoltage(component)
         regex.IgnoreCase = True
         regex.Global = True
         ' Look for date in pattern yyyy/mm/dd
-        regex.Pattern = "[0-9]*\.?[0-9]*V"
+        regex.Pattern = "[0-9]*\.?[0-9]*[RkM]"
 
         If regex.Test(parameter.Text) And parameter.IsHidden = false Then
-            'StdOut("Voltage found!")
-            voltageFound = true
+            'StdOut("Resistance found!")
+            resistanceFound = true
         End If
-
-        ' Look for capacitance
-        regex.Pattern = "[0-9]*\.?[0-9]*[pnum]?F"
-
-        If regex.Test(parameter.Text) And parameter.IsHidden = false Then
-            'StdOut("Capacitance found!")
-            capacitanceFound = true
-        End If
-
-        'if ((AnsiUpperCase(Parameter.Name) = 'GROUP') and (Parameter.Text <> '') and (Parameter.Text <> '*')) then
-         '   if StrToInt(Parameter.Text) > MaxNumber then
-          '      MaxNumber := StrToInt(Parameter.Text);
 
         Set parameter = CompIterator.NextSchObject
     Loop ' Do While Not (parameter Is Nothing)
 
     component.SchIterator_Destroy(compIterator)
 
-    If(capacitanceFound = false) Or (voltageFound = false) Then
-        LookForCapacitanceAndVoltage = false
+    If resistanceFound = false Then
+        LookForResistance = false
     Else
-        LookForCapacitanceAndVoltage = true
+        LookForResistance = true
     End If
 End Function
