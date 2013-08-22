@@ -20,6 +20,7 @@ Sub ButRunChecks(Sender)
     CheckLayers()
     CheckTentedVias()
     CheckNameVersionDate()
+    CheckPcbTextHasCorrectOrientation()
 End Sub
 
 Sub PushProjectParameters(Sender)
