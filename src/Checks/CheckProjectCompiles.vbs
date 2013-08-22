@@ -10,7 +10,7 @@ Function CheckProjectCompiles()  ' As TMemo
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-        StdErr("Schematic server not online." + VbLf + VbCr)
+        StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
         CheckProjectCompiles = false
         Exit Function
     End If
@@ -20,7 +20,7 @@ Function CheckProjectCompiles()  ' As TMemo
     Set pcbProject = workspace.DM_FocusedProject
 
     If pcbProject Is Nothing Then
-        StdErr("Current project is not a PCB project." + VbCr + VbLf)
+        StdErr("ERROR: Current project is not a PCB project." + VbCr + VbLf)
         CheckProjectCompiles = false
         Exit Function
     End If

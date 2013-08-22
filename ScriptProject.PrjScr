@@ -207,6 +207,22 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
+[Document12]
+DocumentPath=src\Checks\CheckCapsShowCapacitanceAndVoltage.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
 [PCBConfiguration1]
 ReleaseItemId=
 CurrentRevision=
@@ -232,6 +248,8 @@ GenerateBOM=0
 14=projParameter.DM_Name
 15=paramIterator.FirstSchObject
 16=schParameters.Name
+17=component.Designator.Text
+18=parameter.Text
 
 [OutputGroup1]
 Name=Netlist Outputs

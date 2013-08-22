@@ -12,11 +12,12 @@ Sub ButRunChecks(Sender)
     End If
 
     ' SCHEMATICS
-    CheckLayers()
     CheckPowerPortOrientation()
     CheckNoSupplierPartNumShown()
+    CheckCapsShowCapacitanceAndVoltage()
 
     ' PCB
+    CheckLayers()
     CheckTentedVias()
     CheckNameVersionDate()
 End Sub
