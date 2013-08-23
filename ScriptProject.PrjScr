@@ -282,6 +282,8 @@ GenerateBOM=0
 16=schParameters.Name
 17=component.Designator.Text
 18=parameter.Text
+19=parameter.Value
+20=sheet.DocumentName
 
 [OutputGroup1]
 Name=Netlist Outputs

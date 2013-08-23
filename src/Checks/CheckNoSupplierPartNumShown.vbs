@@ -82,6 +82,7 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
                     ' Check for supplier part number parameter thats visible on sheet
                     If(parameter.Name = "Supplier Part Number 1") and (parameter.IsHidden = false) Then
                         violationCount = violationCount + 1
+                        StdErr("Supplier part num violation " + parameter.Text + " in component " + component.Designator.Text + "." + VbCr + VbLf)
                     End If
 
                     'if ((AnsiUpperCase(Parameter.Name) = 'GROUP') and (Parameter.Text <> '') and (Parameter.Text <> '*')) then
