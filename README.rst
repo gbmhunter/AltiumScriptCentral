@@ -9,7 +9,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/09/02
-- Version: v10.1.1.0
+- Version: v10.2.0.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v10.2.0.0 2013/09/02 Collected component validating scripts and put in new folder 'src/Checks/ComponentValidators'. Added parent script for component validation, called ComponentValidator.vbs. Added a number of valid component designators.
 v10.1.1.0 2013/09/02 Capacitor check script now reports back violating capacitors. Added start-of-string anchors to resistor and capacitor designator finding regex to fix bug where designator XC1 was being matched as a capacitor.
 v10.1.0.1 2013/08/24 Added info about CheckResShowResistance.vbs to README.
 v10.1.0.0 2013/08/23 Supplier part number visible violations now report component designator and part number, so you can find the violation and fix it.

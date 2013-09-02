@@ -14,7 +14,7 @@ Sub ButRunChecks(Sender)
     ' SCHEMATICS
     CheckPowerPortOrientation()
     CheckNoSupplierPartNumShown()
-    CheckResShowResistance()
+    ComponentValidator()
     CheckCapsShowCapacitanceAndVoltage()
 
     ' PCB

@@ -1,4 +1,4 @@
-Sub CheckResShowResistance() ' As TMemo
+Sub ComponentValidator()
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument
@@ -11,7 +11,7 @@ Sub CheckResShowResistance() ' As TMemo
     Dim parameter           ' As ISch_Parameter
     Dim violationCount      ' As Integer
 
-    StdOut("Checking resistors display their resistance...")
+    StdOut("Validating components...")
 
     violationCount = 0
 
@@ -59,31 +59,60 @@ Sub CheckResShowResistance() ' As TMemo
                 Exit Sub
             End If
 
+            ' Add filter for only schematic components
             iterator.AddFilter_ObjectSet(MkSet(eSchComponent))
             Set component = Iterator.FirstSchObject
+
+            ' ============================
+            ' ===== COMPONENT LOOP =======
+            ' ============================
             Do While Not (component Is Nothing)
 
-                ' First, make sure component is a resistor
+                ' First, make sure component is a capacitor
 
                 Set regex = New RegExp
                 regex.IgnoreCase = True
                 regex.Global = True
-                ' Look for designator that starts with R and is followed by one or more numbers
-                regex.Pattern = "^R[0-9][0-9]*"
+                ' Look for a designator
+                ' Designators are one ore more capital letters followed by
+                ' one or more numerals, with nothing else before or afterwards (i.e. anchored)
+                regex.Pattern = "^[A-Z][A-Z]*[0-9][0-9]*$"
 
-                ' Check for pattern match
-                If regex.Test(component.Designator.Text) Then
-                    'StdOut("Resistor found!")
-                    If Not LookForResistance(component) Then
-                        violationCount = violationCount + 1
-                    End If
-                Else
-                    'StdOut("Component not a resistor.")
-                    ' If not resistor, go to next component
+                ' Check for pattern match, using execute method.
+                Set matchColl = regex.Execute(component.Designator.Text)
+
+                ' Make sure only one match was found
+                If Not matchColl.Count = 1 Then
+                	Call StdErr("ERROR: Invalid or no designator found.")
                 End If
 
+                ' Extract letters from designator
+                regex.Pattern = "^[A-Z][A-Z]*"
+				Set matchColl = regex.Execute(matchColl.Item(0).Value)
+
+                ' Make sure the designator letter(s) is valid
+                Select Case matchColl.Item(0).Value
+                    Case "D"
+                	Case "R"
+                		Call ValidateResistor(component)
+                    Case "C"
+                    	'StdOut("Capacitor found.")
+                    Case "FB"
+                    Case "FID"
+                    Case "L"
+                    Case "P"
+                    Case "Q"
+                    Case "U"
+                    Case "VR"
+                    Case Else
+                    	StdErr("ERROR: " + matchColl.Item(0).Value + " is not a recognised designator.")
+                End Select
+
+                'Call StdOut(matchColl.Item(0).Value)
+
+                ' Go to next schematic component
                 Set component = iterator.NextSchObject
-            Loop
+            Loop ' Do While Not (component Is Nothing)
 
             sheet.SchIterator_Destroy(iterator)
 
@@ -92,48 +121,10 @@ Sub CheckResShowResistance() ' As TMemo
     Next ' For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
 
     If violationCount = 0 Then
-        StdOut("No resistor violations found." + VbCr + VbLf)
+        'StdOut("No cap voltage/capacitance violations found. ")
     Else
-        StdErr("ERROR: Resistor violation(s) found. Make sure the resistance is displayed on the schematics for every resistor. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf)
+        'StdErr("ERROR: Cap voltage/capacitance violation(s) found. Make sure both the voltage and capacitance is displayed on the schematics for every capacitor. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf)
     End If
+
+    StdOut("Component validating finished." + VbCr + VbLf)
 End Sub
-
-Function LookForResistance(component)
-    Dim resistanceFound    ' As Boolean
-
-    ' Create component iterator, masking only parameters
-    compIterator = component.SchIterator_Create
-    compIterator.AddFilter_ObjectSet(MkSet(eParameter))
-
-    Set parameter = compIterator.FirstSchObject
-
-    ' Reset flags
-    resistanceFound = false
-
-    ' Loop through all parameters in object
-    Do While Not (parameter Is Nothing)
-        ' Check for supplier part number parameter thats visible on sheet
-
-        ' Project and version regex
-        Set regex = New RegExp
-        regex.IgnoreCase = True
-        regex.Global = True
-        ' Look for date in pattern yyyy/mm/dd
-        regex.Pattern = "[0-9]*\.?[0-9]*[RkM]"
-
-        If regex.Test(parameter.Text) And parameter.IsHidden = false Then
-            'StdOut("Resistance found!")
-            resistanceFound = true
-        End If
-
-        Set parameter = CompIterator.NextSchObject
-    Loop ' Do While Not (parameter Is Nothing)
-
-    component.SchIterator_Destroy(compIterator)
-
-    If resistanceFound = false Then
-        LookForResistance = false
-    Else
-        LookForResistance = true
-    End If
-End Function
