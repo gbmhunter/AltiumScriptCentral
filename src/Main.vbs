@@ -15,7 +15,6 @@ Sub ButRunChecks(Sender)
     CheckPowerPortOrientation()
     CheckNoSupplierPartNumShown()
     ComponentValidator()
-    CheckCapsShowCapacitanceAndVoltage()
 
     ' PCB
     CheckLayers()

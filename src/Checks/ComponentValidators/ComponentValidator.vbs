@@ -83,29 +83,32 @@ Sub ComponentValidator()
 
                 ' Make sure only one match was found
                 If Not matchColl.Count = 1 Then
-                	Call StdErr("ERROR: Invalid or no designator found.")
+                    Call StdErr("ERROR: Invalid or no designator found.")
                 End If
 
                 ' Extract letters from designator
                 regex.Pattern = "^[A-Z][A-Z]*"
-				Set matchColl = regex.Execute(matchColl.Item(0).Value)
+                Set matchColl = regex.Execute(matchColl.Item(0).Value)
 
                 ' Make sure the designator letter(s) is valid
                 Select Case matchColl.Item(0).Value
-                    Case "D"
-                	Case "R"
-                		Call ValidateResistor(component)
-                    Case "C"
-                    	'StdOut("Capacitor found.")
-                    Case "FB"
-                    Case "FID"
-                    Case "L"
-                    Case "P"
-                    Case "Q"
-                    Case "U"
-                    Case "VR"
+                    Case DESIGNATOR_DIODE
+                    Case DESIGNATOR_CAPACITOR
+                        Call ValidateCapacitor(component)
+                    Case DESIGNATOR_FERRITE_BEAD
+                    Case DESIGNATOR_FIDUCIAL
+                    Case DESIGNATOR_INDUCTOR
+                    Case DESIGNATOR_MOTOR
+                    Case DESIGNATOR_CONNECTOR
+                    Case DESIGNATOR_TRANSISTOR
+                    Case DESIGNATOR_RESISTOR
+                        Call ValidateResistor(component)
+                    Case DESIGNATOR_SWITCH
+                    Case DESIGNATOR_IC
+                    Case DESIGNATOR_TRANSFORMER
+                    Case DESIGNATOR_VARIABLE_RESISTOR
                     Case Else
-                    	StdErr("ERROR: " + matchColl.Item(0).Value + " is not a recognised designator.")
+                        StdErr("ERROR: " + matchColl.Item(0).Value + " is not a recognised designator.")
                 End Select
 
                 'Call StdOut(matchColl.Item(0).Value)

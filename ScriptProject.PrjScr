@@ -224,7 +224,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 
 [Document13]
-DocumentPath=src\Checks\ComponentValidators\CheckCapsShowCapacitanceAndVoltage.vbs
+DocumentPath=src\Checks\ComponentValidators\ComponentValidator.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -240,7 +240,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 
 [Document14]
-DocumentPath=src\Checks\ComponentValidators\CheckResShowResistance.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -256,7 +256,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 
 [Document15]
-DocumentPath=src\Checks\ComponentValidators\ComponentValidator.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
