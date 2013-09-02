@@ -69,7 +69,7 @@ Sub CheckCapsShowCapacitanceAndVoltage() ' As TMemo
                 regex.IgnoreCase = True
                 regex.Global = True
                 ' Look for designator that starts with C and is followed by one or more numbers
-                regex.Pattern = "C[0-9][0-9]*"
+                regex.Pattern = "^C[0-9][0-9]*"
 
                 ' Check for pattern match
                 If regex.Test(component.Designator.Text) Then
@@ -126,7 +126,6 @@ Function LookForCapacitanceAndVoltage(component)
         regex.Pattern = "[0-9]*\.?[0-9]*V"
 
         If regex.Test(parameter.Text) And parameter.IsHidden = false Then
-            'StdOut("Voltage found!")
             voltageFound = true
         End If
 
@@ -134,7 +133,6 @@ Function LookForCapacitanceAndVoltage(component)
         regex.Pattern = "[0-9]*\.?[0-9]*[pnum]?F"
 
         If regex.Test(parameter.Text) And parameter.IsHidden = false Then
-            'StdOut("Capacitance found!")
             capacitanceFound = true
         End If
 
@@ -146,6 +144,14 @@ Function LookForCapacitanceAndVoltage(component)
     Loop ' Do While Not (parameter Is Nothing)
 
     component.SchIterator_Destroy(compIterator)
+
+    If(capacitanceFound = false) Then
+    	Call StdErr("ERROR: " + component.Designator.Text + " does not show it's capacitance.")
+    End If
+
+    If(voltageFound = false) Then
+        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's voltage.")
+    End If
 
     If(capacitanceFound = false) Or (voltageFound = false) Then
         LookForCapacitanceAndVoltage = false

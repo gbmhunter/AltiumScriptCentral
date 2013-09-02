@@ -69,7 +69,7 @@ Sub CheckResShowResistance() ' As TMemo
                 regex.IgnoreCase = True
                 regex.Global = True
                 ' Look for designator that starts with R and is followed by one or more numbers
-                regex.Pattern = "R[0-9][0-9]*"
+                regex.Pattern = "^R[0-9][0-9]*"
 
                 ' Check for pattern match
                 If regex.Test(component.Designator.Text) Then
