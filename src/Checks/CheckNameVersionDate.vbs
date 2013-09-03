@@ -87,8 +87,8 @@ Sub CheckNameVersionDate()
         Set reDate = New RegExp
         reDate.IgnoreCase = True
         reDate.Global = True
-        ' Look for date in pattern yyyy/mm/dd
-        reDate.Pattern = "[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]"
+        ' Look for date in pattern yyyy/mm/dd or yyyy-mm-dd
+        reDate.Pattern = "[0-9][0-9][0-9][0-9][/-][0-9][0-9][/-][0-9][0-9]"
 
         If reDate.Test(pcbObject.Text) Then
             'StdOut("Date found!")
