@@ -32,8 +32,8 @@ Function ValidateResistor(component)
     component.SchIterator_Destroy(compIterator)
 
     If resistanceFound = false Then
-        LookForResistance = false
+        ValidateResistor = false
     Else
-        LookForResistance = true
+        ValidateResistor = true
     End If
 End Function

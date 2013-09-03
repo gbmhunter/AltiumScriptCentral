@@ -271,6 +271,22 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
+[Document16]
+DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
 [PCBConfiguration1]
 ReleaseItemId=
 CurrentRevision=
@@ -300,6 +316,7 @@ GenerateBOM=0
 18=parameter.Text
 19=parameter.Value
 20=sheet.DocumentName
+21=matchColl.Count
 
 [OutputGroup1]
 Name=Netlist Outputs
