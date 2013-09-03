@@ -31,6 +31,10 @@ Function ValidateResistor(component)
 
     component.SchIterator_Destroy(compIterator)
 
+    If(resistanceFound = false) Then
+        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's resistance. ")
+    End If
+
     If resistanceFound = false Then
         ValidateResistor = false
     Else

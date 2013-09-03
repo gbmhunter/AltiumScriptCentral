@@ -12,7 +12,7 @@ Sub ButRunChecks(Sender)
     End If
 
     ' SCHEMATICS
-    CheckPowerPortOrientation()
+    PowerPortChecker()
     CheckNoSupplierPartNumShown()
     ComponentValidator()
 

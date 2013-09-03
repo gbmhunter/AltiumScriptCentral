@@ -84,34 +84,34 @@ Sub ComponentValidator()
                 ' Make sure only one match was found
                 If matchColl.Count = 1 Then
                      ' Extract letters from designator
-	                regex.Pattern = "^[A-Z][A-Z]*"
-	                Set matchColl = regex.Execute(matchColl.Item(0).Value)
+                    regex.Pattern = "^[A-Z][A-Z]*"
+                    Set matchColl = regex.Execute(matchColl.Item(0).Value)
 
-	                ' Make sure the designator letter(s) is valid
-	                Select Case matchColl.Item(0).Value
-	                    Case DESIGNATOR_DIODE
-	                    Case DESIGNATOR_CAPACITOR
-	                        If ValidateCapacitor(component) = False Then
-	                        	violationCount = violationCount + 1
-	                    	End If
-	                    Case DESIGNATOR_FERRITE_BEAD
-	                    Case DESIGNATOR_FIDUCIAL
-	                    Case DESIGNATOR_INDUCTOR
-	                    	Call ValidateInductor(component)
-	                    Case DESIGNATOR_MOTOR
-	                    Case DESIGNATOR_CONNECTOR
-	                    Case DESIGNATOR_TRANSISTOR
-	                    Case DESIGNATOR_RESISTOR
-	                        Call ValidateResistor(component)
-	                    Case DESIGNATOR_SWITCH
-	                    Case DESIGNATOR_IC
-	                    Case DESIGNATOR_TRANSFORMER
-	                    Case DESIGNATOR_VARIABLE_RESISTOR
-	                    Case Else
-	                        StdErr("ERROR: " + matchColl.Item(0).Value + " is not a recognised designator.")
-	                End Select
+                    ' Make sure the designator letter(s) is valid
+                    Select Case matchColl.Item(0).Value
+                        Case DESIGNATOR_DIODE
+                        Case DESIGNATOR_CAPACITOR
+                            If ValidateCapacitor(component) = False Then
+                                violationCount = violationCount + 1
+                            End If
+                        Case DESIGNATOR_FERRITE_BEAD
+                        Case DESIGNATOR_FIDUCIAL
+                        Case DESIGNATOR_INDUCTOR
+                            Call ValidateInductor(component)
+                        Case DESIGNATOR_MOTOR
+                        Case DESIGNATOR_CONNECTOR
+                        Case DESIGNATOR_TRANSISTOR
+                        Case DESIGNATOR_RESISTOR
+                            Call ValidateResistor(component)
+                        Case DESIGNATOR_SWITCH
+                        Case DESIGNATOR_IC
+                        Case DESIGNATOR_TRANSFORMER
+                        Case DESIGNATOR_VARIABLE_RESISTOR
+                        Case Else
+                            StdErr("ERROR: " + matchColl.Item(0).Value + " is not a recognised designator. ")
+                    End Select
                 Else
-                    StdErr("ERROR: Designator was not valid.")
+                    StdErr("ERROR: Designator was not valid. ")
                 End If
 
                 ' Go to next schematic component

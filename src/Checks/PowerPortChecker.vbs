@@ -1,4 +1,4 @@
-Sub CheckPowerPortOrientation() 'As TMemo
+Sub PowerPortChecker() 'As TMemo
     Dim workspace   ' As IWorkspace
     Dim pcbProject  ' As IProject
     Dim powerObj    ' As ISch_PowerObject
@@ -7,10 +7,11 @@ Sub CheckPowerPortOrientation() 'As TMemo
     Dim iterator    ' As ISch_Iterator
     Dim docNum      ' As Integer
     Dim violationCnt ' As Integer
+    Dim regex
 
     violationCnt = 0
 
-    StdOut("Check power port orientations...")
+    StdOut("Check power ports...")
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
@@ -55,6 +56,7 @@ Sub CheckPowerPortOrientation() 'As TMemo
                     ' Make sure they are facing downwards
                     If Not(powerObj.Orientation = eRotate270) Then
                         violationCnt = violationCnt + 1
+                        Call StdErr("ERROR: Gound symbol '" + powerObj.Text + "' with incorrect orientation on sheet " + document.DM_FullPath + " found. " + VbCr + VbLf)
                     End If
                 End If
                 If (powerObj.Style = ePowerBar) Then
@@ -62,6 +64,22 @@ Sub CheckPowerPortOrientation() 'As TMemo
                     ' Make sure they are facing upwards
                     If Not(powerObj.Orientation = eRotate90) Then
                         violationCnt = violationCnt + 1
+                        Call StdErr("ERROR: Power bar '" + powerObj.Text + "' with incorrect orientation on sheet " + document.DM_FullPath + " found." + VbCr + VbLf)
+                    End If
+
+                    ' Check text
+                    Set regex = New RegExp
+	                regex.IgnoreCase = True
+	                regex.Global = True
+	                ' Look for a designator
+	                ' Designators are one ore more capital letters followed by
+	                ' one or more numerals, with nothing else before or afterwards (i.e. anchored)
+	                regex.Pattern = "[\+-][0-9]+\.[0-9]+V"
+
+	                ' Check for pattern match
+	                If Not regex.Test(powerObj.Text) Then
+                    	'violationCnt = violationCnt + 1
+                        'Call StdErr("ERROR: Power bar with incorrect text " + powerObj.Text + " on sheet " + document.DM_FullPath + " found. ")
                     End If
                 End If
 
@@ -77,7 +95,7 @@ Sub CheckPowerPortOrientation() 'As TMemo
     If(violationCnt = 0) Then
         StdOut("No power port violations found. ")
     Else
-        StdErr("ERROR: Power ports with incorrect orientation violation found! Number of violations = " + IntToStr(violationCnt) + "." + VbCr + VbLf)
+        StdOut("ERROR: Power ports violations found! Number of violations = " + IntToStr(violationCnt) + ". ")
     End If
 
     StdOut("Power port checking finished." + VbCr + VbLf)

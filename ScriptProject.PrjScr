@@ -96,22 +96,6 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 
 [Document5]
-DocumentPath=src\Checks\CheckPowerPortOrientation.vbs
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-
-[Document6]
 DocumentPath=src\Checks\CheckProjectCompiles.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -127,7 +111,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document7]
+[Document6]
 DocumentPath=src\Checks\CheckTentedVias.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -143,7 +127,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document8]
+[Document7]
 DocumentPath=src\Tools\ChangeDesignatorFontSize.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -159,7 +143,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document9]
+[Document8]
 DocumentPath=src\Tools\PlaceNettedVia.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -175,7 +159,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document10]
+[Document9]
 DocumentPath=src\Tools\PushProjectParametersToSchematics.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -191,7 +175,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document11]
+[Document10]
 DocumentPath=src\Main.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -207,7 +191,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document12]
+[Document11]
 DocumentPath=src\Checks\CheckPcbTextHasCorrectOrientation.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -223,7 +207,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document13]
+[Document12]
 DocumentPath=src\Checks\ComponentValidators\ComponentValidator.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -239,7 +223,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document14]
+[Document13]
 DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -255,7 +239,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document15]
+[Document14]
 DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -271,8 +255,24 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document16]
+[Document15]
 DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
+[Document16]
+DocumentPath=src\Checks\PowerPortChecker.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -317,6 +317,11 @@ GenerateBOM=0
 19=parameter.Value
 20=sheet.DocumentName
 21=matchColl.Count
+22=document.Name
+23=sheet.DocumentName
+24=Document.Title
+25=powerObj.Text
+26=regex.Test(powerObj.Text)
 
 [OutputGroup1]
 Name=Netlist Outputs
