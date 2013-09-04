@@ -11,13 +11,13 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
     Dim parameter, parameter2 ' As ISch_Parameter
     Dim violationCount      ' As Integer
 
-    StdOut("Looking for visible supplier part numbers...")
+    Call StdOut("Looking for visible supplier part numbers...")
 
     violationCount = 0
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-        StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
+        Call StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
         Exit Sub
     End If
 
@@ -26,7 +26,7 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
     Set pcbProject = workspace.DM_FocusedProject
 
     If pcbProject Is Nothing Then
-        StdErr("ERROR: Current Project is not a PCB Project" + VbLf + VbCr)
+        Call StdErr("ERROR: Current Project is not a PCB Project" + VbLf + VbCr)
         Exit Sub
     End If
 
@@ -45,7 +45,7 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
         ' Try Again to open the flattened document
         Set flatHierarchy = PCBProject.DM_DocumentFlattened
         If flatHierarchy Is Nothing Then
-           StdErr("ERROR: Compile the project before running this script." + VbCr + VbLf)
+           Call StdErr("ERROR: Compile the project before running this script." + VbCr + VbLf)
            Exit Sub
         End If
     End If
@@ -59,14 +59,14 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             'ShowMessage(document.DM_FullPath);
             If sheet Is Nothing Then
-                StdErr("ERROR: No sheet found." + VbCr + VbLf)
+                Call StdErr("ERROR: No sheet found." + VbCr + VbLf)
                 Exit Sub
             End If
 
             ' Set up iterator to look for power port objects only
             Set iterator = sheet.SchIterator_Create
             If iterator Is Nothing Then
-                StdErr("ERROR: Iterator could not be created.")
+                Call StdErr("ERROR: Iterator could not be created.")
                 Exit Sub
             End If
 
@@ -82,7 +82,7 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
                     ' Check for supplier part number parameter thats visible on sheet
                     If(parameter.Name = "Supplier Part Number 1") and (parameter.IsHidden = false) Then
                         violationCount = violationCount + 1
-                        StdErr("Supplier part num violation " + parameter.Text + " in component " + component.Designator.Text + "." + VbCr + VbLf)
+                        Call StdErr("ERROR: Supplier part num violation " + parameter.Text + " in component " + component.Designator.Text + "." + VbCr + VbLf)
                     End If
 
                     'if ((AnsiUpperCase(Parameter.Name) = 'GROUP') and (Parameter.Text <> '') and (Parameter.Text <> '*')) then
@@ -103,10 +103,10 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
     Next ' For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
 
     If violationCount = 0 Then
-        StdOut("No supplier part number violations found. ")
+        Call StdOut("No supplier part number violations found. ")
     Else
-        StdErr("ERROR: Supplier part number visible on sheet violation found. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf)
+        Call StdOut("ERROR: Supplier part number visible on sheet violation found. Number of violations = " + IntToStr(violationCount) + ". ")
     End If
 
-    StdOut("Supplier part number checking finished." + VbCr + VbLf)
+    Call StdOut("Supplier part number checking finished." + VbCr + VbLf)
 End Sub

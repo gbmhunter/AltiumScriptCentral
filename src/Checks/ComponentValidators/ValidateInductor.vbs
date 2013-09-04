@@ -40,11 +40,11 @@ Function ValidateInductor(component)
     component.SchIterator_Destroy(compIterator)
 
     If(inductanceFound = false) Then
-        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's inductance. ")
+        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's inductance." + VbCr + VbLf)
     End If
 
     If(currentFound = false) Then
-        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's current. ")
+        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's current." + VbCr + VbLf)
     End If
 
     ' Return

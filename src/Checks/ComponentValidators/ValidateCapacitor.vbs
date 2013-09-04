@@ -44,11 +44,11 @@ Function ValidateCapacitor(component)
     component.SchIterator_Destroy(compIterator)
 
     If(capacitanceFound = false) Then
-        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's capacitance. ")
+        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's capacitance." + VbCr + VbLf)
     End If
 
     If(voltageFound = false) Then
-        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's voltage. ")
+        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's voltage." + VbCr + VbLf)
     End If
 
     If(capacitanceFound = false) Or (voltageFound = false) Then

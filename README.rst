@@ -8,8 +8,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/09/03
-- Version: v11.0.2.0
+- Last Modified: 2013/09/04
+- Version: v11.1.0.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v11.1.0.0 2013/09/04 Each StdErr message is now printed on it's own line. Made final script error message go to StdOut, detailed ones goes to StdErr. Added recognition for fuse (F), fuse holder (XF) and jack (J) designators. Updated .gitignore to ignore '__Previews' folders created by Altium.
 v11.0.2.0 2013/09/03 Added support for dates that use the syntax yyyy-mm-dd in CheckNameVersionDate.vbs.
 v11.0.1.0 2013/09/03 Added spaces between component validator error messages. Corrected component validator error messages that reported wrong parameter. Renamed to PowerPortChecker.vbs. PowerPortChecker now reports sheet name and port name for any violating ports.
 v11.0.0.0 2013/09/03 Added inductor validator. Fixed incorrect return statements in validator functions. Fixed bug where script would crash if regex did not find a designator match.

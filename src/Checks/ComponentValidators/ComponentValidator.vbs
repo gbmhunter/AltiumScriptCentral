@@ -94,8 +94,10 @@ Sub ComponentValidator()
                             If ValidateCapacitor(component) = False Then
                                 violationCount = violationCount + 1
                             End If
+                        Case DESIGNATOR_FUSE
                         Case DESIGNATOR_FERRITE_BEAD
                         Case DESIGNATOR_FIDUCIAL
+                        Case DESIGNATOR_JACK
                         Case DESIGNATOR_INDUCTOR
                             Call ValidateInductor(component)
                         Case DESIGNATOR_MOTOR
@@ -107,11 +109,12 @@ Sub ComponentValidator()
                         Case DESIGNATOR_IC
                         Case DESIGNATOR_TRANSFORMER
                         Case DESIGNATOR_VARIABLE_RESISTOR
+                        Case DESIGNATOR_FUSE_HOLDER
                         Case Else
-                            StdErr("ERROR: " + matchColl.Item(0).Value + " is not a recognised designator. ")
+                            StdErr("ERROR: " + matchColl.Item(0).Value + " is not a recognised designator." + VbCr + VbLf)
                     End Select
                 Else
-                    StdErr("ERROR: Designator was not valid. ")
+                    StdErr("ERROR: Designator was not valid." + VbCr + VbLf)
                 End If
 
                 ' Go to next schematic component
@@ -127,8 +130,8 @@ Sub ComponentValidator()
     If violationCount = 0 Then
         StdOut("No component violations found. ")
     Else
-        StdErr("ERROR: Component violation(s) found. Number of violations = " + IntToStr(violationCount) + "." + VbCr + VbLf)
+        StdOut("ERROR: Component violation(s) found. Number of violations = " + IntToStr(violationCount) + ". ")
     End If
 
-    StdOut("Component validating finished. " + VbCr + VbLf)
+    StdOut("Component validating finished." + VbCr + VbLf)
 End Sub
