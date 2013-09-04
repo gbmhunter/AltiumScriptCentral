@@ -23,7 +23,7 @@ Sub ButRunChecks(Sender)
     CheckPcbTextHasCorrectOrientation()
 End Sub
 
-Sub PushProjectParameters(Sender)
+Sub MainPushProjectParametersToSchematics(Sender)
     PushProjectParametersToSchematics()
 End Sub
 
@@ -45,4 +45,9 @@ End Sub
 Sub StdErrNl(msg)
     ' Output text
     MemoStdErr.Text = MemoStdErr.Text + msg + VbCr + VbLf
+End Sub
+
+Sub MainRenumberPads(Sender)
+    FormMainScript.Visible = 0
+    RenumberPads()
 End Sub
