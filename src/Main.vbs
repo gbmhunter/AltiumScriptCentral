@@ -60,8 +60,8 @@ End Sub
 
 Sub MainResizeDesignators(Sender)
 
-	' Call script
-	ChangeDesignatorFontSize
+    ' Call script
+    ChangeDesignatorFontSize
 
     ' Close main form for good
     FormMainScript.Close

@@ -1,7 +1,7 @@
 object FormMainScript: TFormMainScript
   Left = 0
   Top = 0
-  Caption = 'FormMainScript'
+  Caption = 'Script Central'
   ClientHeight = 758
   ClientWidth = 1060
   Color = clBtnFace
@@ -39,11 +39,24 @@ object FormMainScript: TFormMainScript
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label2: TLabel
+    Left = 762
+    Top = 92
+    Width = 86
+    Height = 39
+    Caption = 'Tools'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object Button1: TButton
     Left = 266
     Top = 48
-    Width = 174
-    Height = 25
+    Width = 206
+    Height = 48
     Caption = 'Run Pre-release Checks'
     TabOrder = 0
     OnClick = ButRunChecks
@@ -63,16 +76,16 @@ object FormMainScript: TFormMainScript
     TabOrder = 2
   end
   object ButPushProjectParameters: TButton
-    Left = 754
-    Top = 48
+    Left = 762
+    Top = 144
     Width = 206
     Height = 24
     Caption = 'Push Project Parameters To Schematics'
     TabOrder = 3
   end
   object ButRenumberPads: TButton
-    Left = 754
-    Top = 88
+    Left = 762
+    Top = 184
     Width = 206
     Height = 24
     Caption = 'Renumber Pads'
@@ -80,8 +93,8 @@ object FormMainScript: TFormMainScript
     OnClick = MainRenumberPads
   end
   object Button2: TButton
-    Left = 756
-    Top = 126
+    Left = 764
+    Top = 222
     Width = 204
     Height = 25
     Caption = 'Resize Designators'

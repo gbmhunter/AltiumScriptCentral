@@ -8,8 +8,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/09/05
-- Version: v12.0.1.0
+- Last Modified: 2013/09/06
+- Version: v12.0.2.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v12.0.2.0 2013/09/06 Renamed main script form to 'Script Central'. Added 'Tools' label to main script form, and made run checks button larger than the tool buttons.
 v12.0.1.0 2013/09/05 Fixed bug with RenumberPads, no longer crashes on exit. Added button on main form to call resize designator script.
 v12.0.0.0 2013/09/04 Added RenumberPads script, with link from the main form. Currently crashes on RenumberPads exit.
 v11.1.0.0 2013/09/04 Each StdErr message is now printed on it's own line. Made final script error message go to StdOut, detailed ones goes to StdErr. Added recognition for fuse (F), fuse holder (XF) and jack (J) designators. Updated .gitignore to ignore '__Previews' folders created by Altium.
