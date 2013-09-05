@@ -46,7 +46,7 @@ Sub btnOKClick(sender)
 End Sub
 
 Sub btnCancelClick(sender)
-     Close
+     FormRenumberPads.Close
 End Sub
 
 Sub RenumberPadsCreate(sender)
@@ -65,11 +65,7 @@ Sub RenumberPadsCreate(sender)
 End Sub
 
 Sub RenumberPads()
-	' Show form
-    FormRenumberPads.ShowModal
-End Sub
-
-Sub RenumberPadsClose(Sender, Action)
-	' Re-show parent form
-	FormMainScript.Visible = 1
+    ' Show form, non-modal
+    ' ShowModal won't return until form is closed.
+    FormRenumberPads.Show
 End Sub

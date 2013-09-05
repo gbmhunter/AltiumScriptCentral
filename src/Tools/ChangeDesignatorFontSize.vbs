@@ -1,5 +1,5 @@
 Sub ChangeDesignatorFontSize
-    Dim board '      : IPCB_Board;
+    Dim board 		' As IPCB_Board
     Dim iterator
     Dim component
     Dim compDes
@@ -7,8 +7,8 @@ Sub ChangeDesignatorFontSize
     Set board = PCBServer.GetCurrentPCBBoard
     If board Is Nothing Then
         ShowMessage("Could not load current PCB board")
-    	Exit Sub
-	End If
+        Exit Sub
+    End If
 
     Set iterator = board.BoardIterator_Create
     iterator.AddFilter_ObjectSet(MkSet(eComponentObject))

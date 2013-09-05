@@ -79,4 +79,13 @@ object FormMainScript: TFormMainScript
     TabOrder = 4
     OnClick = MainRenumberPads
   end
+  object Button2: TButton
+    Left = 756
+    Top = 126
+    Width = 204
+    Height = 25
+    Caption = 'Resize Designators'
+    TabOrder = 5
+    OnClick = MainResizeDesignators
+  end
 end

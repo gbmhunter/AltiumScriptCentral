@@ -15,7 +15,6 @@ object FormRenumberPads: TFormRenumberPads
   OldCreateOrder = False
   PopupMode = pmAuto
   Position = poScreenCenter
-  OnClose = RenumberPadsClose
   OnCreate = RenumberPadsCreate
   FormKind = fkModal
   PixelsPerInch = 96

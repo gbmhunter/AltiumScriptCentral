@@ -48,6 +48,21 @@ Sub StdErrNl(msg)
 End Sub
 
 Sub MainRenumberPads(Sender)
-    FormMainScript.Visible = 0
+    'FormMainScript.Visible = 0
+
+    ' Close closes the form for good
+    FormMainScript.Close
+
+    ' Open renumber pads form
     RenumberPads()
+
+End Sub
+
+Sub MainResizeDesignators(Sender)
+
+	' Call script
+	ChangeDesignatorFontSize
+
+    ' Close main form for good
+    FormMainScript.Close
 End Sub
