@@ -10,10 +10,10 @@ Dim MIN_TENTED_VIA_RATIO
 
 Dim DESIGNATOR_CAPACITOR            ' As String
 Dim DESIGNATOR_DIODE                ' As String
-Dim DESIGNATOR_FUSE				    ' As String
+Dim DESIGNATOR_FUSE                 ' As String
 Dim DESIGNATOR_FERRITE_BEAD         ' As String
 Dim DESIGNATOR_FIDUCIAL             ' As String
-Dim DESIGNATOR_JACK					' As String
+Dim DESIGNATOR_JACK                 ' As String
 Dim DESIGNATOR_INDUCTOR             ' As String
 Dim DESIGNATOR_MOTOR                ' As String
 Dim DESIGNATOR_CONNECTOR            ' As String
@@ -22,8 +22,9 @@ Dim DESIGNATOR_RESISTOR             ' As String
 Dim DESIGNATOR_SWITCH               ' As String
 Dim DESIGNATOR_IC                   ' As String
 Dim DESIGNATOR_TRANSFORMER          ' As String
+Dim DESIGNATOR_TEST_POINT			' As String
 Dim DESIGNATOR_VARIABLE_RESISTOR    ' As String
-Dim DESIGNATOR_FUSE_HOLDER			' As String
+Dim DESIGNATOR_FUSE_HOLDER          ' As String
 
 Sub ConfigInit()
     ' BOARD LAYERS
@@ -40,10 +41,10 @@ Sub ConfigInit()
 
     DESIGNATOR_CAPACITOR            = "C"
     DESIGNATOR_DIODE                = "D"
-    DESIGNATOR_FUSE					= "F"
+    DESIGNATOR_FUSE                 = "F"
     DESIGNATOR_FERRITE_BEAD         = "FB"
     DESIGNATOR_FIDUCIAL             = "FD"
-    DESIGNATOR_JACK					= "J"
+    DESIGNATOR_JACK                 = "J"
     DESIGNATOR_INDUCTOR             = "L"
     DESIGNATOR_MOTOR                = "M"
     DESIGNATOR_CONNECTOR            = "P"
@@ -52,6 +53,7 @@ Sub ConfigInit()
     DESIGNATOR_SWITCH               = "SW"
     DESIGNATOR_IC                   = "U"
     DESIGNATOR_TRANSFORMER          = "T"
+    DESIGNATOR_TEST_POINT			= "TP"
     DESIGNATOR_VARIABLE_RESISTOR    = "VR"
     DESIGNATOR_FUSE_HOLDER          = "XF"
 End Sub

@@ -108,10 +108,11 @@ Sub ComponentValidator()
                         Case DESIGNATOR_SWITCH
                         Case DESIGNATOR_IC
                         Case DESIGNATOR_TRANSFORMER
+                        Case DESIGNATOR_TEST_POINT
                         Case DESIGNATOR_VARIABLE_RESISTOR
                         Case DESIGNATOR_FUSE_HOLDER
                         Case Else
-                            StdErr("ERROR: " + matchColl.Item(0).Value + " is not a recognised designator." + VbCr + VbLf)
+                            StdErr("ERROR: '" + matchColl.Item(0).Value + "' is not a recognised designator." + VbCr + VbLf)
                     End Select
                 Else
                     StdErr("ERROR: Designator was not valid." + VbCr + VbLf)
@@ -130,7 +131,7 @@ Sub ComponentValidator()
     If violationCount = 0 Then
         StdOut("No component violations found. ")
     Else
-        StdOut("ERROR: Component violation(s) found. Number of violations = " + IntToStr(violationCount) + ". ")
+        StdOut("ERROR: Component violation(s) found. Number of violations = '" + IntToStr(violationCount) + "'. ")
     End If
 
     StdOut("Component validating finished." + VbCr + VbLf)

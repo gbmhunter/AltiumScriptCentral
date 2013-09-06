@@ -49,9 +49,12 @@ Sub btnCancelClick(sender)
      FormRenumberPads.Close
 End Sub
 
-Sub RenumberPadsCreate(sender)
+Sub RenumberPads()
+    ' Show form, non-modal
+    ' ShowModal won't return until form is closed.
+    FormRenumberPads.Show
 
-    ' Load current board
+        ' Load current board
     If PCBServer Is Nothing Then
         ShowMessage("Not a PCB or Footprint editor activated.")
     End If
@@ -61,11 +64,4 @@ Sub RenumberPadsCreate(sender)
         ShowMessage("Not a PCB or Footprint loaded.")
         Exit Sub
     End If
-
-End Sub
-
-Sub RenumberPads()
-    ' Show form, non-modal
-    ' ShowModal won't return until form is closed.
-    FormRenumberPads.Show
 End Sub

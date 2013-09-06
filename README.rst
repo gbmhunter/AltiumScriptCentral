@@ -9,7 +9,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/09/06
-- Version: v12.0.2.0
+- Version: v12.0.3.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v12.0.3.0 2013/09/06 Fixed 'Not a PCB or footprint loaded' bug on main script run without PCB file open. Added parenthesis around user strings reported in StdOut and StdErr. Added test points (TP) as a valid component designator for ComponentValidator.vbs. Added anchors for resistance and capacitance regex.
 v12.0.2.0 2013/09/06 Renamed main script form to 'Script Central'. Added 'Tools' label to main script form, and made run checks button larger than the tool buttons.
 v12.0.1.0 2013/09/05 Fixed bug with RenumberPads, no longer crashes on exit. Added button on main form to call resize designator script.
 v12.0.0.0 2013/09/04 Added RenumberPads script, with link from the main form. Currently crashes on RenumberPads exit.

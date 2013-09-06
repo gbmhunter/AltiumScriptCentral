@@ -21,14 +21,14 @@ Function ValidateCapacitor(component)
         regex.IgnoreCase = True
         regex.Global = True
         ' Look for date in pattern yyyy/mm/dd
-        regex.Pattern = "[0-9]*\.?[0-9]*V"
+        regex.Pattern = "^[0-9]*\.?[0-9]*V$"
 
         If regex.Test(parameter.Text) And parameter.IsHidden = false Then
             voltageFound = true
         End If
 
         ' Look for capacitance
-        regex.Pattern = "[0-9]*\.?[0-9]*[pnum]?F"
+        regex.Pattern = "^[0-9]*\.?[0-9]*[pnum]?F$"
 
         If regex.Test(parameter.Text) And parameter.IsHidden = false Then
             capacitanceFound = true
@@ -44,11 +44,11 @@ Function ValidateCapacitor(component)
     component.SchIterator_Destroy(compIterator)
 
     If(capacitanceFound = false) Then
-        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's capacitance." + VbCr + VbLf)
+        Call StdErr("ERROR: '" + component.Designator.Text + "' does not show it's capacitance." + VbCr + VbLf)
     End If
 
     If(voltageFound = false) Then
-        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's voltage." + VbCr + VbLf)
+        Call StdErr("ERROR: '" + component.Designator.Text + "' does not show it's voltage." + VbCr + VbLf)
     End If
 
     If(capacitanceFound = false) Or (voltageFound = false) Then

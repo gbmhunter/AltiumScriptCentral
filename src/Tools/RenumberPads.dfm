@@ -15,7 +15,6 @@ object FormRenumberPads: TFormRenumberPads
   OldCreateOrder = False
   PopupMode = pmAuto
   Position = poScreenCenter
-  OnCreate = RenumberPadsCreate
   FormKind = fkModal
   PixelsPerInch = 96
   TextHeight = 13

@@ -82,7 +82,7 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
                     ' Check for supplier part number parameter thats visible on sheet
                     If(parameter.Name = "Supplier Part Number 1") and (parameter.IsHidden = false) Then
                         violationCount = violationCount + 1
-                        Call StdErr("ERROR: Supplier part num violation " + parameter.Text + " in component " + component.Designator.Text + "." + VbCr + VbLf)
+                        Call StdErr("ERROR: Supplier part num violation '" + parameter.Text + "' in component '" + component.Designator.Text + "'." + VbCr + VbLf)
                     End If
 
                     'if ((AnsiUpperCase(Parameter.Name) = 'GROUP') and (Parameter.Text <> '') and (Parameter.Text <> '*')) then
@@ -105,7 +105,7 @@ Sub CheckNoSupplierPartNumShown() ' As TMemo
     If violationCount = 0 Then
         Call StdOut("No supplier part number violations found. ")
     Else
-        Call StdOut("ERROR: Supplier part number visible on sheet violation found. Number of violations = " + IntToStr(violationCount) + ". ")
+        Call StdOut("ERROR: Supplier part number visible on sheet violation found. Number of violations = '" + IntToStr(violationCount) + "'. ")
     End If
 
     Call StdOut("Supplier part number checking finished." + VbCr + VbLf)

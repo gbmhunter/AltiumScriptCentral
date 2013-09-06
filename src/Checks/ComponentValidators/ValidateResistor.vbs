@@ -19,7 +19,7 @@ Function ValidateResistor(component)
         regex.IgnoreCase = True
         regex.Global = True
         ' Look for date in pattern yyyy/mm/dd
-        regex.Pattern = "[0-9]*\.?[0-9]*[RkM]"
+        regex.Pattern = "^[0-9]*\.?[0-9]*[RkM]$"
 
         If regex.Test(parameter.Text) And parameter.IsHidden = false Then
             'StdOut("Resistance found!")
@@ -32,7 +32,7 @@ Function ValidateResistor(component)
     component.SchIterator_Destroy(compIterator)
 
     If(resistanceFound = false) Then
-        Call StdErr("ERROR: " + component.Designator.Text + " does not show it's resistance." + VbCr + VbLf)
+        Call StdErr("ERROR: '" + component.Designator.Text + "' does not show it's resistance." + VbCr + VbLf)
     End If
 
     If resistanceFound = false Then
