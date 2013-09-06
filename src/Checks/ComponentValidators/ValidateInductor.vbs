@@ -17,7 +17,7 @@ Function ValidateInductor(component)
 
         ' Project and version regex
         Set regex = New RegExp
-        regex.IgnoreCase = True
+        regex.IgnoreCase = False
         regex.Global = True
 
           ' Look for inductance

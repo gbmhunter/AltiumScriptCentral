@@ -331,6 +331,7 @@ GenerateClassCluster=0
 24=Document.Title
 25=powerObj.Text
 26=regex.Test(powerObj.Text)
+27=matchColl.Item(0).Value
 
 [OutputGroup1]
 Name=Netlist Outputs

@@ -89,33 +89,41 @@ Sub ComponentValidator()
 
                     ' Make sure the designator letter(s) is valid
                     Select Case matchColl.Item(0).Value
-                        Case DESIGNATOR_DIODE
-                        Case DESIGNATOR_CAPACITOR
+                        Case DESIGNATOR_BATTERY
+                    	Case DESIGNATOR_CAPACITOR
                             If ValidateCapacitor(component) = False Then
                                 violationCount = violationCount + 1
                             End If
+                        Case DESIGNATOR_DIODE
+                        Case DESIGNATOR_ANTENNA
                         Case DESIGNATOR_FUSE
                         Case DESIGNATOR_FERRITE_BEAD
                         Case DESIGNATOR_FIDUCIAL
                         Case DESIGNATOR_JACK
                         Case DESIGNATOR_INDUCTOR
-                            Call ValidateInductor(component)
+                            If ValidateInductor(component) = False Then
+                                 violationCount = violationCount + 1
+                            End If
                         Case DESIGNATOR_MOTOR
                         Case DESIGNATOR_CONNECTOR
+                        Case DESIGNATOR_SOLAR_PANEL
                         Case DESIGNATOR_TRANSISTOR
                         Case DESIGNATOR_RESISTOR
-                            Call ValidateResistor(component)
+                            If ValidateResistor(component) = False Then
+                                violationCount = violationCount + 1
+                            End If
                         Case DESIGNATOR_SWITCH
                         Case DESIGNATOR_IC
                         Case DESIGNATOR_TRANSFORMER
                         Case DESIGNATOR_TEST_POINT
                         Case DESIGNATOR_VARIABLE_RESISTOR
+                        Case DESIGNATOR_CABLE
                         Case DESIGNATOR_FUSE_HOLDER
                         Case Else
                             StdErr("ERROR: '" + matchColl.Item(0).Value + "' is not a recognised designator." + VbCr + VbLf)
                     End Select
                 Else
-                    StdErr("ERROR: Designator was not valid." + VbCr + VbLf)
+                    Call StdErr("ERROR: Designator '" + component.Designator.Text + "' does not follow the valid designator syntax." + VbCr + VbLf)
                 End If
 
                 ' Go to next schematic component

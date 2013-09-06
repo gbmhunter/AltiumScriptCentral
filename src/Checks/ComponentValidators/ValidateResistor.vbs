@@ -16,10 +16,10 @@ Function ValidateResistor(component)
 
         ' Project and version regex
         Set regex = New RegExp
-        regex.IgnoreCase = True
+        regex.IgnoreCase = False
         regex.Global = True
         ' Look for date in pattern yyyy/mm/dd
-        regex.Pattern = "^[0-9]*\.?[0-9]*[RkM]$"
+        regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?[RkM]$"
 
         If regex.Test(parameter.Text) And parameter.IsHidden = false Then
             'StdOut("Resistance found!")
