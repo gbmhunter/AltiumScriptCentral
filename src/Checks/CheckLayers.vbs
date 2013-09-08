@@ -2,14 +2,13 @@
 Dim pcbBoard        'as IPCB_Board
 
 Sub CheckLayers()
-    dim workspace 'as IWorkspace
-    dim pcbProject 'as IProject
-    dim document 'as IDocument
-    dim violationCnt 'as Integer
+    Dim workspace       ' As IWorkspace
+    Dim pcbProject      ' As IProject
+    Dim document        ' As IDocument
+    Dim violationCnt    ' As Integer
 
-    Dim pcbObject       'As IPCB_Primitive;
-    dim LS 'as String
-    dim docNum
+    Dim pcbObject       ' As IPCB_Primitive
+    Dim docNum          ' As Integer
 
     violationCnt = 0
 
@@ -54,6 +53,7 @@ Sub CheckLayers()
     CheckBotDimensionsLayer()
     CheckTopMechBodyLayer()
     CheckBotMechBodyLayer()
+    CheckUnusedLayers()
 
 End Sub
 
@@ -250,4 +250,41 @@ Sub CheckBotMechBodyLayer()
     If(violationCnt <> 0) Then
         StdErr("ERROR: Bottom mechanical body layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
     End If
+End Sub
+
+Sub CheckUnusedLayers()
+    Dim pcbIterator
+    Dim pcbObject
+    Dim violationCnt    'As Integer
+
+    StdOut("Checking unused layers...")
+
+    ' Get iterator, limiting search to specific layer
+    Set pcbIterator = pcbBoard.BoardIterator_Create
+    If pcbIterator Is Nothing Then
+        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Exit Sub
+    End If
+
+    pcbIterator.AddFilter_ObjectSet(AllObjects)
+    pcbIterator.AddFilter_LayerSet(UNUSED_LAYERS)
+    pcbIterator.AddFilter_Method(eProcessAll)
+
+    ' Search  and  count  pads
+    Set pcbObject =  pcbIterator.FirstPCBObject
+    While Not(pcbObject Is Nothing)
+        ' Nothing is allowed on usued layers
+        violationCnt = violationCnt + 1
+        Set pcbObject =  pcbIterator.NextPCBObject
+    WEnd
+
+    pcbBoard.BoardIterator_Destroy(pcbIterator)
+
+    If(violationCnt <> 0) Then
+    	StdErr("ERROR: Unused layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+        StdOut("ERROR: Unused layer violation(s) found.")
+    End If
+
+    ' OUTPUT
+    StdOut(" Unused layer check complete." + vbCr + vbLf)
 End Sub

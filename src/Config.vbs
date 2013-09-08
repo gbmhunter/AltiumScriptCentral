@@ -6,6 +6,8 @@ Dim TOP_MECH_BODY_LAYER
 Dim BOT_MECH_BODY_LAYER
 Dim TOP_COURTYARD_LAYER
 Dim BOT_COURTYARD_LAYER
+Dim UNUSED_LAYERS 
+
 Dim MIN_TENTED_VIA_RATIO
 
 Dim DESIGNATOR_BATTERY              ' As String
@@ -30,8 +32,8 @@ Dim DESIGNATOR_VARIABLE_RESISTOR    ' As String
 Dim DESIGNATOR_CABLE                ' As String
 Dim DESIGNATOR_FUSE_HOLDER          ' As String
 
-Dim TOTAL_SHEET_PARAM_NAME				' As String
-Dim SCHEMATIC_SHEET_COUNT_PARAM_NAME	' As String
+Dim TOTAL_SHEET_PARAM_NAME              ' As String
+Dim SCHEMATIC_SHEET_COUNT_PARAM_NAME    ' As String
 
 Sub ConfigInit()
     ' BOARD LAYERS
@@ -43,6 +45,7 @@ Sub ConfigInit()
     BOT_MECH_BODY_LAYER     = eMechanical14
     TOP_COURTYARD_LAYER     = eMechanical15
     BOT_COURTYARD_LAYER     = eMechanical16
+    UNUSED_LAYERS           = MkSet(eMechanical3, eMechanical4)
 
     MIN_TENTED_VIA_RATIO    = 0.90
 
@@ -69,7 +72,7 @@ Sub ConfigInit()
     DESIGNATOR_FUSE_HOLDER          = "XF"
 
     ' The parameter name for the scheamtic number
-    SCHEMATIC_SHEET_COUNT_PARAM_NAME 	= "SheetNumber"
+    SCHEMATIC_SHEET_COUNT_PARAM_NAME    = "SheetNumber"
     ' The parameter name for the total number of schematic sheets
     TOTAL_SHEET_PARAM_NAME              = "SheetTotal"
 End Sub
