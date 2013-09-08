@@ -333,6 +333,20 @@ GenerateClassCluster=0
 26=regex.Test(powerObj.Text)
 27=matchColl.Item(0).Value
 
+[Generic_ScriptingSystemBreakpoints]
+ModuleName1=C:\Users\Geo\Google Drive\Projects\AltiumScripts\src\Checks\ComponentValidators\ComponentValidator.vbs
+Line1=112
+Condition1=
+Enabled1=True
+ModuleName2=C:\Users\Geo\Google Drive\Projects\AltiumScripts\src\Checks\ComponentValidators\ComponentValidator.vbs
+Line2=104
+Condition2=
+Enabled2=True
+ModuleName3=C:\Users\Geo\Google Drive\Projects\AltiumScripts\src\Checks\ComponentValidators\ComponentValidator.vbs
+Line3=94
+Condition3=
+Enabled3=True
+
 [OutputGroup1]
 Name=Netlist Outputs
 Description=

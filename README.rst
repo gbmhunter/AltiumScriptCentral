@@ -8,8 +8,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/09/06
-- Version: v12.1.0.0
+- Last Modified: 2013/09/09
+- Version: v12.1.1.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v12.1.1.0 2013/09/09 Fixed component validator bug which was returning false errors (nothing reported to StdErr). Fixed 'Push Project Parameters To Schematics' button which wasn't working.
 v12.1.0.0 2013/09/06 Now prints designator text 'xxx' with 'Designator xxx does not follow valid designator syntax' error. ComponentValidator.vbs now supports the designator 'E' (antennas), 'W' (cable/wire), 'PV' (solar panel) and 'BT' (battery). Made IgnoreCase equal False for regex objects. Fixed bug where no component violation errors where reported even though some resistors didn't show resistance.
 v12.0.3.0 2013/09/06 Fixed 'Not a PCB or footprint loaded' bug on main script run without PCB file open. Added parenthesis around user strings reported in StdOut and StdErr. Added test points (TP) as a valid component designator for ComponentValidator.vbs. Added anchors for resistance and capacitance regex.
 v12.0.2.0 2013/09/06 Renamed main script form to 'Script Central'. Added 'Tools' label to main script form, and made run checks button larger than the tool buttons.

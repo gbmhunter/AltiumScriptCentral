@@ -82,6 +82,7 @@ object FormMainScript: TFormMainScript
     Height = 24
     Caption = 'Push Project Parameters To Schematics'
     TabOrder = 3
+    OnClick = MainPushProjectParametersToSchematics
   end
   object ButRenumberPads: TButton
     Left = 762
