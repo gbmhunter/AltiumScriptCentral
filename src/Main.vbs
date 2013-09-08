@@ -3,7 +3,6 @@ Sub RunMainScript
 End Sub
 
 Sub ButRunChecks(Sender)
-    ConfigInit()
 
     ' PROJECT
     ' Important to check if project compiles first
@@ -65,4 +64,14 @@ Sub MainResizeDesignators(Sender)
 
     ' Close main form for good
     FormMainScript.Close
+End Sub
+
+Sub ButNumberSchematics_Click(Sender)
+	NumberSchematics()
+End Sub
+
+' Called when FormMain is created
+Sub FormMain_Create(Sender)
+    ' Initialise global variables
+	ConfigInit()
 End Sub

@@ -11,6 +11,7 @@ object FormMainScript: TFormMainScript
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormMain_Create
   PixelsPerInch = 96
   TextHeight = 13
   object lblErrors: TLabel
@@ -101,5 +102,14 @@ object FormMainScript: TFormMainScript
     Caption = 'Resize Designators'
     TabOrder = 5
     OnClick = MainResizeDesignators
+  end
+  object ButNumberSchematics: TButton
+    Left = 764
+    Top = 262
+    Width = 204
+    Height = 25
+    Caption = 'Number Schematics'
+    TabOrder = 6
+    OnClick = ButNumberSchematics_Click
   end
 end

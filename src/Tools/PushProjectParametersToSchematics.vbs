@@ -8,7 +8,7 @@ Sub PushProjectParametersToSchematics()
     Dim compIterator        ' As ISch_Iterator
     Dim component           ' As IComponent
     Dim projParameter       ' As IParameter
-    Dim newParam			' As
+    Dim newParam            ' As
 
     StdOut("Pushing project parameters to schematics...")
 
@@ -61,42 +61,42 @@ Sub PushProjectParametersToSchematics()
 
             ' Iterate through all project parameters
             For paramNum = 0 To pcbProject.DM_ParameterCount - 1
-        		Set projParameter = pcbProject.DM_Parameters(paramNum)
+                Set projParameter = pcbProject.DM_Parameters(paramNum)
 
-				' CHECK IF PARAMETER ALREADY EXISTS
+                ' CHECK IF PARAMETER ALREADY EXISTS
 
-                ' Set up iterator to look for power port objects only
-	            Set paramIterator = sheet.SchIterator_Create
-	            If paramIterator Is Nothing Then
-	                StdErr("ERROR: Iterator could not be created.")
-	                Exit Sub
-	            End If
+                ' Set up iterator to look for parameter objects only
+                Set paramIterator = sheet.SchIterator_Create
+                If paramIterator Is Nothing Then
+                    StdErr("ERROR: Iterator could not be created.")
+                    Exit Sub
+                End If
 
-	            paramIterator.AddFilter_ObjectSet(MkSet(eParameter))
-	            Set schParameters = paramIterator.FirstSchObject
+                paramIterator.AddFilter_ObjectSet(MkSet(eParameter))
+                Set schParameters = paramIterator.FirstSchObject
 
                 ' Iterate through exising parameters
-	            Do While Not (schParameters Is Nothing)
+                Do While Not (schParameters Is Nothing)
                      If schParameters.Name = projParameter.DM_Name Then
                            ' Remove parameter before adding again
                            sheet.RemoveSchObject(schParameters)
                            Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
                      End If
 
-	                Set schParameters = paramIterator.NextSchObject
-	            Loop
+                    Set schParameters = paramIterator.NextSchObject
+                Loop
 
-	            sheet.SchIterator_Destroy(paramIterator)
+                sheet.SchIterator_Destroy(paramIterator)
 
                 ' NOW ADD PROJ PARAMETER TO SCHEMATIC
 
-            	newParam = SchServer.SchObjectFactory(eParameter, eCreate_Default)
-            	newParam.Name = projParameter.DM_Name
-				newParam.Text = projParameter.DM_Value
-				sheet.AddSchObject(newParam)
+                newParam = SchServer.SchObjectFactory(eParameter, eCreate_Default)
+                newParam.Name = projParameter.DM_Name
+                newParam.Text = projParameter.DM_Value
+                sheet.AddSchObject(newParam)
 
                 ' Tell server about change
-				Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, newParam.I_ObjectAddress)
+                Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, newParam.I_ObjectAddress)
 
             Next ' For paramNum = 0 To pcbProject.DM_ParameterCount - 1
 
