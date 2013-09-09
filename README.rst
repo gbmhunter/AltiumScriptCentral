@@ -9,7 +9,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/09/09
-- Version: v13.1.0.0
+- Version: v13.1.1.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v13.1.1.0 2013/09/09 Added all unused layers to the layer variable set in Config.vbs.
 v13.1.0.0 2013/09/09 Added unused PCB layer function in CheckLayers.vbs. Reports errors if any objects are found on layers which are meant to be unused (as defined in Config.vbs).
 v13.0.0.0 2013/09/09 Added script that numbers schematics (NumberSchematics.vbs). Script add the schematic sheet number and total sheet count to each schematic, which can be automatically displayed in the title block. ConfigInit() is now called on main form load, not from ButRunChecks().
 v12.1.1.0 2013/09/09 Fixed component validator bug which was returning false errors (nothing reported to StdErr). Fixed 'Push Project Parameters To Schematics' button which wasn't working.

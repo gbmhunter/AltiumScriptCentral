@@ -6,7 +6,7 @@ Dim TOP_MECH_BODY_LAYER
 Dim BOT_MECH_BODY_LAYER
 Dim TOP_COURTYARD_LAYER
 Dim BOT_COURTYARD_LAYER
-Dim UNUSED_LAYERS 
+Dim UNUSED_LAYERS
 
 Dim MIN_TENTED_VIA_RATIO
 
@@ -45,7 +45,7 @@ Sub ConfigInit()
     BOT_MECH_BODY_LAYER     = eMechanical14
     TOP_COURTYARD_LAYER     = eMechanical15
     BOT_COURTYARD_LAYER     = eMechanical16
-    UNUSED_LAYERS           = MkSet(eMechanical3, eMechanical4)
+    UNUSED_LAYERS           = MkSet(eMechanical3, eMechanical4, eMechanical5, eMechanical6, eMechanical7, eMechanical8, eMechanical9, eMechanical0, eMechanical17, eMechanical18, eMechanical19, eMechanical20, eMechanical21, eMechanical22, eMechanical23, eMechanical24, eMechanical25, eMechanical26, eMechanical27, eMechanical28, eMechanical29, eMechanical30, eMechanical31, eMechanical32)
 
     MIN_TENTED_VIA_RATIO    = 0.90
 
