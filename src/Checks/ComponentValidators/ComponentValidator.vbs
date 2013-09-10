@@ -90,7 +90,7 @@ Sub ComponentValidator()
                     ' Make sure the designator letter(s) is valid
                     Select Case matchColl.Item(0).Value
                         Case DESIGNATOR_BATTERY
-                    	Case DESIGNATOR_CAPACITOR
+                        Case DESIGNATOR_CAPACITOR
                             If ValidateCapacitor(component) = False Then
                                 violationCount = violationCount + 1
                             End If
@@ -118,6 +118,7 @@ Sub ComponentValidator()
                         Case DESIGNATOR_TEST_POINT
                         Case DESIGNATOR_VARIABLE_RESISTOR
                         Case DESIGNATOR_CABLE
+                        Case DESIGNATOR_CRYSTAL
                         Case DESIGNATOR_FUSE_HOLDER
                         Case Else
                             StdErr("ERROR: '" + matchColl.Item(0).Value + "' is not a recognised designator." + VbCr + VbLf)

@@ -30,6 +30,7 @@ Dim DESIGNATOR_TRANSFORMER          ' As String
 Dim DESIGNATOR_TEST_POINT           ' As String
 Dim DESIGNATOR_VARIABLE_RESISTOR    ' As String
 Dim DESIGNATOR_CABLE                ' As String
+Dim DESIGNATOR_CRYSTAL				' As String
 Dim DESIGNATOR_FUSE_HOLDER          ' As String
 
 Dim TOTAL_SHEET_PARAM_NAME              ' As String
@@ -69,6 +70,7 @@ Sub ConfigInit()
     DESIGNATOR_TEST_POINT           = "TP"
     DESIGNATOR_VARIABLE_RESISTOR    = "VR"
     DESIGNATOR_CABLE                = "W"
+    DESIGNATOR_CRYSTAL				= "XC"
     DESIGNATOR_FUSE_HOLDER          = "XF"
 
     ' The parameter name for the scheamtic number
