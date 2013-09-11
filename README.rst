@@ -8,8 +8,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/09/10
-- Version: v13.1.2.0
+- Last Modified: 2013/09/11
+- Version: v13.1.3.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -87,6 +87,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v13.1.3.0 2013/09/11 Made parameter push script and number schematics script compile project before pushing so that all schematic documents are found. Sped up both pushing project parameters and numbering schematics by commenting calls to SchServer.RobotManager.SendMessage(). Improved the error message if a schematic sheet couldn't be retrieved. Added GraphicallyInvalidate call to certain scripts to force redraw.
 v13.1.2.0 2013/09/10 Added 'XC' (crystal) to list of valid component designators.
 v13.1.1.0 2013/09/09 Added all unused layers to the layer variable set in Config.vbs.
 v13.1.0.0 2013/09/09 Added unused PCB layer function in CheckLayers.vbs. Reports errors if any objects are found on layers which are meant to be unused (as defined in Config.vbs).

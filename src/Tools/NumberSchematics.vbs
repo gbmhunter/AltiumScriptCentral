@@ -9,9 +9,9 @@ Sub NumberSchematics()
     Dim component           ' As IComponent
     Dim projParameter       ' As IParameter
     Dim sheetCountParam     ' As
-    Dim totalSheetsParam	' As
-    Dim schematicSheetCount	' As Integer
-    Dim totalSheetCount		' As Integer
+    Dim totalSheetsParam    ' As
+    Dim schematicSheetCount ' As Integer
+    Dim totalSheetCount     ' As Integer
 
     StdOut("Numbering schematics...")
 
@@ -30,7 +30,13 @@ Sub NumberSchematics()
         Exit Sub
     End If
 
-   ' Compile project
+   ' COMPILE PROJECT
+
+    ResetParameters
+    Call AddStringParameter("Action", "Compile")
+    Call AddStringParameter("ObjectKind", "Project")
+    Call RunProcess("WorkspaceManager:Compile")
+
    Set flatHierarchy = PCBProject.DM_DocumentFlattened
 
    ' If we couldn't get the flattened sheet, then most likely the project has
@@ -52,7 +58,7 @@ Sub NumberSchematics()
         If document.DM_DocumentKind = "SCH" Then
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             If sheet Is Nothing Then
-                StdErr("ERROR: No sheet found." + VbCr + VbLf)
+                StdErr("ERROR: Sheet '" + document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)
                 Exit Sub
             End If
             ' Increment count
@@ -85,7 +91,7 @@ Sub NumberSchematics()
 
             ' REMOVE EXISTING PARAMETERS IF THEY EXIST
 
-           	' Set up iterator to look for parameter objects only
+            ' Set up iterator to look for parameter objects only
             Set paramIterator = sheet.SchIterator_Create
             If paramIterator Is Nothing Then
                 StdErr("ERROR: Iterator could not be created.")
@@ -101,7 +107,7 @@ Sub NumberSchematics()
                  If schParameters.Name = SCHEMATIC_SHEET_COUNT_PARAM_NAME Or schParameters.Name = TOTAL_SHEET_PARAM_NAME Then
                        ' Remove parameter before adding again
                        sheet.RemoveSchObject(schParameters)
-                       Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
+                       'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
                  End If
 
                 Set schParameters = paramIterator.NextSchObject
@@ -117,7 +123,7 @@ Sub NumberSchematics()
             sheet.AddSchObject(sheetCountParam)
 
             ' Tell server about change
-            Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, sheetCountParam.I_ObjectAddress)
+            'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, sheetCountParam.I_ObjectAddress)
 
             totalSheetsParam = SchServer.SchObjectFactory(eParameter, eCreate_Default)
             totalSheetsParam.Name = TOTAL_SHEET_PARAM_NAME
@@ -125,7 +131,7 @@ Sub NumberSchematics()
             sheet.AddSchObject(totalSheetsParam)
 
             ' Tell server about change
-            Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, totalSheetsParam.I_ObjectAddress)
+            'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, totalSheetsParam.I_ObjectAddress)
 
             ' End of undo block
             Call SchServer.ProcessControl.PostProcess(sheet, "")

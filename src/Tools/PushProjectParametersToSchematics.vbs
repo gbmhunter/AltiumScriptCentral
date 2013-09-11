@@ -25,12 +25,18 @@ Sub PushProjectParametersToSchematics()
     Set pcbProject = workspace.DM_FocusedProject
 
     If pcbProject Is Nothing Then
-        StdErr("ERROR: Current Project is not a PCB Project" + VbLf + VbCr)
+        StdErr("ERROR: Current project is not a PCB project." + VbLf + VbCr)
         Exit Sub
     End If
 
-   ' Compile project
-   Set flatHierarchy = PCBProject.DM_DocumentFlattened
+    ' COMPILE PROJECT
+
+    ResetParameters
+    Call AddStringParameter("Action", "Compile")
+    Call AddStringParameter("ObjectKind", "Project")
+    Call RunProcess("WorkspaceManager:Compile")
+
+    Set flatHierarchy = PCBProject.DM_DocumentFlattened
 
    ' If we couldn't get the flattened sheet, then most likely the project has
    ' not been compiled recently
@@ -38,8 +44,6 @@ Sub PushProjectParametersToSchematics()
       StdErr("ERROR: Compile the project before running this script." + VbCr + VbLf)
       Exit Sub
    End If
-
-
 
     ' Loop through all project documents
     For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
@@ -50,7 +54,7 @@ Sub PushProjectParametersToSchematics()
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             'ShowMessage(document.DM_FullPath);
             If sheet Is Nothing Then
-                StdErr("ERROR: No sheet found." + VbCr + VbLf)
+                StdErr("ERROR: Sheet '" + document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)
                 Exit Sub
             End If
 
@@ -75,12 +79,17 @@ Sub PushProjectParametersToSchematics()
                 paramIterator.AddFilter_ObjectSet(MkSet(eParameter))
                 Set schParameters = paramIterator.FirstSchObject
 
+               ' Call SchServer.RobotManager.SendMessage(document.I_ObjectAddress, c_BroadCast, SCHM_BeginModify, c_NoEventData)
+
                 ' Iterate through exising parameters
                 Do While Not (schParameters Is Nothing)
                      If schParameters.Name = projParameter.DM_Name Then
                            ' Remove parameter before adding again
                            sheet.RemoveSchObject(schParameters)
-                           Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
+                           'StdOut("Calling robot.")
+                           'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
+                           'Call SchServer.RobotManager.SendMessage(null, null, 1, schParameters.I_ObjectAddress)
+                           'StdOut("Finished robot.")
                      End If
 
                     Set schParameters = paramIterator.NextSchObject
@@ -95,8 +104,12 @@ Sub PushProjectParametersToSchematics()
                 newParam.Text = projParameter.DM_Value
                 sheet.AddSchObject(newParam)
 
+                ' Redraw schematic sheet
+                sheet.GraphicallyInvalidate
+
                 ' Tell server about change
-                Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, newParam.I_ObjectAddress)
+                'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, newParam.I_ObjectAddress)
+                'Call SchServer.RobotManager.SendMessage(document.I_ObjectAddress, c_BroadCast, SCHM_EndModify, c_NoEventData)
 
             Next ' For paramNum = 0 To pcbProject.DM_ParameterCount - 1
 
