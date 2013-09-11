@@ -70,10 +70,12 @@ Sub CheckPcbTextHasCorrectOrientation()
         'StdOut("Valid = " + IntToStr(pcbObject.Cache.SolderMaskExpansionValid) + ";")
         If(pcbObject.Layer = eTopOverlay) And (pcbObject.MirrorFlag = true) Then
             violationCount = violationCount + 1
+            StdErr("ERROR: PCB text '" + pcbObject.Text + "' on the top overlay is mirrored." + VbCr + VbLf)
         End If
 
         If(pcbObject.Layer = eBottomOverlay) And (pcbObject.MirrorFlag = false) Then
             violationCount = violationCount + 1
+            StdErr("ERROR: PCB text '" + pcbObject.Text + "' on the bottom overlay is not mirrored." + VbCr + VbLf)
         End If
 
         Set pcbObject =  pcbIterator.NextPCBObject
@@ -83,11 +85,11 @@ Sub CheckPcbTextHasCorrectOrientation()
 
    ' If violations then print to StdErr
     If Not violationCount = 0 Then
-        StdErr("ERROR: PCB text orientation violation(s) found. Please make sure text on the top layer is not mirrored, and text on the bottom layer is mirrored. Num. violations = " + IntToStr(violationCount) + "." + vbCr + vbLf)
+        StdOut("ERROR: PCB text orientation violation(s) found. Please make sure text on the top layer is not mirrored, and text on the bottom layer is mirrored. Num. violations = " + IntToStr(violationCount) + ".")
     End If
 
     ' Output
-    StdOut("PCB text orientation check complete." + vbCr + vbLf)
+    StdOut(" PCB text orientation check complete." + vbCr + vbLf)
 
 End Sub
 
