@@ -198,7 +198,7 @@ Sub CheckTopMechBodyLayer()
     Set pcbObject =  pcbIterator.FirstPCBObject
     While Not(pcbObject Is Nothing)
         ' Make sure that only tracks/arcs/3d bodies are present on this layer
-        If(pcbObject.ObjectId <> eTrackObject) and (pcbObject.ObjectId <> eArcObject) And (pcbObject.ObjectId <> eComponentBodyObject) Then
+        If(pcbObject.ObjectId <> eTrackObject) And (pcbObject.ObjectId <> eArcObject) And (pcbObject.ObjectId <> eComponentBodyObject) And (pcbObject.IsKeepout <> True) Then
             violationCnt = violationCnt + 1
         End If
         Set pcbObject =  pcbIterator.NextPCBObject
@@ -236,7 +236,7 @@ Sub CheckBotMechBodyLayer()
     Set pcbObject =  pcbIterator.FirstPCBObject
     While Not(pcbObject Is Nothing)
         ' Make sure that only tracks/arcs/3d bodies are present on this layer
-        If(pcbObject.ObjectId <> eTrackObject) and (pcbObject.ObjectId <> eArcObject) And (pcbObject.ObjectId <> eComponentBodyObject) Then
+        If(pcbObject.ObjectId <> eTrackObject) and (pcbObject.ObjectId <> eArcObject) And (pcbObject.ObjectId <> eComponentBodyObject) And (pcbObject.IsKeepout <> True) Then
             violationCnt = violationCnt + 1
         End If
         Set pcbObject =  pcbIterator.NextPCBObject
