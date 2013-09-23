@@ -9,7 +9,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/09/23
-- Version: v13.1.6.0
+- Version: v13.1.7.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -31,6 +31,7 @@ All are located in *./src/*.
 Filename                                    Description
 ========================================    ==================================================================
 Config.vbs                                  Contains configuration settings.
+Main.dfm                                    Form information for the main script (this is linked with Main.vbs).
 Main.vbs                                    This is the main script which when run will load up a form that can run all of the other scripts.
 ========================================    ==================================================================
 
@@ -55,16 +56,30 @@ Checks are scripts designed to be run before the board is released to the manufa
 ========================================    ==================================================================
 Filename                                    Description
 ========================================    ==================================================================
-CheckCapsShowCapacitanceAndVoltage.vbs		Checks that all capacitors on the schematics show both capacitance and voltage. Uses regex patterns to find visible parameters which follow the correct format (e.g. 2.0uF, 22mF, 10.00F, 6.3V, 12V) of components whose designators start with "C".
 CheckLayers.vbs                             Checks that the mechanical layers of the PCB have the correct objects on them.
 CheckNameVersionDate.vbs                    Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
 CheckNoSupplierPartNumShown.vbs             Checks that no supplier part numbers are shown on the schematics.
 CheckPcbTextHasCorrectOrientation.vbs       Checks that PCB text has the correct orientation (so it is readable), that is text on the top overlay IS NOT mirrored, and text on the bottom layer IS mirrored.
-CheckPowerPortOrientation.vbs               Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
 CheckProjectCompiles.vbs                    Makes sure that the project compiles successfully.
-CheckResShowResistance.vbs					Makes sure that all resistors on the schematics are showing their resistance. Resistors are found using regex on any designator that begins with R followed by one or more numbers.
 CheckTentedVias.vbs                         Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
+PowerPortChecker.vbs                        Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
 ========================================    ==================================================================
+
+
+Component Validators
+~~~~~~~~~~~~~~~~~~~~
+
+The component validator checks makes sure that all the schematic components have recognised designators and are showing the correct parameters (which is dependant on the component type, as given by the designator). All component validator scripts are located in "./src/Checks/ComponentValidators".
+
+========================================    ==================================================================
+Filename                                    Description
+========================================    ==================================================================
+ComponentValidator.vbs                      This is essentially the "main" file for the component validators. It is called by Main.vbs and in turn calls the individual component validator files, once it recognises a valid designator (the valid designators are contained in Config.vbs).
+ValidateCapacitor.vbs						Makes sure that all the capacitors on the schematic are showing the correct parameters.
+ValidateInductor.vbs						Makes sure that all the inductors on the schematic are showing the correct parameters.
+ValidateResistor.vbs						Makes sure that all the inductors on the schematic are showing the correct parameters.
+========================================    ==================================================================
+
 
 External Dependencies
 =====================
@@ -87,6 +102,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v13.1.7.0 2013/09/23 Corrected and updated file lists in the README.
 v13.1.6.0 2013/09/23 Added 'm' (milli-ohms) to accepted resistance units in the resistor validator script.
 v13.1.5.0 2013/09/17 Added keepouts (which encompasses a variety of objects which can be selected to act as a keepout) to the list of allowed objects on the top and bottom mechanical body PCB layers.
 v13.1.4.0 2013/09/11 Text orientation checker now reports back that exact text that is not correctly orientated and the layer it is on.
