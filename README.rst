@@ -1,6 +1,6 @@
-========================
-Altium Scripts
-========================
+=====================
+Altium-Script-Central
+=====================
 
 -----------------------------------------------------------
 A collection of useful Altium scripts, written in VBScript.
@@ -9,7 +9,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/09/23
-- Version: v13.1.7.0
+- Version: v13.1.8.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -102,6 +102,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v13.1.8.0 2013/09/23 Changed README title to 'Altium-Script-Central'.
 v13.1.7.0 2013/09/23 Corrected and updated file lists in the README.
 v13.1.6.0 2013/09/23 Added 'm' (milli-ohms) to accepted resistance units in the resistor validator script.
 v13.1.5.0 2013/09/17 Added keepouts (which encompasses a variety of objects which can be selected to act as a keepout) to the list of allowed objects on the top and bottom mechanical body PCB layers.
