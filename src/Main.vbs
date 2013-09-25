@@ -67,11 +67,16 @@ Sub MainResizeDesignators(Sender)
 End Sub
 
 Sub ButNumberSchematics_Click(Sender)
-	NumberSchematics()
+    NumberSchematics()
 End Sub
 
 ' Called when FormMain is created
 Sub FormMain_Create(Sender)
     ' Initialise global variables
-	ConfigInit()
+    ConfigInit()
+End Sub
+
+' Called when the rotate designators button is clicked
+Sub ButRotateDesignatorsClick(Sender)
+	RotateDesignators()
 End Sub

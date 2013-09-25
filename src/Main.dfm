@@ -112,4 +112,13 @@ object FormMainScript: TFormMainScript
     TabOrder = 6
     OnClick = ButNumberSchematics_Click
   end
+  object ButRotateDesignators: TButton
+    Left = 764
+    Top = 302
+    Width = 204
+    Height = 25
+    Caption = 'Rotate Designators'
+    TabOrder = 7
+    OnClick = ButRotateDesignatorsClick
+  end
 end

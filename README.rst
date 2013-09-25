@@ -8,8 +8,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/09/23
-- Version: v13.1.8.0
+- Last Modified: 2013/09/25
+- Version: v14.0.0.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -46,6 +46,7 @@ Filename                                    Description
 ChangeDesignatorFontSize.vbs                Changes the font size (width and height) of all component designators on the PCB.
 PlaceNettedVia.vbs                          Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
 PushProjectParametersToSchematics.vbs       Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
+RotateDesignators.vbs						Rotates all PCB component designators so that they are rotated to only 1 of 2 positions. 
 ========================================    ==================================================================
 
 Checks
@@ -102,6 +103,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v14.0.0.0 2013/09/25 Added rotate designators script. Added button to main script form to rotate designators.
 v13.1.8.0 2013/09/23 Changed README title to 'Altium-Script-Central'.
 v13.1.7.0 2013/09/23 Corrected and updated file lists in the README.
 v13.1.6.0 2013/09/23 Added 'm' (milli-ohms) to accepted resistance units in the resistor validator script.
