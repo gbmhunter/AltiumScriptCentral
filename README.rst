@@ -6,12 +6,12 @@ Altium-Script-Central
 A collection of useful Altium scripts, written in VBScript.
 -----------------------------------------------------------
 
-.. image:: https://github.com/gbmhunter/Altium-Script-Central/blob/master/images/script-central-screenshot.png
+.. image:: https://github.com/gbmhunter/Altium-Script-Central/raw/master/images/script-central-screenshot.png
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/10/03
-- Version: v14.0.0.3
+- Version: v14.0.0.4
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -105,6 +105,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v14.0.0.4 2013/10/03 Updated broken image link in README.
 v14.0.0.3 2013/10/03 Updated broken image link in README.
 v14.0.0.2 2013/10/03 Updated broken image link in README.
 v14.0.0.1 2013/10/03 Added screenshot of Altium Script Central in action to /images/. Added image to README.
