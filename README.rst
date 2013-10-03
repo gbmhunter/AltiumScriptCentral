@@ -6,12 +6,12 @@ Altium-Script-Central
 A collection of useful Altium scripts, written in VBScript.
 -----------------------------------------------------------
 
-.. image:: https://raw.github.com/gbmhunter/altium-script-central/master/images/script-central-screenshot.jpg
+.. image:: https://github.com/gbmhunter/Altium-Script-Central/master/images/script-central-screenshot.png
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/10/03
-- Version: v14.0.0.1
+- Version: v14.0.0.2
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -105,6 +105,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v14.0.0.2 2013/10/03 Updated broken image link in README.
 v14.0.0.1 2013/10/03 Added screenshot of Altium Script Central in action to /images/. Added image to README.
 v14.0.0.0 2013/09/25 Added rotate designators script. Added button to main script form to rotate designators.
 v13.1.8.0 2013/09/23 Changed README title to 'Altium-Script-Central'.
