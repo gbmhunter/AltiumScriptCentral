@@ -7,11 +7,13 @@ A collection of useful Altium scripts, written in VBScript.
 -----------------------------------------------------------
 
 .. image:: https://github.com/gbmhunter/Altium-Script-Central/raw/master/images/script-central-screenshot.png
+	:height: 500px
+	:align: right
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/10/03
-- Version: v14.0.0.4
+- Version: v14.0.0.5
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -105,6 +107,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v14.0.0.5 2013/10/03 Added height and alignment parameters to image in README.
 v14.0.0.4 2013/10/03 Updated broken image link in README.
 v14.0.0.3 2013/10/03 Updated broken image link in README.
 v14.0.0.2 2013/10/03 Updated broken image link in README.
