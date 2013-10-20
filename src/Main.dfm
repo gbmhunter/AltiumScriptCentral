@@ -121,4 +121,13 @@ object FormMainScript: TFormMainScript
     TabOrder = 7
     OnClick = ButRotateDesignatorsClick
   end
+  object ButDeleteSchParams: TButton
+    Left = 764
+    Top = 342
+    Width = 204
+    Height = 26
+    Caption = 'Delete Schematic Parameters'
+    TabOrder = 8
+    OnClick = ButDeleteSchParamsClick
+  end
 end

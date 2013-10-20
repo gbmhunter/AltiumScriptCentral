@@ -78,5 +78,10 @@ End Sub
 
 ' Called when the rotate designators button is clicked
 Sub ButRotateDesignatorsClick(Sender)
-	RotateDesignators()
+    RotateDesignators()
+End Sub
+
+' Called when the "Delete Schematic Parameters" button is clicked 
+Sub ButDeleteSchParamsClick(Sender)
+	DeleteAllSchematicParameters()
 End Sub
