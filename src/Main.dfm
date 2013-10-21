@@ -130,4 +130,13 @@ object FormMainScript: TFormMainScript
     TabOrder = 8
     OnClick = ButDeleteSchParamsClick
   end
+  object ButAddSpecialSchematicParameters: TButton
+    Left = 764
+    Top = 382
+    Width = 204
+    Height = 25
+    Caption = 'Add Special Schematic Parameters'
+    TabOrder = 9
+    OnClick = ButAddSpecialSchematicParametersClick
+  end
 end

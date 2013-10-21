@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
 - Last Modified: 2013/10/21
-- Version: v15.0.0.0
+- Version: v16.0.0.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -47,6 +47,7 @@ Tools are designed to automate some process in Altium. All are located in *./src
 ========================================    ==================================================================
 Filename                                    Description
 ========================================    ==================================================================
+AddSpecialSchParams.vbs						Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
 ChangeDesignatorFontSize.vbs                Changes the font size (width and height) of all component designators on the PCB.
 DeleteAllSchematicParameters.vbs            Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
 PlaceNettedVia.vbs                          Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
@@ -108,6 +109,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v16.0.0.0 2013/10/21 Added 'AddSpecialSchParams.vbs' script, which gives you the option of adding various special parameters to every schematic in the active project. Good for adding parameters which will then automatically fill in info in the title blocks (schematic template files). Added button to load this script in the tools section of the main form. Added relevant info to README.
 v15.0.0.0 2013/10/21 Added 'DeleteAllSchematicParamters.vbs' script, after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds. Added button for this to tools section on main form. Added relevant info to README.
 v14.0.0.5 2013/10/03 Added height and alignment parameters to image in README.
 v14.0.0.4 2013/10/03 Updated broken image link in README.
