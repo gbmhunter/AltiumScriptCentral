@@ -20,6 +20,7 @@ Sub ButRunChecks(Sender)
     CheckTentedVias()
     CheckNameVersionDate()
     CheckPcbTextHasCorrectOrientation()
+	CheckComponentLinks()
 End Sub
 
 Sub MainPushProjectParametersToSchematics(Sender)

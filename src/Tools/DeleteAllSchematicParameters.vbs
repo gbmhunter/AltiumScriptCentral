@@ -27,7 +27,7 @@ Sub DeleteAllSchematicParameters()
 
     ' COMPILE PROJECT
 
-    ResetParameters
+    Call ResetParameters
     Call AddStringParameter("Action", "Compile")
     Call AddStringParameter("ObjectKind", "Project")
     Call RunProcess("WorkspaceManager:Compile")
