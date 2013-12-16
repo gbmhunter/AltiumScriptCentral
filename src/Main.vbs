@@ -20,7 +20,6 @@ Sub ButRunChecks(Sender)
     CheckTentedVias()
     CheckNameVersionDate()
     CheckPcbTextHasCorrectOrientation()
-	CheckComponentLinks()
 End Sub
 
 Sub MainPushProjectParametersToSchematics(Sender)
@@ -82,16 +81,12 @@ Sub ButRotateDesignatorsClick(Sender)
     RotateDesignators()
 End Sub
 
-' Called when the "Delete Schematic Parameters" button is clicked 
+' Called when the "Delete Schematic Parameters" button is clicked
 Sub ButDeleteSchParamsClick(Sender)
     DeleteAllSchematicParameters()
 End Sub
 
 ' Called when the "Add Special Schematic Parameters" button is clicked
 Sub ButAddSpecialSchematicParametersClick(Sender)
-
-    ' Close closes the form for good
-    'FormMainScript.Close
-
     AddSpecialSchParams()
 End Sub

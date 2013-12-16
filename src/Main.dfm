@@ -139,4 +139,12 @@ object FormMainScript: TFormMainScript
     TabOrder = 9
     OnClick = ButAddSpecialSchematicParametersClick
   end
+  object Button3: TButton
+    Left = 812
+    Top = 478
+    Width = 75
+    Height = 25
+    Caption = 'Button3'
+    TabOrder = 10
+  end
 end

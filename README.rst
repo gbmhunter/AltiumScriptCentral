@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013/08/08
-- Last Modified: 2013/10/22
-- Version: v17.0.0.0
+- Last Modified: 2013/12/16
+- Version: v17.0.1.0
 - Company: CladLabs
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -110,6 +110,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v17.0.1.0 2013/12/16 Fixed issue with 'Add Special Schematic Parameters' button not working.
 v17.0.0.0 2013/10/22 Added 'CheckComponentLinks.vbs' script, which loads up the edit component links window so that you can make sure there are no missing component links. Main form calls this script when you run PCB project checks.
 v16.0.0.0 2013/10/21 Added 'AddSpecialSchParams.vbs' script, which gives you the option of adding various special parameters to every schematic in the active project. Good for adding parameters which will then automatically fill in info in the title blocks (schematic template files). Added button to load this script in the tools section of the main form. Added relevant info to README.
 v15.0.0.0 2013/10/21 Added 'DeleteAllSchematicParamters.vbs' script, after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds. Added button for this to tools section on main form. Added relevant info to README.

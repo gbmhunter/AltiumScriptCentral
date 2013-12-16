@@ -44,6 +44,8 @@ Sub CheckComponentLinks()
         Exit Sub
     End If
 
+    document.DM_LoadDocument()
+
     ' Check for component links
     ResetParameters
     Call AddStringParameter("ObjectKind", "Project")
