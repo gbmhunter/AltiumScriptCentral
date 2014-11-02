@@ -1,9 +1,9 @@
 ' Cal this to load the associated form
-Sub AddSpecialSchParams()
+Sub AddSpecialSchParams(dummyVar)
 
-	Call StdOut("Adding special schematic parameters...")
+    Call StdOut("Adding special schematic parameters...")
 
-	' Show this form
+    ' Show this form
     FormAddSpecialSchParams.Show
 
 End Sub

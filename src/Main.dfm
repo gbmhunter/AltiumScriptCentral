@@ -139,12 +139,13 @@ object FormMainScript: TFormMainScript
     TabOrder = 9
     OnClick = ButAddSpecialSchematicParametersClick
   end
-  object Button3: TButton
-    Left = 812
-    Top = 478
-    Width = 75
+  object ButtonDisplayPcbStats: TButton
+    Left = 764
+    Top = 422
+    Width = 204
     Height = 25
-    Caption = 'Button3'
+    Caption = 'Display PCB Stats'
     TabOrder = 10
+    OnClick = ButtonDisplayPcbStatsClick
   end
 end

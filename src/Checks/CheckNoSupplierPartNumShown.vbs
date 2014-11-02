@@ -1,4 +1,4 @@
-Sub CheckNoSupplierPartNumShown() ' As TMemo
+Sub CheckNoSupplierPartNumShown(dummyVar) ' As TMemo
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument

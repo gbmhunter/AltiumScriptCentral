@@ -1,4 +1,4 @@
-Sub CheckPcbTextHasCorrectOrientation()
+Sub CheckPcbTextHasCorrectOrientation(dummyVar)
 
     Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject

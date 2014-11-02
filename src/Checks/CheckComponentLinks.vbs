@@ -1,4 +1,4 @@
-Sub CheckComponentLinks()
+Sub CheckComponentLinks(dummyVar)
 
     Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject

@@ -1,4 +1,4 @@
-Sub CheckNameVersionDate()
+Sub CheckNameVersionDate(dummyVar)
 
     Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject

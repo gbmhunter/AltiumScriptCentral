@@ -1,4 +1,4 @@
-Sub PowerPortChecker() 'As TMemo
+Sub PowerPortChecker(dummyVar) 'As TMemo
     Dim workspace   ' As IWorkspace
     Dim pcbProject  ' As IProject
     Dim powerObj    ' As ISch_PowerObject
@@ -69,16 +69,16 @@ Sub PowerPortChecker() 'As TMemo
 
                     ' Check text
                     Set regex = New RegExp
-	                regex.IgnoreCase = True
-	                regex.Global = True
-	                ' Look for a designator
-	                ' Designators are one ore more capital letters followed by
-	                ' one or more numerals, with nothing else before or afterwards (i.e. anchored)
-	                regex.Pattern = "[\+-][0-9]+\.[0-9]+V"
+                    regex.IgnoreCase = True
+                    regex.Global = True
+                    ' Look for a designator
+                    ' Designators are one ore more capital letters followed by
+                    ' one or more numerals, with nothing else before or afterwards (i.e. anchored)
+                    regex.Pattern = "[\+-][0-9]+\.[0-9]+V"
 
-	                ' Check for pattern match
-	                If Not regex.Test(powerObj.Text) Then
-                    	'violationCnt = violationCnt + 1
+                    ' Check for pattern match
+                    If Not regex.Test(powerObj.Text) Then
+                        'violationCnt = violationCnt + 1
                         'Call StdErr("ERROR: Power bar with incorrect text " + powerObj.Text + " on sheet " + document.DM_FullPath + " found. ")
                     End If
                 End If

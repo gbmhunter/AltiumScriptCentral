@@ -1,7 +1,7 @@
 
 Dim pcbBoard        'as IPCB_Board
 
-Sub CheckLayers()
+Sub CheckLayers(dummyVar)
     Dim workspace       ' As IWorkspace
     Dim pcbProject      ' As IProject
     Dim document        ' As IDocument
@@ -48,16 +48,16 @@ Sub CheckLayers()
         Exit Sub
     End If
 
-    CheckBoardOutlineLayer()
-    CheckTopDimensionsLayer()
-    CheckBotDimensionsLayer()
-    CheckTopMechBodyLayer()
-    CheckBotMechBodyLayer()
-    CheckUnusedLayers()
+    CheckBoardOutlineLayer(dummyVar)
+    CheckTopDimensionsLayer(dummyVar)
+    CheckBotDimensionsLayer(dummyVar)
+    CheckTopMechBodyLayer(dummyVar)
+    CheckBotMechBodyLayer(dummyVar)
+    CheckUnusedLayers(dummyVar)
 
 End Sub
 
-Sub CheckBoardOutlineLayer()
+Sub CheckBoardOutlineLayer(dummyVar)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -98,7 +98,7 @@ Sub CheckBoardOutlineLayer()
     End If
 End Sub
 
-Sub CheckTopDimensionsLayer()
+Sub CheckTopDimensionsLayer(dummyVar)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -137,7 +137,7 @@ Sub CheckTopDimensionsLayer()
     End If
 End Sub
 
-Sub CheckBotDimensionsLayer()
+Sub CheckBotDimensionsLayer(dummyVar)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -176,7 +176,7 @@ Sub CheckBotDimensionsLayer()
     End If
 End Sub
 
-Sub CheckTopMechBodyLayer()
+Sub CheckTopMechBodyLayer(dummyVar)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -214,7 +214,7 @@ Sub CheckTopMechBodyLayer()
     End If
 End Sub
 
-Sub CheckBotMechBodyLayer()
+Sub CheckBotMechBodyLayer(dummyVar)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -252,7 +252,7 @@ Sub CheckBotMechBodyLayer()
     End If
 End Sub
 
-Sub CheckUnusedLayers()
+Sub CheckUnusedLayers(dummyVar)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -281,7 +281,7 @@ Sub CheckUnusedLayers()
     pcbBoard.BoardIterator_Destroy(pcbIterator)
 
     If(violationCnt <> 0) Then
-    	StdErr("ERROR: Unused layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+        StdErr("ERROR: Unused layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
         StdOut("ERROR: Unused layer violation(s) found.")
     End If
 

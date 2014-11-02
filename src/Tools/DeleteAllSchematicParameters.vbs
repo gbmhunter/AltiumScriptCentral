@@ -1,4 +1,4 @@
-Sub DeleteAllSchematicParameters()
+Sub DeleteAllSchematicParameters(dummyVar)
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument
@@ -60,35 +60,35 @@ Sub DeleteAllSchematicParameters()
             ' Add all project parameters to this schematic
 
 
-			' DELETE SCHEMATIC PARAMETERS
+            ' DELETE SCHEMATIC PARAMETERS
 
-			' Set up iterator to look for parameter objects only
-			Set paramIterator = sheet.SchIterator_Create
-			If paramIterator Is Nothing Then
-				StdErr("ERROR: Iterator could not be created.")
-				Exit Sub
-			End If
+            ' Set up iterator to look for parameter objects only
+            Set paramIterator = sheet.SchIterator_Create
+            If paramIterator Is Nothing Then
+                StdErr("ERROR: Iterator could not be created.")
+                Exit Sub
+            End If
 
-			paramIterator.AddFilter_ObjectSet(MkSet(eParameter))
-			Set schParameters = paramIterator.FirstSchObject
+            paramIterator.AddFilter_ObjectSet(MkSet(eParameter))
+            Set schParameters = paramIterator.FirstSchObject
 
-		   ' Call SchServer.RobotManager.SendMessage(document.I_ObjectAddress, c_BroadCast, SCHM_BeginModify, c_NoEventData)
+           ' Call SchServer.RobotManager.SendMessage(document.I_ObjectAddress, c_BroadCast, SCHM_BeginModify, c_NoEventData)
 
-			' Iterate through schematic parameters and delete them
-			Do While Not (schParameters Is Nothing)			   
-			   sheet.RemoveSchObject(schParameters)
-			   'StdOut("Calling robot.")
-			   'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
-			   'Call SchServer.RobotManager.SendMessage(null, null, 1, schParameters.I_ObjectAddress)
-			   'StdOut("Finished robot.")
+            ' Iterate through schematic parameters and delete them
+            Do While Not (schParameters Is Nothing)            
+               sheet.RemoveSchObject(schParameters)
+               'StdOut("Calling robot.")
+               'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
+               'Call SchServer.RobotManager.SendMessage(null, null, 1, schParameters.I_ObjectAddress)
+               'StdOut("Finished robot.")
 
-				Set schParameters = paramIterator.NextSchObject
-			Loop
+                Set schParameters = paramIterator.NextSchObject
+            Loop
 
-			sheet.SchIterator_Destroy(paramIterator)
+            sheet.SchIterator_Destroy(paramIterator)
 
-			' Redraw schematic sheet
-			sheet.GraphicallyInvalidate
+            ' Redraw schematic sheet
+            sheet.GraphicallyInvalidate
 
             ' End of undo block
             Call SchServer.ProcessControl.PostProcess(sheet, "")

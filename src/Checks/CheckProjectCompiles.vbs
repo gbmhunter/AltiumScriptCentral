@@ -1,4 +1,4 @@
-Function CheckProjectCompiles()  ' As TMemo
+Function CheckProjectCompiles(dummyVar)  ' As TMemo
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument

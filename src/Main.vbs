@@ -1,3 +1,5 @@
+' Last Modified: 2014-11-03
+
 Sub RunMainScript
     FormMainScript.ShowModal
 End Sub
@@ -6,24 +8,24 @@ Sub ButRunChecks(Sender)
 
     ' PROJECT
     ' Important to check if project compiles first
-    If(CheckProjectCompiles() = false) Then
+    If(CheckProjectCompiles(dummyVar) = false) Then
         Exit Sub
     End If
 
     ' SCHEMATICS
-    PowerPortChecker()
-    CheckNoSupplierPartNumShown()
-    ComponentValidator()
+    PowerPortChecker(dummyVar)
+    CheckNoSupplierPartNumShown(dummyVar)
+    ComponentValidator(dummyVar)
 
     ' PCB
-    CheckLayers()
-    CheckTentedVias()
-    CheckNameVersionDate()
-    CheckPcbTextHasCorrectOrientation()
+    CheckLayers(dummyVar)
+    CheckTentedVias(dummyVar)
+    CheckNameVersionDate(dummyVar)
+    CheckPcbTextHasCorrectOrientation(dummyVar)
 End Sub
 
 Sub MainPushProjectParametersToSchematics(Sender)
-    PushProjectParametersToSchematics()
+    PushProjectParametersToSchematics(dummyVar)
 End Sub
 
 Sub StdOut(msg)
@@ -53,40 +55,46 @@ Sub MainRenumberPads(Sender)
     FormMainScript.Close
 
     ' Open renumber pads form
-    RenumberPads()
+    RenumberPads(dummyVar)
 
 End Sub
 
 Sub MainResizeDesignators(Sender)
 
     ' Call script
-    ChangeDesignatorFontSize
+    ChangeDesignatorFontSize(dummyVar)
 
     ' Close main form for good
     FormMainScript.Close
 End Sub
 
 Sub ButNumberSchematics_Click(Sender)
-    NumberSchematics()
+    NumberSchematics(dummyVar)
 End Sub
 
 ' Called when FormMain is created
 Sub FormMain_Create(Sender)
     ' Initialise global variables
-    ConfigInit()
+    ConfigInit(dummyVar)
 End Sub
 
 ' Called when the rotate designators button is clicked
 Sub ButRotateDesignatorsClick(Sender)
-    RotateDesignators()
+    RotateDesignators(dummyVar)
 End Sub
 
 ' Called when the "Delete Schematic Parameters" button is clicked
 Sub ButDeleteSchParamsClick(Sender)
-    DeleteAllSchematicParameters()
+    DeleteAllSchematicParameters(dummyVar)
 End Sub
 
 ' Called when the "Add Special Schematic Parameters" button is clicked
 Sub ButAddSpecialSchematicParametersClick(Sender)
-    AddSpecialSchParams()
+    AddSpecialSchParams(dummyVar)
+End Sub
+
+' Called when the "Display PCB Stats" button is clicked
+Sub ButtonDisplayPcbStatsClick(Sender)
+    ' Call external script
+    DisplayPcbStats(dummyVar)
 End Sub

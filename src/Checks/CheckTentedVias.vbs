@@ -1,4 +1,4 @@
-Sub CheckTentedVias()
+Sub CheckTentedVias(dummyVar)
     Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject
     Dim document            'As IDocument

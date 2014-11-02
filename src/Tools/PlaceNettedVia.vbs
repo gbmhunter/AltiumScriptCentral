@@ -1,13 +1,13 @@
-Sub PlaceNettedVia
-   	Dim board ' As IPCB_Board
-   	Dim exisVia, newVia ' As IPCB_Primative
-   	Dim xm, ym
+Sub PlaceNettedVia(dummyVar)
+    Dim board ' As IPCB_Board
+    Dim exisVia, newVia ' As IPCB_Primative
+    Dim xm, ym
 
-   	Set board = PCBServer.GetCurrentPCBBoard
+    Set board = PCBServer.GetCurrentPCBBoard
 
-   	If board Is Nothing Then
-    	Exit Sub
-   	End If
+    If board Is Nothing Then
+        Exit Sub
+    End If
 
     exisVia = board.GetObjectAtCursor(MkSet(eViaObject), AllLayers, "Select via.")
     

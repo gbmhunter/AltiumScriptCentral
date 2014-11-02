@@ -1,4 +1,4 @@
-Sub ComponentValidator()
+Sub ComponentValidator(dummyVar)
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument

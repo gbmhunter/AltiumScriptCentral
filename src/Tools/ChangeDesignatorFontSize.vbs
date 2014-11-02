@@ -1,5 +1,5 @@
-Sub ChangeDesignatorFontSize
-    Dim board 		' As IPCB_Board
+Sub ChangeDesignatorFontSize(dummyVar)
+    Dim board       ' As IPCB_Board
     Dim iterator
     Dim component
     Dim compDes

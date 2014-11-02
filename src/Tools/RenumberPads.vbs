@@ -49,7 +49,7 @@ Sub btnCancelClick(sender)
      FormRenumberPads.Close
 End Sub
 
-Sub RenumberPads()
+Sub RenumberPads(dummyVar)
     ' Show form, non-modal
     ' ShowModal won't return until form is closed.
     FormRenumberPads.Show
