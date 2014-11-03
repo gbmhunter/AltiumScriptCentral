@@ -431,13 +431,7 @@ DocumentUniqueId=
 StartProcName=src\Main.vbs>RunMainScript
 
 [Generic_Watches]
-29=annularRingMm
-30=via.Size
-31=via.HoleSize
-32=pad.X
-33=layerObj
-34=VarType(lsn)
-35=lsn.Name
+2=dimensions(0)
 
 [OutputGroup1]
 Name=Netlist Outputs

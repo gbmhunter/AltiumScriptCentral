@@ -10,10 +10,10 @@ A collection of useful Altium scripts, written in VBScript.
 	:height: 500px
 	:align: right
 
-- Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
+- Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-11-03
-- Version: v18.1.0.0
+- Last Modified: 2014-11-04
+- Version: v18.2.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -29,7 +29,7 @@ Description
 Core Files
 ----------
 
-All are located in *./src/*.
+All are located in :code:`src/`.
 
 ========================================    ==================================================================
 Filename                                    Description
@@ -42,7 +42,7 @@ Main.vbs                                    This is the main script which when r
 Tools
 -----
 
-Tools are designed to automate some process in Altium. All are located in *./src/Tools/*.
+Tools are designed to automate some process in Altium. All are located in :code:`src/Tools/`.
 
 ========================================    ==================================================================
 Filename                                    Description
@@ -58,7 +58,7 @@ RotateDesignators.vbs						Rotates all PCB component designators so that they ar
 Checks
 ------------------
 
-Checks are scripts designed to be run before the board is released to the manufacturer. All are located in *./src/Checks/*. 
+Checks are scripts designed to be run before the board is released to the manufacturer. All are located in :code:`src/Checks/`. 
 
 ========================================    ==================================================================
 Filename                                    Description
@@ -75,18 +75,23 @@ PowerPortChecker.vbs                        Checks that power ports are orientat
 
 
 Component Validators
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
-The component validator checks makes sure that all the schematic components have recognised designators and are showing the correct parameters (which is dependant on the component type, as given by the designator). All component validator scripts are located in "./src/Checks/ComponentValidators".
+The component validator checks makes sure that all the schematic components have recognised designators and are showing the correct parameters (which is dependant on the component type, as given by the designator). All component validator scripts are located in :code:`src/Checks/ComponentValidators`.
 
-========================================    ==================================================================
-Filename                                    Description
-========================================    ==================================================================
-ComponentValidator.vbs                      This is essentially the "main" file for the component validators. It is called by Main.vbs and in turn calls the individual component validator files, once it recognises a valid designator (the valid designators are contained in Config.vbs).
-ValidateCapacitor.vbs						Makes sure that all the capacitors on the schematic are showing the correct parameters.
-ValidateInductor.vbs						Makes sure that all the inductors on the schematic are showing the correct parameters.
-ValidateResistor.vbs						Makes sure that all the inductors on the schematic are showing the correct parameters.
-========================================    ==================================================================
+======================================== ==================================================================
+Filename                                 Description
+======================================== ==================================================================
+ComponentValidator.vbs                   This is essentially the "main" file for the component validators. It is called by Main.vbs and in turn calls the individual component validator files, once it recognises a valid designator (the valid designators are contained in Config.vbs).
+ValidateCapacitor.vbs                    Makes sure that all the capacitors on the schematic are showing the correct parameters.
+ValidateInductor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
+ValidateResistor.vbs	                    Makes sure that all the inductors on the schematic are showing the correct parameters.
+======================================== ==================================================================
+
+Statistics
+----------
+
+PCB statistics can be displayed by clicking the "Display PCB Stats" button from the main script window. All code for this is located in :code:`src/Stats`
 
 Issues
 ======
@@ -104,6 +109,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v18.2.0.0 2014-11-04 Added title block to Stats.vbs. Added board width and height to the PCB statistics window, closes #117. Added 'Num. of Diff Holes Sizes' statistic to the Stats window, closes #118. Renamed script project file to 'AltiumScriptCentral.PrjScr'. Coloured the StdErr text red, closes # #119.
 v18.1.0.0 2014-11-03 Added minimum annular ring statistic to 'Display PCB Stats', closes #114. Added minimum track width statistic to 'Display PCB Stats', closes #115. Added 'Num. Copper Tracks' statistic to 'Display PCB Stats', closes #116.
 v18.0.0.0 2014-11-03 Added the ability to measure and display PCB stats that would be useful for providing to the manufacturer, closes #112. Added dummyVar argument to all functions that are not designed to be called manually, so that they don't display in the 'Run Scripts' dialog of Altium, closes #113.
 v17.0.1.1 2014-11-03 Renamed repo name to 'AltiumScriptCentral', closes #111.

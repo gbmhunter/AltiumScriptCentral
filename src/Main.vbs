@@ -1,4 +1,11 @@
-' Last Modified: 2014-11-03
+'
+' @file               Main.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-11-04
+' @brief              Main entry point for AltiumScriptCentral.
+' @details
+'                     See README.rst in repo root dir for more info.
 
 Sub RunMainScript
     FormMainScript.ShowModal

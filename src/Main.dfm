@@ -1,7 +1,7 @@
 object FormMainScript: TFormMainScript
   Left = 0
   Top = 0
-  Caption = 'Script Central'
+  Caption = 'Altium Script Central'
   ClientHeight = 758
   ClientWidth = 1060
   Color = clBtnFace

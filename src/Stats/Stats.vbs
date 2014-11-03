@@ -1,8 +1,18 @@
+'
+' @file               Stats.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2014-11-03
+' @last-modified      2014-11-04
+' @brief              Code for showing PCB statistics.
+' @details
+'                     See README.rst in repo root dir for more info.
 
 Function DisplayPcbStats(dummyVar)
 
     StdOut("Displaying PCB stats...")
 
+    ' Get the current PCB board, which we will pass to all
+    ' the child functions
     Set board = PCBServer.GetCurrentPCBBoard
     If board Is Nothing Then
         ShowMessage("Could not load current PCB board")
@@ -14,6 +24,9 @@ Function DisplayPcbStats(dummyVar)
     LabelNumOfPadsWithHoles.Caption = CountNumPadsWithHoles(board)
     LabelTotalNumOfHoles.Caption = CInt(LabelNumOfVias.Caption) + CInt(LabelNumOfPadsWithHoles.Caption)
 
+    ' Get the number of different hole sizes
+    LabelNumDiffHoleSizes.Caption = CountNumDiffHoleSizes(board)
+
     ' Minimum widths
     LabelMinAnnularRingMm.Caption = CStr(FindMinAnnularRingMm(board))
     LabelMinTrackWidthMm.Caption = CStr(FindMinTrackWidthMm(board))
@@ -21,7 +34,13 @@ Function DisplayPcbStats(dummyVar)
     ' Number copper layers on PCB
     LabelNumCopperLayers.Caption = CountNumCopperLayers(board)
 
-    ' Show the form, in non-modal fashion
+    ' Get board height and width
+    dimensions = GetPcbBoundingRectangleDimensions(board)
+    LabelBoardWidthMm.Caption = dimensions(0)
+    LabelBoardHeightMm.Caption = dimensions(1)
+    LabelBoardAreaMm.Caption = dimensions(2)
+
+    ' Now that everything has been calculated, show the form, in non-modal fashion
     FormStats.Show
 
     StdOut("Finished displaying PCB stats." + VbCr + VbLf)
@@ -223,5 +242,56 @@ Function CountNumCopperLayers(board)
   Loop Until layerObj.Name = layerStack.Last(layerClass).Name
 
   CountNumCopperLayers = numCopperLayers
+
+End Function
+
+Function GetPcbBoundingRectangleDimensions(board)
+
+   Dim dimensions(3)
+
+   boundingRectangle = board.BoardOutline.BoundingRectangle
+
+   'StdOut("br.Width = " + CStr(CoordToMMs(board.BoardOutline.BoundingRectangle.Right - board.BoardOutline.BoundingRectangle.Left)) + VbCr + VbLf)
+   'StdOut("br.Bottom = " + CStr(CoordToMMs(board.BoardOutline.BoundingRectangle.Top - board.BoardOutline.BoundingRectangle.Bottom)) + VbCr + VbLf)
+
+   dimensions(0) = CoordToMMs(board.BoardOutline.BoundingRectangle.Right - board.BoardOutline.BoundingRectangle.Left)
+   dimensions(1) = CoordToMMs(board.BoardOutline.BoundingRectangle.Top - board.BoardOutline.BoundingRectangle.Bottom)
+   dimensions(2) = CStr(Round(dimensions(0)*dimensions(1), 0))
+
+   GetPcbBoundingRectangleDimensions = dimensions
+
+End Function
+
+Function CountNumDiffHoleSizes(board)
+
+   ' Create an ArrayList to store the unique hole sizes present on the PCB
+   dim holeSizeList
+   Set holeSizeList = CreateObject("System.Collections.ArrayList")
+
+   ' Create an iterator to iterate over all vias and pads on the PCBs
+   Set iterator = board.BoardIterator_Create
+   iterator.AddFilter_ObjectSet(MkSet(eViaObject, ePadObject))
+   iterator.AddFilter_LayerSet(AllLayers)
+   iterator.AddFilter_Method(eProcessAll)
+
+   Set viaPad = iterator.FirstPCBObject
+
+   ' Iterate through all objects
+   Do While Not (viaPad Is Nothing)
+
+      ' Check that hole size is not 0 (i.e. no hole) and hole is not already in list
+      If Not (viaPad.HoleSize = 0) And (holeSizeList.Contains(viaPad.HoleSize) = False) Then
+         ' Hole size was not found in the list, and was greater than 0mm, so lets
+         ' add it to our list of unique hole sizes
+         holeSizeList.Add viaPad.HoleSize
+      End If
+
+      Set viaPad = Iterator.NextPCBObject
+   Loop
+
+   board.BoardIterator_Destroy(Iterator)
+
+   ' Return the number of different hole sizes
+   CountNumDiffHoleSizes = holeSizeList.Count
 
 End Function
