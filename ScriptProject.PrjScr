@@ -427,38 +427,17 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Generic_Watches]
-1=SCHServer
-2=eTrackObject
-3=PCBServer
-4=document.DM_FullPath
-5=SCHServer.GetSchDocumentByPath(document.DM_FullPath)
-6=powerObj
-7=iterator
-8=violationCnt
-9=docNum
-0=DM_DocumentKind
-10=document.DM_DocumentKind
-11=document.DM_FullPath
-12=parameter.DM_Name
-13=parameter.DM_Name
-14=projParameter.DM_Name
-15=paramIterator.FirstSchObject
-16=schParameters.Name
-17=component.Designator.Text
-18=parameter.Text
-19=parameter.Value
-20=sheet.DocumentName
-21=matchColl.Count
-22=document.Name
-23=sheet.DocumentName
-24=Document.Title
-25=powerObj.Text
-26=regex.Test(powerObj.Text)
-27=matchColl.Item(0).Value
-
 [Generic_ScriptingSystem]
 StartProcName=src\Main.vbs>RunMainScript
+
+[Generic_Watches]
+29=annularRingMm
+30=via.Size
+31=via.HoleSize
+32=pad.X
+33=layerObj
+34=VarType(lsn)
+35=lsn.Name
 
 [OutputGroup1]
 Name=Netlist Outputs

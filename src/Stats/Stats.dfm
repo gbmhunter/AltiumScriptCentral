@@ -67,4 +67,46 @@ object FormStats: TFormStats
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label4: TLabel
+    Left = 26
+    Top = 209
+    Width = 115
+    Height = 13
+    Caption = 'Min. Annular Ring (mm):'
+  end
+  object LabelMinAnnularRingMm: TLabel
+    Left = 154
+    Top = 209
+    Width = 6
+    Height = 13
+    Caption = '0'
+  end
+  object Label5: TLabel
+    Left = 26
+    Top = 225
+    Width = 111
+    Height = 13
+    Caption = 'Min. Track Width (mm):'
+  end
+  object LabelMinTrackWidthMm: TLabel
+    Left = 154
+    Top = 225
+    Width = 6
+    Height = 13
+    Caption = '0'
+  end
+  object Label6: TLabel
+    Left = 26
+    Top = 241
+    Width = 102
+    Height = 13
+    Caption = 'Num. Copper Layers:'
+  end
+  object LabelNumCopperLayers: TLabel
+    Left = 154
+    Top = 241
+    Width = 6
+    Height = 13
+    Caption = '0'
+  end
 end

@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2014-11-03
-- Version: v18.0.0.0
+- Version: v18.1.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -104,6 +104,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v18.1.0.0 2014-11-03 Added minimum annular ring statistic to 'Display PCB Stats', closes #114. Added minimum track width statistic to 'Display PCB Stats', closes #115. Added 'Num. Copper Tracks' statistic to 'Display PCB Stats', closes #116.
 v18.0.0.0 2014-11-03 Added the ability to measure and display PCB stats that would be useful for providing to the manufacturer, closes #112. Added dummyVar argument to all functions that are not designed to be called manually, so that they don't display in the 'Run Scripts' dialog of Altium, closes #113.
 v17.0.1.1 2014-11-03 Renamed repo name to 'AltiumScriptCentral', closes #111.
 v17.0.1.0 2013-12-16 Fixed issue with 'Add Special Schematic Parameters' button not working.
