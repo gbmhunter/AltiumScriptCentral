@@ -53,20 +53,21 @@ object FormMainScript: TFormMainScript
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Button1: TButton
+  object ButtonRunPrereleaseChecks: TButton
     Left = 266
     Top = 48
     Width = 206
     Height = 48
     Caption = 'Run Pre-release Checks'
     TabOrder = 0
-    OnClick = ButRunChecks
+    OnClick = ButtonRunPrereleaseChecksClick
   end
   object MemoStdOut: TMemo
     Left = 41
     Top = 133
     Width = 655
     Height = 259
+    ScrollBars = ssVertical
     TabOrder = 1
   end
   object MemoStdErr: TMemo
@@ -74,6 +75,13 @@ object FormMainScript: TFormMainScript
     Top = 437
     Width = 655
     Height = 259
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ScrollBars = ssVertical
     TabOrder = 2
   end
   object ButPushProjectParameters: TButton

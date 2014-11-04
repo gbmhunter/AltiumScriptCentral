@@ -11,11 +11,17 @@ Sub RunMainScript
     FormMainScript.ShowModal
 End Sub
 
-Sub ButRunChecks(Sender)
+' Called when FormMain is created
+Sub FormMain_Create(Sender)
+    ' Initialise global variables
+    ConfigInit(dummyVar)
+End Sub
+
+Sub ButtonRunPrereleaseChecksClick(Sender)
 
     ' PROJECT
     ' Important to check if project compiles first
-    If(CheckProjectCompiles(dummyVar) = false) Then
+    If CheckProjectCompiles(dummyVar) = False Then
         Exit Sub
     End If
 
@@ -24,7 +30,14 @@ Sub ButRunChecks(Sender)
     CheckNoSupplierPartNumShown(dummyVar)
     ComponentValidator(dummyVar)
 
-    ' PCB
+    ' ===== PCB =====
+
+    ' First we want to make sure we have access to a PCB document
+    If CheckWeHavePcbDocAccess(dummyVar) = False Then
+       Exit Sub
+    End If
+
+    ' Since we have access, we can now run all PCB checks
     CheckLayers(dummyVar)
     CheckTentedVias(dummyVar)
     CheckNameVersionDate(dummyVar)
@@ -67,7 +80,6 @@ Sub MainRenumberPads(Sender)
 End Sub
 
 Sub MainResizeDesignators(Sender)
-
     ' Call script
     ChangeDesignatorFontSize(dummyVar)
 
@@ -79,13 +91,7 @@ Sub ButNumberSchematics_Click(Sender)
     NumberSchematics(dummyVar)
 End Sub
 
-' Called when FormMain is created
-Sub FormMain_Create(Sender)
-    ' Initialise global variables
-    ConfigInit(dummyVar)
-End Sub
-
-' Called when the rotate designators button is clicked
+' Called when the "Rotate Designators" button is clicked
 Sub ButRotateDesignatorsClick(Sender)
     RotateDesignators(dummyVar)
 End Sub

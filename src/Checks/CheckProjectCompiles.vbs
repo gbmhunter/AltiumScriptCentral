@@ -1,4 +1,16 @@
-Function CheckProjectCompiles(dummyVar)  ' As TMemo
+'
+' @file               CheckProjectCompiles.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-11-04
+' @brief              Script that checks to make sure the current project compiles successfully.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' @brief    This makes sure the project is compiled.
+' @details  Note that this does not check to see whether the project compiles without errors, this
+'           will still return True if it compiles with errors.
+Function CheckProjectCompiles(dummyVar)
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument
@@ -10,8 +22,11 @@ Function CheckProjectCompiles(dummyVar)  ' As TMemo
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
+       ' Maybe we could use this in the future...
+        ' Client.StartServer("SCH")
+
         StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
-        CheckProjectCompiles = false
+        CheckProjectCompiles = False
         Exit Function
     End If
 
@@ -21,7 +36,7 @@ Function CheckProjectCompiles(dummyVar)  ' As TMemo
 
     If pcbProject Is Nothing Then
         StdErr("ERROR: Current project is not a PCB project." + VbCr + VbLf)
-        CheckProjectCompiles = false
+        CheckProjectCompiles = False
         Exit Function
     End If
 
@@ -41,12 +56,12 @@ Function CheckProjectCompiles(dummyVar)  ' As TMemo
         Set flatHierarchy = PCBProject.DM_DocumentFlattened
         If flatHierarchy Is Nothing Then
            StdErr("ERROR: Could not compile project." + VbCr + VbLf)
-           CheckProjectCompiles = false
+           CheckProjectCompiles = False
            Exit Function
         End If
     End If
 
     ' If code reaches here, compilation was successful
     StdOut("Compilation successful." + VbCr + VbLf)
-    CheckProjectCompiles = true
+    CheckProjectCompiles = True
 End Function

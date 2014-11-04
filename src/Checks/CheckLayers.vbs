@@ -1,7 +1,13 @@
+'
+' @file               Main.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-11-04
+' @brief              Script functions which check the PCB layers for violating objects.
+' @details
+'                     See README.rst in repo root dir for more info.
 
-Dim pcbBoard        'as IPCB_Board
-
-Sub CheckLayers(dummyVar)
+Function CheckLayers(dummyVar)
     Dim workspace       ' As IWorkspace
     Dim pcbProject      ' As IProject
     Dim document        ' As IDocument
@@ -15,7 +21,7 @@ Sub CheckLayers(dummyVar)
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
         StdErr("ERROR: PCB server not online." + VbCr + VbLf)
-        Exit Sub
+        Exit Function
     End If
 
     ' Get pcb project interface
@@ -24,7 +30,7 @@ Sub CheckLayers(dummyVar)
 
     IF pcbProject Is Nothing Then
         StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
-        Exit Sub
+        Exit Function
     End If
 
     ' Loop through all project documents
@@ -41,23 +47,23 @@ Sub CheckLayers(dummyVar)
 
     ' Should this be gotten from the pcbProject, not the PCB server (so it doesn't have to
     ' be open to work)
-    'pcbBoard := pcbProject.DM_TopLevelPhysicalDocument;
+    'pcbBoard = pcbProject.DM_TopLevelPhysicalDocument
 
     If pcbBoard Is Nothing Then
-        StdErr("ERROR: No PCB document found. Path used = " + document.DM_FullPath + "." + vbCr + vbLf)
-        Exit Sub
+        StdErr("ERROR: No open PCB document found. Path used = '" + document.DM_FullPath + "'. Please open PCB file." + vbCr + vbLf)
+        Exit Function
     End If
 
-    CheckBoardOutlineLayer(dummyVar)
-    CheckTopDimensionsLayer(dummyVar)
-    CheckBotDimensionsLayer(dummyVar)
-    CheckTopMechBodyLayer(dummyVar)
-    CheckBotMechBodyLayer(dummyVar)
-    CheckUnusedLayers(dummyVar)
+    CheckBoardOutlineLayer(pcbBoard)
+    CheckTopDimensionsLayer(pcbBoard)
+    CheckBotDimensionsLayer(pcbBoard)
+    CheckTopMechBodyLayer(pcbBoard)
+    CheckBotMechBodyLayer(pcbBoard)
+    CheckUnusedLayers(pcbBoard)
 
-End Sub
+End Function
 
-Sub CheckBoardOutlineLayer(dummyVar)
+Sub CheckBoardOutlineLayer(pcbBoard)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -98,7 +104,7 @@ Sub CheckBoardOutlineLayer(dummyVar)
     End If
 End Sub
 
-Sub CheckTopDimensionsLayer(dummyVar)
+Sub CheckTopDimensionsLayer(pcbBoard)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -137,7 +143,7 @@ Sub CheckTopDimensionsLayer(dummyVar)
     End If
 End Sub
 
-Sub CheckBotDimensionsLayer(dummyVar)
+Sub CheckBotDimensionsLayer(pcbBoard)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -176,7 +182,7 @@ Sub CheckBotDimensionsLayer(dummyVar)
     End If
 End Sub
 
-Sub CheckTopMechBodyLayer(dummyVar)
+Sub CheckTopMechBodyLayer(pcbBoard)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -214,7 +220,7 @@ Sub CheckTopMechBodyLayer(dummyVar)
     End If
 End Sub
 
-Sub CheckBotMechBodyLayer(dummyVar)
+Sub CheckBotMechBodyLayer(pcbBoard)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer
@@ -252,7 +258,7 @@ Sub CheckBotMechBodyLayer(dummyVar)
     End If
 End Sub
 
-Sub CheckUnusedLayers(dummyVar)
+Sub CheckUnusedLayers(pcbBoard)
     Dim pcbIterator
     Dim pcbObject
     Dim violationCnt    'As Integer

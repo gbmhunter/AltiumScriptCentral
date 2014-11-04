@@ -1,4 +1,4 @@
-Sub PowerPortChecker(dummyVar) 'As TMemo
+Function PowerPortChecker(dummyVar)
     Dim workspace   ' As IWorkspace
     Dim pcbProject  ' As IProject
     Dim powerObj    ' As ISch_PowerObject
@@ -11,11 +11,12 @@ Sub PowerPortChecker(dummyVar) 'As TMemo
 
     violationCnt = 0
 
-    StdOut("Check power ports...")
+    StdOut("Checking power ports...")
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-        Exit Sub
+       StdErr("ERROR: Schematic server is not online." + VbCr + VbLf)
+       Exit Function
     End If
 
     ' Get pcb project interface
@@ -35,14 +36,15 @@ Sub PowerPortChecker(dummyVar) 'As TMemo
 
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             If sheet Is Nothing Then
-                StdErr("ERROR: Please compile project." + VbCr + VbLf)
-                Exit Sub
+                StdErr("ERROR: Could not retrieve '" + document.DM_FullPath + "'. Please compile project." + VbCr + VbLf)
+                Exit Function
             End If
 
             ' Set up iterator to look for popwer port objects only
             Set iterator = sheet.SchIterator_Create
             If iterator Is Nothing Then
-                Exit Sub
+               StdErr("ERROR: Iterator creation failed." + VbCr + VbLf)
+               Exit Function
             End If
 
             iterator.AddFilter_ObjectSet(MkSet(ePowerObject))
@@ -99,5 +101,5 @@ Sub PowerPortChecker(dummyVar) 'As TMemo
     End If
 
     StdOut("Power port checking finished." + VbCr + VbLf)
-End Sub
+End Function
 

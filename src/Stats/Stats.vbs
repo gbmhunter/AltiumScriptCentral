@@ -15,7 +15,7 @@ Function DisplayPcbStats(dummyVar)
     ' the child functions
     Set board = PCBServer.GetCurrentPCBBoard
     If board Is Nothing Then
-        ShowMessage("Could not load current PCB board")
+        ShowMessage("Could not find a PCB board, please make sure PCB file you want to use it currently open.")
         Exit Function
     End If
 
