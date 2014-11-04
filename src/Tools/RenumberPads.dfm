@@ -39,7 +39,7 @@ object FormRenumberPads: TFormRenumberPads
       Height = 13
       Caption = 'Pad Index Increment'
     end
-    object edFirstPadNumber: TEdit
+    object EditFirstPadNumber: TEdit
       Left = 160
       Top = 24
       Width = 81
@@ -49,25 +49,25 @@ object FormRenumberPads: TFormRenumberPads
       TabOrder = 0
       Text = '1'
     end
-    object btnOK: TButton
+    object ButtonOk: TButton
       Left = 40
       Top = 88
       Width = 75
       Height = 25
       Caption = 'OK'
       TabOrder = 2
-      OnClick = btnOKClick
+      OnClick = ButtonOkClick
     end
-    object btnCancel: TButton
+    object ButtonCancel: TButton
       Left = 168
       Top = 88
       Width = 75
       Height = 25
       Caption = 'Cancel'
       TabOrder = 3
-      OnClick = btnCancelClick
+      OnClick = ButtonCancelClick
     end
-    object edPadIncrement: TEdit
+    object EditPadIncrement: TEdit
       Left = 160
       Top = 56
       Width = 81

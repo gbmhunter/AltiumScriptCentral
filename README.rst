@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-11-04
-- Version: v18.2.1.0
+- Last Modified: 2014-11-05
+- Version: v18.2.2.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -109,6 +109,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v18.2.2.0 2014-11-05 Fixed 'Abstract Error' error message when trying to renumber pads, closes #127. Fixed 'Type Mismatch: Renumber Pads' error when trying to renumber pads, closes #126.
 v18.2.1.0 2014-11-04 Tidied up code, improved error messages. Now pass PCB board variable into CheckLayers functions rather than using a global, closes #124. We now only run PCB checks if PCB file can be opened, closes #125. Added scroll bars to Status and Errors text windows, closes #91.
 v18.2.0.0 2014-11-04 Added title block to Stats.vbs. Added board width and height to the PCB statistics window, closes #117. Added 'Num. of Diff Holes Sizes' statistic to the Stats window, closes #118. Renamed script project file to 'AltiumScriptCentral.PrjScr'. Coloured the StdErr text red, closes # #119.
 v18.1.0.0 2014-11-03 Added minimum annular ring statistic to 'Display PCB Stats', closes #114. Added minimum track width statistic to 'Display PCB Stats', closes #115. Added 'Num. Copper Tracks' statistic to 'Display PCB Stats', closes #116.
