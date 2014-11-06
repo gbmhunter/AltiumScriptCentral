@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-11-05
-- Version: v18.2.2.0
+- Last Modified: 2014-11-07
+- Version: v18.3.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -31,47 +31,47 @@ Core Files
 
 All are located in :code:`src/`.
 
-========================================    ==================================================================
-Filename                                    Description
-========================================    ==================================================================
-Config.vbs                                  Contains configuration settings.
-Main.dfm                                    Form information for the main script (this is linked with Main.vbs).
-Main.vbs                                    This is the main script which when run will load up a form that can run all of the other scripts.
-========================================    ==================================================================
+======================================== ==================================================================
+Filename                                 Description
+======================================== ==================================================================
+Config.vbs                               Contains configuration settings.
+Main.dfm                                 Form information for the main script (this is linked with Main.vbs).
+Main.vbs                                 This is the main script which when run will load up a form that can run all of the other scripts.
+======================================== ==================================================================
 
 Tools
 -----
 
 Tools are designed to automate some process in Altium. All are located in :code:`src/Tools/`.
 
-========================================    ==================================================================
-Filename                                    Description
-========================================    ==================================================================
-AddSpecialSchParams.vbs						Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
-ChangeDesignatorFontSize.vbs                Changes the font size (width and height) of all component designators on the PCB.
-DeleteAllSchematicParameters.vbs            Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
-PlaceNettedVia.vbs                          Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
-PushProjectParametersToSchematics.vbs       Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
-RotateDesignators.vbs						Rotates all PCB component designators so that they are rotated to only 1 of 2 positions. 
-========================================    ==================================================================
+======================================== ==================================================================
+Filename                                 Description
+======================================== ==================================================================
+AddSpecialSchParams.vbs						  Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
+DeleteAllSchematicParameters.vbs         Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
+PlaceNettedVia.vbs                       Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
+PushProjectParametersToSchematics.vbs    Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
+ResizeDesignators.vbs                    Changes the font size (width and height) of all component designators on the PCB.
+RotateDesignators.vbs						  Rotates all PCB component designators so that they are rotated to only 1 of 2 positions. 
+======================================== ==================================================================
 
 Checks
 ------------------
 
 Checks are scripts designed to be run before the board is released to the manufacturer. All are located in :code:`src/Checks/`. 
 
-========================================    ==================================================================
-Filename                                    Description
-========================================    ==================================================================
-CheckComponentLinks.vbs                     Loads up the "Edit Component Links" window so that you can make sure there are no missing component links. 
-CheckLayers.vbs                             Checks that the mechanical layers of the PCB have the correct objects on them.
-CheckNameVersionDate.vbs                    Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
-CheckNoSupplierPartNumShown.vbs             Checks that no supplier part numbers are shown on the schematics.
-CheckPcbTextHasCorrectOrientation.vbs       Checks that PCB text has the correct orientation (so it is readable), that is text on the top overlay IS NOT mirrored, and text on the bottom layer IS mirrored.
-CheckProjectCompiles.vbs                    Makes sure that the project compiles successfully.
-CheckTentedVias.vbs                         Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
-PowerPortChecker.vbs                        Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
-========================================    ==================================================================
+======================================== ==================================================================
+Filename                                 Description
+======================================== ==================================================================
+CheckComponentLinks.vbs                  Loads up the "Edit Component Links" window so that you can make sure there are no missing component links. 
+CheckLayers.vbs                          Checks that the mechanical layers of the PCB have the correct objects on them.
+CheckNameVersionDate.vbs                 Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
+CheckNoSupplierPartNumShown.vbs          Checks that no supplier part numbers are shown on the schematics.
+CheckPcbTextHasCorrectOrientation.vbs    Checks that PCB text has the correct orientation (so it is readable), that is text on the top overlay IS NOT mirrored, and text on the bottom layer IS mirrored.
+CheckProjectCompiles.vbs                 Makes sure that the project compiles successfully.
+CheckTentedVias.vbs                      Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
+PowerPortChecker.vbs                     Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
+======================================== ==================================================================
 
 
 Component Validators
@@ -109,6 +109,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v18.3.0.0 2014-11-07 Add ability to specify designator height and width for the 'Resize Designators' option, closes #128. Renamed 'src/Tools/ChangeDesignatorFontSize.vbs' to 'src/Tools/ResizeDesignators.vbs'. Tidied up table formatting in README.
 v18.2.2.0 2014-11-05 Fixed 'Abstract Error' error message when trying to renumber pads, closes #127. Fixed 'Type Mismatch: Renumber Pads' error when trying to renumber pads, closes #126.
 v18.2.1.0 2014-11-04 Tidied up code, improved error messages. Now pass PCB board variable into CheckLayers functions rather than using a global, closes #124. We now only run PCB checks if PCB file can be opened, closes #125. Added scroll bars to Status and Errors text windows, closes #91.
 v18.2.0.0 2014-11-04 Added title block to Stats.vbs. Added board width and height to the PCB statistics window, closes #117. Added 'Num. of Diff Holes Sizes' statistic to the Stats window, closes #118. Renamed script project file to 'AltiumScriptCentral.PrjScr'. Coloured the StdErr text red, closes # #119.

@@ -1,11 +1,28 @@
-Sub ChangeDesignatorFontSize(dummyVar)
+'
+' @file               ResizeDesignators.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-11-07
+' @brief              Code to change the font size of many PCB designators all at once.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+Function ResizeDesignators(dummyVar)
+   ' Show form
+   FormResizeDesignators.Show
+End Function
+
+
+
+Sub ButtonOkClick(Sender)
+
     Dim board       ' As IPCB_Board
     Dim iterator
     Dim component
     Dim compDes
 
-    Set board = PCBServer.GetCurrentPCBBoard
-    If board Is Nothing Then
+    Set Board = PCBServer.GetCurrentPCBBoard
+    If Board Is Nothing Then
         ShowMessage("Could not load current PCB board")
         Exit Sub
     End If
@@ -22,8 +39,8 @@ Sub ChangeDesignatorFontSize(dummyVar)
         Call PCBServer.SendMessageToRobots(CompDes.Name.I_ObjectAddress, c_Broadcast, PCBM_BeginModify, c_NoEventData)
 
         ' Set the widths/heights
-        CompDes.Name.Width = MMsToCoord(0.2)
-        CompDes.Name.Size = MMsToCoord(0.7)
+        CompDes.Name.Width = MMsToCoord(EditWidthMm.Text)
+        CompDes.Name.Size = MMsToCoord(EditHeightMm.Text)
 
         Call PCBServer.SendMessageToRobots(CompDes.Name.I_ObjectAddress, c_Broadcast, PCBM_EndModify, c_NoEventData)
 
@@ -35,4 +52,13 @@ Sub ChangeDesignatorFontSize(dummyVar)
     Pcbserver.PostProcess
     Call AddStringParameter("Action", "Redraw")
     'Call RunProcess("PCB:Zoom")
+
+    ' Finally close the form
+    FormResizeDesignators.Close
+
+End Sub
+
+Sub ButtonCancelClick(Sender)
+   ' Just close the form
+   FormResizeDesignators.Close
 End Sub

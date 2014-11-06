@@ -81,7 +81,7 @@ End Sub
 
 Sub MainResizeDesignators(Sender)
     ' Call script
-    ChangeDesignatorFontSize(dummyVar)
+    ResizeDesignators(dummyVar)
 
     ' Close main form for good
     FormMainScript.Close
