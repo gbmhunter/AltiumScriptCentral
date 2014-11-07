@@ -45,7 +45,7 @@ object FormResizeDesignators: TFormResizeDesignators
   end
   object ButtonOk: TButton
     Left = 50
-    Top = 120
+    Top = 152
     Width = 75
     Height = 25
     Caption = 'OK'
@@ -54,11 +54,19 @@ object FormResizeDesignators: TFormResizeDesignators
   end
   object ButtonCancel: TButton
     Left = 170
-    Top = 120
+    Top = 152
     Width = 75
     Height = 25
     Caption = 'Cancel'
     TabOrder = 3
     OnClick = ButtonCancelClick
+  end
+  object CheckBoxOnlyModifyDefaultSizedDesignators: TCheckBox
+    Left = 39
+    Top = 116
+    Width = 217
+    Height = 17
+    Caption = 'Only modify default-sized designators'
+    TabOrder = 4
   end
 end

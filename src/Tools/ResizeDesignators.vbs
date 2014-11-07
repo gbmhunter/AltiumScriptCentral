@@ -7,12 +7,11 @@
 ' @details
 '                     See README.rst in repo root dir for more info.
 
+' @brief    Called when 'Resize Designators' is called from the main AltiumScriptCentral form.
 Function ResizeDesignators(dummyVar)
    ' Show form
    FormResizeDesignators.Show
 End Function
-
-
 
 Sub ButtonOkClick(Sender)
 
@@ -27,6 +26,8 @@ Sub ButtonOkClick(Sender)
         Exit Sub
     End If
 
+    NumDesignatorsModified = 0
+
     Set iterator = board.BoardIterator_Create
     iterator.AddFilter_ObjectSet(MkSet(eComponentObject))
     iterator.AddFilter_LayerSet(AllLayers)
@@ -38,9 +39,19 @@ Sub ButtonOkClick(Sender)
     Do While Not (CompDes Is Nothing)
         Call PCBServer.SendMessageToRobots(CompDes.Name.I_ObjectAddress, c_Broadcast, PCBM_BeginModify, c_NoEventData)
 
-        ' Set the widths/heights
-        CompDes.Name.Width = MMsToCoord(EditWidthMm.Text)
-        CompDes.Name.Size = MMsToCoord(EditHeightMm.Text)
+        If CheckBoxOnlyModifyDefaultSizedDesignators.Checked = True Then
+             If (CompDes.Name.Width = MMsToCoord(0.254)) And (CompDes.Name.Size = MMsToCoord(1.524)) Then
+                  ' Designator IS default sized, so lets change
+                   CompDes.Name.Width = MMsToCoord(EditWidthMm.Text)
+                   CompDes.Name.Size = MMsToCoord(EditHeightMm.Text)
+                   NumDesignatorsModified = NumDesignatorsModified + 1
+             End If
+        Else
+             ' Set the widths/heights
+             CompDes.Name.Width = MMsToCoord(EditWidthMm.Text)
+             CompDes.Name.Size = MMsToCoord(EditHeightMm.Text)
+             NumDesignatorsModified = NumDesignatorsModified + 1
+        End If
 
         Call PCBServer.SendMessageToRobots(CompDes.Name.I_ObjectAddress, c_Broadcast, PCBM_EndModify, c_NoEventData)
 
@@ -52,6 +63,8 @@ Sub ButtonOkClick(Sender)
     Pcbserver.PostProcess
     Call AddStringParameter("Action", "Redraw")
     'Call RunProcess("PCB:Zoom")
+
+    ShowMessage(CStr(NumDesignatorsModified) + " designators modified.")
 
     ' Finally close the form
     FormResizeDesignators.Close
