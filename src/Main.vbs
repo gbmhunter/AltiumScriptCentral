@@ -126,3 +126,16 @@ Sub ButtonViaStamperClick(Sender)
 
     FormMainScript.Close
 End Sub
+
+Sub ButtonDrawHexagonClick(Sender)
+     ' Hide main form
+    'FormMainScript.Hide
+
+    ' Close main form
+    FormMainScript.Close
+
+    ' Call DrawHexagon script
+    DrawHexagon(DummyVar)
+
+
+End Sub

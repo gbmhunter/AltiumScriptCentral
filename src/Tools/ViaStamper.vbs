@@ -13,7 +13,7 @@ Dim Board       ' As IPCB_Board
 ' @brief     Call this from AltiumScriptCentral
 Sub ViaStamper(DummyVar)
 
-        ' Load current board
+    ' Load current board
     If PCBServer Is Nothing Then
         ShowMessage("Not a PCB or Footprint editor activated.")
     End If

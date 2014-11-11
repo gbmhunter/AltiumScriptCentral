@@ -165,4 +165,13 @@ object FormMainScript: TFormMainScript
     TabOrder = 11
     OnClick = ButtonViaStamperClick
   end
+  object ButtonDrawHexagon: TButton
+    Left = 764
+    Top = 502
+    Width = 204
+    Height = 25
+    Caption = 'Draw Hexagon'
+    TabOrder = 12
+    OnClick = ButtonDrawHexagonClick
+  end
 end

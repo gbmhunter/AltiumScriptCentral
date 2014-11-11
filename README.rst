@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-11-11
-- Version: v19.0.0.0
+- Last Modified: 2014-11-12
+- Version: v20.0.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -49,10 +49,11 @@ Filename                                 Description
 ======================================== ==================================================================
 AddSpecialSchParams.vbs						  Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
 DeleteAllSchematicParameters.vbs         Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
-PlaceNettedVia.vbs                       Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless to do a special paste).
+DrawHexagon.vbs                          Allows you to easily draw a hexagon on a PCB.
 PushProjectParametersToSchematics.vbs    Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
 ResizeDesignators.vbs                    Changes the font size (width and height) of all component designators on the PCB.
-RotateDesignators.vbs						  Rotates all PCB component designators so that they are rotated to only 1 of 2 positions. 
+RotateDesignators.vbs						  Rotates all PCB component designators so that they are rotated to only 1 of 2 positions.
+ViaStamper.vbs                           Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless you do a special paste).
 ======================================== ==================================================================
 
 Checks
@@ -109,6 +110,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v20.0.0.0 2014-11-12 Added a "Draw Hexagon" script, closes #139. Re-arranged scripts by alphabetical order in script project, closes #141.
 v19.0.0.0 2014-11-11 Added via stamper script, closes #132. Added space between 'We have PCB access.' and 'PCB access checking complete.' in StdOut, closes #130. Deleted PlaceNettedVia.vbs, closes #133. Fixed bug where CheckTentedVias() crashes if there are no vias on PCB due to divide by 0, closes #134. Fixed image in README that was broken, closes #135.
 v18.3.2.0 2014-11-07 Add ability to only change the size of designators which are currently the default Altium size with the 'Resize Designators' script, closes #129. Report how many designators were changed when 'Resize Designators' is run, closes #131.
 v18.3.1.0 2014-11-07 Forgot to save script project file in previous commit.
