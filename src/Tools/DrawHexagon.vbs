@@ -22,6 +22,9 @@ Sub DrawHexagon(DummyVar)
         Exit Sub
     End If
 
+    ' Get the current PCB layer and populate field on UI
+    EditDrawLayer.Text = Layer2String(Board.CurrentLayer)
+
     ' Display form
     FormDrawHexagon.Show
 End Sub
@@ -31,6 +34,14 @@ Sub ButtonDrawOnPcbClick(Sender)
      RadiusMm = StrToFloat(EditRadiusMm.Text)
      RotationDeg = StrToFloat(EditRotationDeg.Text)
      LineThicknessMm = StrToFloat(EditLineThicknessMm.Text)
+     Layer = String2Layer(EditDrawLayer.Text)
+     If Layer = 0 Then
+          ' Close "DrawHexagon" form and exit
+          ShowMessage("ERROR: Test in 'Draw Layer' box was not a valid layer!")
+          FormDrawHexagon.Close
+          Exit Sub
+     End If
+     'ShowMessage("Layer = " + CStr(Layer))
 
      ' Get the Pi constant, note that VB script has no built-in constant
      ' so this is one of the best ways to do it.
@@ -78,10 +89,7 @@ Sub ButtonDrawOnPcbClick(Sender)
           Track.y2 = ym + MMsToCoord(y2)
 
           Track.Width = MMsToCoord(LineThicknessMm)
-          Track.Layer = eTopLayer
-
-          ' Copy net name to new via
-          'NewVia.Net = exisVia.Net
+          Track.Layer = Layer
 
           ' Add track to PCB
           Board.AddPCBObject(Track)
@@ -108,9 +116,6 @@ Sub ButtonDrawOnPcbClick(Sender)
 
     ' Initialise systems
     Call PCBServer.PostProcess
-
-    ' Close main form
-    'FormMainScript.Close
 
     ' Close "DrawHexagon" form
     FormDrawHexagon.Close

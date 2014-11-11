@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2014-11-12
-- Version: v20.0.0.0
+- Version: v20.1.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -110,7 +110,8 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
-v20.0.0.0 2014-11-12 Added a "Draw Hexagon" script, closes #139. Re-arranged scripts by alphabetical order in script project, closes #141.
+v20.1.0.0 2014-11-12 Added ability for user to change the layer the hexagon is drawn on in the 'DrawHexagon' script, closes #143.
+v20.0.0.0 2014-11-12 Added a 'Draw Hexagon' script, closes #139. Re-arranged scripts by alphabetical order in script project, closes #141.
 v19.0.0.0 2014-11-11 Added via stamper script, closes #132. Added space between 'We have PCB access.' and 'PCB access checking complete.' in StdOut, closes #130. Deleted PlaceNettedVia.vbs, closes #133. Fixed bug where CheckTentedVias() crashes if there are no vias on PCB due to divide by 0, closes #134. Fixed image in README that was broken, closes #135.
 v18.3.2.0 2014-11-07 Add ability to only change the size of designators which are currently the default Altium size with the 'Resize Designators' script, closes #129. Report how many designators were changed when 'Resize Designators' is run, closes #131.
 v18.3.1.0 2014-11-07 Forgot to save script project file in previous commit.

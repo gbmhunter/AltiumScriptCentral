@@ -34,6 +34,13 @@ object FormDrawHexagon: TFormDrawHexagon
     Height = 13
     Caption = 'Line Thickness (mm):'
   end
+  object Label2: TLabel
+    Left = 33
+    Top = 217
+    Width = 59
+    Height = 13
+    Caption = 'Draw Layer:'
+  end
   object EditRadiusMm: TEdit
     Left = 148
     Top = 94
@@ -52,7 +59,7 @@ object FormDrawHexagon: TFormDrawHexagon
   end
   object ButtonDrawOnPcb: TButton
     Left = 107
-    Top = 219
+    Top = 259
     Width = 165
     Height = 25
     Caption = 'Draw On PCB'
@@ -101,11 +108,28 @@ object FormDrawHexagon: TFormDrawHexagon
   end
   object ButtonCancel: TButton
     Left = 315
-    Top = 219
+    Top = 259
     Width = 165
     Height = 25
     Caption = 'Cancel'
     TabOrder = 7
     OnClick = ButtonCancelClick
+  end
+  object EditDrawLayer: TEdit
+    Left = 148
+    Top = 214
+    Width = 121
+    Height = 21
+    TabOrder = 8
+    Text = 'TopLayer'
+  end
+  object Memo4: TMemo
+    Left = 283
+    Top = 211
+    Width = 250
+    Height = 21
+    Lines.Strings = (
+      'PCB layer to draw the hexagon onto.')
+    TabOrder = 9
   end
 end
