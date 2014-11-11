@@ -31,7 +31,10 @@ End Sub
 
 Sub ButtonDrawOnPcbClick(Sender)
      ' Get values from input boxes
-     RadiusMm = StrToFloat(EditRadiusMm.Text)
+     VertexRadiusSelected = RadioButtonVertexRadiusMm.Checked
+     VertexRadiusMm = StrToFloat(EditVertexRadiusMm.Text)
+     EdgeRadiusSelected = RadioButtonEdgeRadiusMm.Checked
+     EdgeRadiusMm = StrToFloat(EditEdgeRadiusMm.Text)
      RotationDeg = StrToFloat(EditRotationDeg.Text)
      LineThicknessMm = StrToFloat(EditLineThicknessMm.Text)
      Layer = String2Layer(EditDrawLayer.Text)
@@ -54,11 +57,19 @@ Sub ButtonDrawOnPcbClick(Sender)
      Call PCBServer.PreProcess
 
      ' Get first points
-     x1 = -RadiusMm * sin(30*Pi/180)
-     y1 = RadiusMm * cos(30*Pi/180)
+     If VertexRadiusSelected Then
+        x1 = -VertexRadiusMm * sin(30*Pi/180)
+        y1 = VertexRadiusMm * cos(30*Pi/180)
 
-     x2 = RadiusMm * sin(30*Pi/180)
-     y2 = RadiusMm * cos(30*Pi/180)
+        x2 = VertexRadiusMm * sin(30*Pi/180)
+        y2 = VertexRadiusMm * cos(30*Pi/180)
+     ElseIf EdgeRadiusSelected Then
+        x1 = -EdgeRadiusMm * tan(30*Pi/180)
+        y1 = EdgeRadiusMm
+
+        x2 = EdgeRadiusMm * tan(30*Pi/180)
+        y2 = EdgeRadiusMm
+     End If
 
      ' Perform initial rotation as user specified
      newX1 = x1*cos(RotationDeg*Pi/180) + y1*sin(RotationDeg*Pi/180)
