@@ -156,4 +156,13 @@ object FormMainScript: TFormMainScript
     TabOrder = 10
     OnClick = ButtonDisplayPcbStatsClick
   end
+  object ButtonViaStamper: TButton
+    Left = 764
+    Top = 462
+    Width = 204
+    Height = 26
+    Caption = 'Via Stamper'
+    TabOrder = 11
+    OnClick = ButtonViaStamperClick
+  end
 end

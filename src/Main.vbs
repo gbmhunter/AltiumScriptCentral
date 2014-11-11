@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-04
+' @last-modified      2014-11-11
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -21,27 +21,31 @@ Sub ButtonRunPrereleaseChecksClick(Sender)
 
     ' PROJECT
     ' Important to check if project compiles first
-    If CheckProjectCompiles(dummyVar) = False Then
+    If CheckProjectCompiles(DummyVar) = False Then
         Exit Sub
     End If
 
     ' SCHEMATICS
-    PowerPortChecker(dummyVar)
-    CheckNoSupplierPartNumShown(dummyVar)
-    ComponentValidator(dummyVar)
+    PowerPortChecker(DummyVar)
+    CheckNoSupplierPartNumShown(DummyVar)
+    ComponentValidator(DummyVar)
 
     ' ===== PCB =====
 
     ' First we want to make sure we have access to a PCB document
-    If CheckWeHavePcbDocAccess(dummyVar) = False Then
+    If CheckWeHavePcbDocAccess(DummyVar) = False Then
        Exit Sub
     End If
 
     ' Since we have access, we can now run all PCB checks
-    CheckLayers(dummyVar)
-    CheckTentedVias(dummyVar)
-    CheckNameVersionDate(dummyVar)
-    CheckPcbTextHasCorrectOrientation(dummyVar)
+    CheckLayers(DummyVar)
+    CheckTentedVias(DummyVar)
+    CheckNameVersionDate(DummyVar)
+    CheckPcbTextHasCorrectOrientation(DummyVar)
+    ' 2014-11-11: CheckComponentLinks() doesn't actually check the links automatically, it
+    ' just opens up the component link window for the user, so I've commented this
+    ' script out
+    'CheckComponentLinks(DummyVar)
 End Sub
 
 Sub MainPushProjectParametersToSchematics(Sender)
@@ -110,4 +114,15 @@ End Sub
 Sub ButtonDisplayPcbStatsClick(Sender)
     ' Call external script
     DisplayPcbStats(dummyVar)
+End Sub
+
+Sub ButtonViaStamperClick(Sender)
+
+    ' Close main form for good
+    FormMainScript.Hide
+
+    ' Call via stamper script
+    ViaStamper(DummyVar)
+
+    FormMainScript.Close
 End Sub

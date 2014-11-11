@@ -1,4 +1,13 @@
-Sub CheckComponentLinks(dummyVar)
+'
+' @file               CheckComponentLinks.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-04-13
+' @last-modified      2014-11-11
+' @brief              Script checks component links.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+Sub CheckComponentLinks(DummyVar)
 
     Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject

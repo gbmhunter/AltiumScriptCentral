@@ -1,4 +1,13 @@
-Sub CheckTentedVias(dummyVar)
+'
+' @file               CheckTentedVias.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-11-11
+' @brief              Script that checks to make sure that most vias are tented on the PCB.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+Sub CheckTentedVias(DummyVar)
     Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject
     Dim document            'As IDocument
@@ -10,11 +19,11 @@ Sub CheckTentedVias(dummyVar)
     Dim nonTentedViaCount   'As Integer
 
     ' Zero count variables
-    tentedViaCount = 0
-    nonTentedViaCount = 0
+    TentedViaCount = 0
+    NonTentedViaCount = 0
 
     StdOut("Checking tented vias...")
-    violationCnt = 0
+    ViolationCnt = 0
 
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
@@ -24,23 +33,23 @@ Sub CheckTentedVias(dummyVar)
     End If
 
     ' Get pcb project interface
-    Set workspace = GetWorkspace
-    Set pcbProject = workspace.DM_FocusedProject
+    Set Workspace = GetWorkspace
+    Set PcbProject = Workspace.DM_FocusedProject
 
-    IF pcbProject Is Nothing Then
+    If PcbProject Is Nothing Then
         StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
         StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
 
     ' Loop through all project documents
-    For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
-        Set document = pcbProject.DM_LogicalDocuments(docNum)
+    For DocNum = 0 To PcbProject.DM_LogicalDocumentCount - 1
+        Set Document = PcbProject.DM_LogicalDocuments(docNum)
         ' ShowMessage(document.DM_DocumentKind)
         ' If this is PCB document
-        If document.DM_DocumentKind = "PCB" Then
+        If Document.DM_DocumentKind = "PCB" Then
             ' ShowMessage('PCB Found');
-            Set pcbBoard = PCBServer.GetPCBBoardByPath(document.DM_FullPath)
+            Set PcbBoard = PCBServer.GetPCBBoardByPath(document.DM_FullPath)
             Exit For
         End If
     Next
@@ -49,51 +58,55 @@ Sub CheckTentedVias(dummyVar)
     ' be open to work)
     'pcbBoard := pcbProject.DM_TopLevelPhysicalDocument;
 
-    If pcbBoard Is Nothing Then
+    If PcbBoard Is Nothing Then
         StdErr("ERROR: No PCB document found. Path used = " + document.DM_FullPath + "." + vbCr + vbLf)
         StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
 
-    Dim pcbIterator
-
     ' Get iterator, limiting search to mech 1 layer
-    Set pcbIterator = pcbBoard.BoardIterator_Create
-    If pcbIterator Is Nothing Then
+    Set PcbIterator = PcbBoard.BoardIterator_Create
+    If PcbIterator Is Nothing Then
         StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
         StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
 
-    pcbIterator.AddFilter_ObjectSet(MkSet(eViaObject))
-    pcbIterator.AddFilter_LayerSet(AllLayers)
-    pcbIterator.AddFilter_Method(eProcessAll)
+    PcbIterator.AddFilter_ObjectSet(MkSet(eViaObject))
+    PcbIterator.AddFilter_LayerSet(AllLayers)
+    PcbIterator.AddFilter_Method(eProcessAll)
 
     ' Search  and  count  pads
-    Set pcbObject =  pcbIterator.FirstPCBObject
-    While Not(pcbObject Is Nothing)
+    Set PcbObject = PcbIterator.FirstPCBObject
+    While Not(PcbObject Is Nothing)
         ' Make sure that only tracks/arcs are present on this layer
         'StdOut("Exp = " + IntToStr(pcbObject.Cache.SolderMaskExpansion) + ",")
         'StdOut("Valid = " + IntToStr(pcbObject.Cache.SolderMaskExpansionValid) + ";")
 
-        If pcbObject.Cache.SolderMaskExpansion*2 <= -pcbObject.Size Then
+        If PcbObject.Cache.SolderMaskExpansion*2 <= -PcbObject.Size Then
             ' Via is tented (both sides)
-            tentedViaCount = tentedViaCount + 1
+            TentedViaCount = RentedViaCount + 1
         Else
             ' Via is not tented (on both sides)
-            nonTentedViaCount = nonTentedViaCount + 1
+            NonTentedViaCount = NonTentedViaCount + 1
         End If
 
-        Set pcbObject =  pcbIterator.NextPCBObject
+        Set PcbObject =  PcbIterator.NextPCBObject
     WEnd
 
-    pcbBoard.BoardIterator_Destroy(pcbIterator)
+    PcbBoard.BoardIterator_Destroy(pcbIterator)
 
     'StdOut("Num. tented vias = " + IntToStr(tentedViaCount) + "." + vbCr + vbLf)
     'StdOut("Num. non-tented vias = " + IntToStr(nonTentedViaCount) + "." + vbCr + vbLf)
 
     ' Calc percentage
-    tentedViaRatio = tentedViaCount / (tentedViaCount + nonTentedViaCount)
+    If TentedViaCount + NonTentedViaCount = 0 Then
+         ' This would could divide by 0 error, so let's set this to 1
+         TentedViaRatio = 1
+    Else
+        ' Denominator is not 0, so safe to divide
+        TentedViaRatio = TentedViaCount / (TentedViaCount + NonTentedViaCount)
+    End If
 
     ' Output
     StdOut("Tented via ratio = " + FormatNumber(tentedViaRatio) + ". Tented via check complete." + vbCr + vbLf)

@@ -6,14 +6,14 @@ AltiumScriptCentral
 A collection of useful Altium scripts, written in VBScript.
 -----------------------------------------------------------
 
-.. image:: https://github.com/gbmhunter/AltiumScriptCentral/raw/master/images/script-central-screenshot.png
+.. image:: https://cloud.githubusercontent.com/assets/2396869/4988032/025f32f6-69c1-11e4-8062-de62da2fbb97.png
 	:height: 500px
 	:align: right
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-11-07
-- Version: v18.3.2.0
+- Last Modified: 2014-11-11
+- Version: v19.0.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -109,6 +109,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v19.0.0.0 2014-11-11 Added via stamper script, closes #132. Added space between 'We have PCB access.' and 'PCB access checking complete.' in StdOut, closes #130. Deleted PlaceNettedVia.vbs, closes #133. Fixed bug where CheckTentedVias() crashes if there are no vias on PCB due to divide by 0, closes #134. Fixed image in README that was broken, closes #135.
 v18.3.2.0 2014-11-07 Add ability to only change the size of designators which are currently the default Altium size with the 'Resize Designators' script, closes #129. Report how many designators were changed when 'Resize Designators' is run, closes #131.
 v18.3.1.0 2014-11-07 Forgot to save script project file in previous commit.
 v18.3.0.0 2014-11-07 Add ability to specify designator height and width for the 'Resize Designators' option, closes #128. Renamed 'src/Tools/ChangeDesignatorFontSize.vbs' to 'src/Tools/ResizeDesignators.vbs'. Tidied up table formatting in README.
