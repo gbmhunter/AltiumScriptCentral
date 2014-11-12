@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-11
+' @last-modified      2014-11-12
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -127,15 +127,10 @@ Sub ButtonViaStamperClick(Sender)
     FormMainScript.Close
 End Sub
 
-Sub ButtonDrawHexagonClick(Sender)
-     ' Hide main form
-    'FormMainScript.Hide
-
+Sub ButtonDrawPolygonClick(Sender)
     ' Close main form
     FormMainScript.Close
 
-    ' Call DrawHexagon script
-    DrawHexagon(DummyVar)
-
-
+    ' Call DrawPolygon script
+    DrawPolygon(DummyVar)
 End Sub

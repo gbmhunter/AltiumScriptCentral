@@ -1,15 +1,16 @@
 '                                                                                                                 '
-' @file               DrawHexagon.vbs
+' @file               DrawPolygon.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
 ' @last-modified      2014-11-12
-' @brief              Script draws a hexagon made from tracks.
+' @brief              Script draws a polygon made from tracks.
+'                     Ability to specify the number of edges, track width, rotation, e.t.c.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
 Dim Board
 
-Sub DrawHexagon(DummyVar)
+Sub DrawPolygon(DummyVar)
 
     ' Load current board
     If PCBServer Is Nothing Then
@@ -26,11 +27,37 @@ Sub DrawHexagon(DummyVar)
     EditDrawLayer.Text = Layer2String(Board.CurrentLayer)
 
     ' Display form
-    FormDrawHexagon.Show
+    FormDrawPolygon.Show
 End Sub
 
 Sub ButtonDrawOnPcbClick(Sender)
-     ' Get values from input boxes
+
+     '========== RETRIEVE AND VALIDATE USER INPUT ==========
+
+     NumEdges = EditNumEdges.Text
+     ' Validate
+     If IsNumeric(NumEdges) Then
+          ' Here, it still could be an integer or a floating point number
+          If Not CStr(CLng(NumEdges)) = NumEdges Then
+               ' Number is not an integer
+               ShowMessage("ERROR: Num. Edges input must be an integer")
+               FormDrawPolygon.Close
+               Exit Sub
+          End If
+     Else
+         ' Number is not an integer
+         ShowMessage("ERROR: Num. Edges input must be an integer")
+         FormDrawPolygon.Close
+         Exit Sub
+     End If
+
+     If NumEdges < 3 Then
+         ' Number is not an integer
+         ShowMessage("ERROR: Num. Edges input must be equal to or greater than 3.")
+         FormDrawPolygon.Close
+         Exit Sub
+     End If
+
      VertexRadiusSelected = RadioButtonVertexRadiusMm.Checked
      VertexRadiusMm = StrToFloat(EditVertexRadiusMm.Text)
      EdgeRadiusSelected = RadioButtonEdgeRadiusMm.Checked
@@ -39,9 +66,9 @@ Sub ButtonDrawOnPcbClick(Sender)
      LineThicknessMm = StrToFloat(EditLineThicknessMm.Text)
      Layer = String2Layer(EditDrawLayer.Text)
      If Layer = 0 Then
-          ' Close "DrawHexagon" form and exit
+          ' Show error msg, close "DrawPolygon" form and exit
           ShowMessage("ERROR: Test in 'Draw Layer' box was not a valid layer!")
-          FormDrawHexagon.Close
+          FormDrawPolygon.Close
           Exit Sub
      End If
      'ShowMessage("Layer = " + CStr(Layer))
@@ -56,18 +83,22 @@ Sub ButtonDrawOnPcbClick(Sender)
      ' Initialise systems
      Call PCBServer.PreProcess
 
+     ' Calculate the sector angle. This is the angle a single sector of the polygon encompasses, as
+     ' measured around the origin of the polygon.
+     SectorAngle = 360.0/NumEdges
+
      ' Get first points
      If VertexRadiusSelected Then
-        x1 = -VertexRadiusMm * sin(30*Pi/180)
-        y1 = VertexRadiusMm * cos(30*Pi/180)
+        x1 = -VertexRadiusMm * sin((SectorAngle/2)*Pi/180)
+        y1 = VertexRadiusMm * cos((SectorAngle/2)*Pi/180)
 
-        x2 = VertexRadiusMm * sin(30*Pi/180)
-        y2 = VertexRadiusMm * cos(30*Pi/180)
+        x2 = VertexRadiusMm * sin((SectorAngle/2)*Pi/180)
+        y2 = VertexRadiusMm * cos((SectorAngle/2)*Pi/180)
      ElseIf EdgeRadiusSelected Then
-        x1 = -EdgeRadiusMm * tan(30*Pi/180)
+        x1 = -EdgeRadiusMm * tan((SectorAngle/2)*Pi/180)
         y1 = EdgeRadiusMm
 
-        x2 = EdgeRadiusMm * tan(30*Pi/180)
+        x2 = EdgeRadiusMm * tan((SectorAngle/2)*Pi/180)
         y2 = EdgeRadiusMm
      End If
 
@@ -85,7 +116,7 @@ Sub ButtonDrawOnPcbClick(Sender)
 
 
      ' Create each track seperately
-     For index = 0 To 5
+     For index = 0 To (NumEdges - 1)
 
           ' Create a new via object
           Track = PCBServer.PCBObjectFactory(eTrackObject, eNoDimension, eCreate_Default)
@@ -106,11 +137,11 @@ Sub ButtonDrawOnPcbClick(Sender)
           Board.AddPCBObject(Track)
 
           ' Rotate points for next iteration of loop
-          newX1 = x1*cos(60*Pi/180) + y1*sin(60*Pi/180)
-          newY1 = -x1*sin(60*Pi/180) + y1*cos(60*Pi/180)
+          newX1 = x1*cos(SectorAngle*Pi/180) + y1*sin(SectorAngle*Pi/180)
+          newY1 = -x1*sin(SectorAngle*Pi/180) + y1*cos(SectorAngle*Pi/180)
 
-          newX2 = x2*cos(60*Pi/180) + y2*sin(60*Pi/180)
-          newY2 = -x2*sin(60*Pi/180) + y2*cos(60*Pi/180)
+          newX2 = x2*cos(SectorAngle*Pi/180) + y2*sin(SectorAngle*Pi/180)
+          newY2 = -x2*sin(SectorAngle*Pi/180) + y2*cos(SectorAngle*Pi/180)
 
           x1 = newX1
           y1 = newY1
@@ -129,11 +160,11 @@ Sub ButtonDrawOnPcbClick(Sender)
     Call PCBServer.PostProcess
 
     ' Close "DrawHexagon" form
-    FormDrawHexagon.Close
+    FormDrawPolygon.Close
 
 End Sub
 
 Sub ButtonCancelClick(Sender)
     ' Close "DrawHexagon" form
-    FormDrawHexagon.Close
+    FormDrawPolygon.Close
 End Sub

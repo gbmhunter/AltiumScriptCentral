@@ -258,7 +258,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document14]
-DocumentPath=src\Tools\DrawHexagon.vbs
+DocumentPath=src\Tools\DrawPolygon.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0

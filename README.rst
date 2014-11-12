@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2014-11-12
-- Version: v20.2.0.0
+- Version: v20.3.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -49,7 +49,7 @@ Filename                                 Description
 ======================================== ==================================================================
 AddSpecialSchParams.vbs						  Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
 DeleteAllSchematicParameters.vbs         Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
-DrawHexagon.vbs                          Allows you to easily draw a hexagon on a PCB.
+DrawPolygon.vbs                          Allows you to easily draw a polygon on a PCB. You can specify the number of sides, the track width, the rotation, and more.
 PushProjectParametersToSchematics.vbs    Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
 ResizeDesignators.vbs                    Changes the font size (width and height) of all component designators on the PCB.
 RotateDesignators.vbs						  Rotates all PCB component designators so that they are rotated to only 1 of 2 positions.
@@ -110,6 +110,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v20.3.0.0 2014-11-12 Converted the 'DrawHexagon' script into a 'DrawPolygon' script, closes #144.
 v20.2.0.0 2014-11-12 Added the option for user to specify the radius to vertex or radius to edge in the 'DrawHexagon' script, closes #142.
 v20.1.0.0 2014-11-12 Added ability for user to change the layer the hexagon is drawn on in the 'DrawHexagon' script, closes #143.
 v20.0.0.0 2014-11-12 Added a 'Draw Hexagon' script, closes #139. Re-arranged scripts by alphabetical order in script project, closes #141.
