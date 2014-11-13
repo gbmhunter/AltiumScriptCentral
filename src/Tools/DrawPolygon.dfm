@@ -2,7 +2,7 @@ object FormDrawPolygon: TFormDrawPolygon
   Left = 0
   Top = 0
   Caption = 'Draw Polygon'
-  ClientHeight = 489
+  ClientHeight = 548
   ClientWidth = 575
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,7 +15,7 @@ object FormDrawPolygon: TFormDrawPolygon
   TextHeight = 13
   object LabelRotationDeg: TLabel
     Left = 33
-    Top = 273
+    Top = 313
     Width = 74
     Height = 13
     Caption = 'Rotation (deg):'
@@ -29,7 +29,7 @@ object FormDrawPolygon: TFormDrawPolygon
   end
   object Label2: TLabel
     Left = 33
-    Top = 345
+    Top = 385
     Width = 59
     Height = 13
     Caption = 'Draw Layer:'
@@ -51,7 +51,7 @@ object FormDrawPolygon: TFormDrawPolygon
   end
   object EditRotationDeg: TEdit
     Left = 148
-    Top = 270
+    Top = 310
     Width = 121
     Height = 21
     TabOrder = 1
@@ -59,7 +59,7 @@ object FormDrawPolygon: TFormDrawPolygon
   end
   object ButtonDrawOnPcb: TButton
     Left = 107
-    Top = 387
+    Top = 427
     Width = 165
     Height = 25
     Caption = 'Draw On PCB'
@@ -96,7 +96,7 @@ object FormDrawPolygon: TFormDrawPolygon
   end
   object Memo3: TMemo
     Left = 283
-    Top = 267
+    Top = 307
     Width = 250
     Height = 63
     Lines.Strings = (
@@ -108,7 +108,7 @@ object FormDrawPolygon: TFormDrawPolygon
   end
   object ButtonCancel: TButton
     Left = 315
-    Top = 387
+    Top = 427
     Width = 165
     Height = 25
     Caption = 'Cancel'
@@ -117,7 +117,7 @@ object FormDrawPolygon: TFormDrawPolygon
   end
   object EditDrawLayer: TEdit
     Left = 148
-    Top = 342
+    Top = 382
     Width = 121
     Height = 21
     TabOrder = 8
@@ -125,7 +125,7 @@ object FormDrawPolygon: TFormDrawPolygon
   end
   object Memo4: TMemo
     Left = 283
-    Top = 339
+    Top = 379
     Width = 250
     Height = 21
     Lines.Strings = (
@@ -186,5 +186,30 @@ object FormDrawPolygon: TFormDrawPolygon
       'have (e.g. 3 for a triangle, 4 for a square, 8 for '
       'an octagon). Must be equal to or greater than 3.')
     TabOrder = 15
+  end
+  object RadioButtonEdgeLengthMm: TRadioButton
+    Left = 15
+    Top = 263
+    Width = 113
+    Height = 17
+    Caption = 'Edge Length (mm):'
+    TabOrder = 16
+  end
+  object EditEdgeLengthMm: TEdit
+    Left = 148
+    Top = 262
+    Width = 121
+    Height = 21
+    TabOrder = 17
+    Text = '10'
+  end
+  object Memo7: TMemo
+    Left = 283
+    Top = 259
+    Width = 250
+    Height = 42
+    Lines.Strings = (
+      'The length of one of the edges of the polygon.')
+    TabOrder = 18
   end
 end

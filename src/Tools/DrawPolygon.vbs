@@ -2,7 +2,7 @@
 ' @file               DrawPolygon.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2014-11-12
+' @last-modified      2014-11-14
 ' @brief              Script draws a polygon made from tracks.
 '                     Ability to specify the number of edges, track width, rotation, e.t.c.
 ' @details
@@ -59,9 +59,9 @@ Sub ButtonDrawOnPcbClick(Sender)
      End If
 
      VertexRadiusSelected = RadioButtonVertexRadiusMm.Checked
-     VertexRadiusMm = StrToFloat(EditVertexRadiusMm.Text)
      EdgeRadiusSelected = RadioButtonEdgeRadiusMm.Checked
-     EdgeRadiusMm = StrToFloat(EditEdgeRadiusMm.Text)
+     EdgeLengthSelected = RadioButtonEdgeLengthMm.Checked
+
      RotationDeg = StrToFloat(EditRotationDeg.Text)
      LineThicknessMm = StrToFloat(EditLineThicknessMm.Text)
      Layer = String2Layer(EditDrawLayer.Text)
@@ -87,19 +87,29 @@ Sub ButtonDrawOnPcbClick(Sender)
      ' measured around the origin of the polygon.
      SectorAngle = 360.0/NumEdges
 
-     ' Get first points
+     ' Get first points, this depends on the method choosen to define the
+     ' polygon's size
      If VertexRadiusSelected Then
+        VertexRadiusMm = StrToFloat(EditVertexRadiusMm.Text)
         x1 = -VertexRadiusMm * sin((SectorAngle/2)*Pi/180)
         y1 = VertexRadiusMm * cos((SectorAngle/2)*Pi/180)
 
         x2 = VertexRadiusMm * sin((SectorAngle/2)*Pi/180)
         y2 = VertexRadiusMm * cos((SectorAngle/2)*Pi/180)
      ElseIf EdgeRadiusSelected Then
+        EdgeRadiusMm = StrToFloat(EditEdgeRadiusMm.Text)
         x1 = -EdgeRadiusMm * tan((SectorAngle/2)*Pi/180)
         y1 = EdgeRadiusMm
 
         x2 = EdgeRadiusMm * tan((SectorAngle/2)*Pi/180)
         y2 = EdgeRadiusMm
+     ElseIf EdgeLengthSelected Then
+        EdgeLengthMm = StrToFloat(EditEdgeLengthMm.Text)
+        x1 = -EdgeLengthMm/2
+        y1 = EdgeLengthMm/(2*tan((SectorAngle/2)*Pi/180))
+
+        x2 = EdgeLengthMm/2
+        y2 = EdgeLengthMm/(2*tan((SectorAngle/2)*Pi/180))
      End If
 
      ' Perform initial rotation as user specified
