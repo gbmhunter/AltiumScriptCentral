@@ -2,7 +2,7 @@
 ' @file               DrawPolygon.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2014-11-14
+' @last-modified      2014-11-15
 ' @brief              Script draws a polygon made from tracks.
 '                     Ability to specify the number of edges, track width, rotation, e.t.c.
 ' @details
@@ -36,25 +36,13 @@ Sub ButtonDrawOnPcbClick(Sender)
 
      NumEdges = EditNumEdges.Text
      ' Validate
-     If IsNumeric(NumEdges) Then
-          ' Here, it still could be an integer or a floating point number
-          If Not CStr(CLng(NumEdges)) = NumEdges Then
-               ' Number is not an integer
-               ShowMessage("ERROR: Num. Edges input must be an integer")
-               FormDrawPolygon.Close
-               Exit Sub
-          End If
-     Else
-         ' Number is not an integer
-         ShowMessage("ERROR: Num. Edges input must be an integer")
-         FormDrawPolygon.Close
-         Exit Sub
+     If Not IsInt(NumEdges) Then
+          ShowMessage("ERROR: Num. Edges input must be an integer")
+          Exit Sub
      End If
 
      If NumEdges < 3 Then
-         ' Number is not an integer
          ShowMessage("ERROR: Num. Edges input must be equal to or greater than 3.")
-         FormDrawPolygon.Close
          Exit Sub
      End If
 

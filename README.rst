@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-11-14
-- Version: v20.4.0.0
+- Last Modified: 2014-11-15
+- Version: v20.4.1.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -110,6 +110,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v20.4.1.0 2014-11-15 Removed images from repo, they are now stored in the GitHub issues, closes #138. Moved the integer checker function into it's own file, 'Utils/Utils.vbs'.
 v20.4.0.0 2014-11-14 Added ability to specify polygon by length of one edge in the 'DrawPolygon' script, closes #147.
 v20.3.0.0 2014-11-12 Converted the 'DrawHexagon' script into a 'DrawPolygon' script, closes #144.
 v20.2.0.0 2014-11-12 Added the option for user to specify the radius to vertex or radius to edge in the 'DrawHexagon' script, closes #142.
