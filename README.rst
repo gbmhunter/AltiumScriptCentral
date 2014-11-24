@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-11-15
-- Version: v20.4.1.0
+- Last Modified: 2014-11-24
+- Version: v21.0.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -47,7 +47,8 @@ Tools are designed to automate some process in Altium. All are located in :code:
 ======================================== ==================================================================
 Filename                                 Description
 ======================================== ==================================================================
-AddSpecialSchParams.vbs						  Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
+AddSpecialSchParams.vbs                  Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
+CurrentCalculator.vbs                    Allows the user to calculate the the maximum allowed current of a particular track on a PCB for a given temperature rise.
 DeleteAllSchematicParameters.vbs         Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
 DrawPolygon.vbs                          Allows you to easily draw a polygon on a PCB. You can specify the number of sides, the track width, the rotation, and more.
 PushProjectParametersToSchematics.vbs    Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
@@ -110,6 +111,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v21.0.0.0 2014-11-24 Added a script which calculates the track/trace current for a given temperature rise, closes #149.
 v20.4.1.0 2014-11-15 Removed images from repo, they are now stored in the GitHub issues, closes #138. Moved the integer checker function into it's own file, 'Utils/Utils.vbs'.
 v20.4.0.0 2014-11-14 Added ability to specify polygon by length of one edge in the 'DrawPolygon' script, closes #147.
 v20.3.0.0 2014-11-12 Converted the 'DrawHexagon' script into a 'DrawPolygon' script, closes #144.

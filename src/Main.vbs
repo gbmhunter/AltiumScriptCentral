@@ -134,3 +134,13 @@ Sub ButtonDrawPolygonClick(Sender)
     ' Call DrawPolygon script
     DrawPolygon(DummyVar)
 End Sub
+
+Sub ButtonCurrentCalculatorClick(Sender)
+
+     ' Close main form for good
+    FormMainScript.Hide
+    ' Close main form
+    FormMainScript.Close
+
+    Call CurrentCalculator(DummyVar)
+End Sub

@@ -174,4 +174,13 @@ object FormMainScript: TFormMainScript
     TabOrder = 12
     OnClick = ButtonDrawPolygonClick
   end
+  object ButtonCurrentCalculator: TButton
+    Left = 764
+    Top = 542
+    Width = 204
+    Height = 26
+    Caption = 'Current Calculator'
+    TabOrder = 13
+    OnClick = ButtonCurrentCalculatorClick
+  end
 end
