@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2014-11-24
-- Version: v21.0.0.0
+- Version: v21.0.0.1
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -39,26 +39,74 @@ Main.dfm                                 Form information for the main script (t
 Main.vbs                                 This is the main script which when run will load up a form that can run all of the other scripts.
 ======================================== ==================================================================
 
-Tools
------
 
-Tools are designed to automate some process in Altium. All are located in :code:`src/Tools/`.
+Schematic Tools
+===============
 
-======================================== ==================================================================
-Filename                                 Description
-======================================== ==================================================================
-AddSpecialSchParams.vbs                  Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
-CurrentCalculator.vbs                    Allows the user to calculate the the maximum allowed current of a particular track on a PCB for a given temperature rise.
-DeleteAllSchematicParameters.vbs         Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
-DrawPolygon.vbs                          Allows you to easily draw a polygon on a PCB. You can specify the number of sides, the track width, the rotation, and more.
-PushProjectParametersToSchematics.vbs    Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
-ResizeDesignators.vbs                    Changes the font size (width and height) of all component designators on the PCB.
-RotateDesignators.vbs						  Rotates all PCB component designators so that they are rotated to only 1 of 2 positions.
-ViaStamper.vbs                           Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless you do a special paste).
-======================================== ==================================================================
+Add Special Schematic Parameters
+--------------------------------
+
+File: src/Tools/AddSpecialSchParam.vbs
+
+Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
+
+Delete All Schematic Parameters
+-------------------------------
+
+File: src/Tools/DeleteAllSchematicParameters.vbs
+
+Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
+
+Push Project Parameters To Schematics
+-------------------------------------
+
+File: src/Tools/PushProjectParametersToSchematics.vbs
+
+Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
+
+PCB Tools
+=========
+
+Current Calculator
+------------------
+
+File: src/Tools/CurrentCalculator.vbs
+
+Allows the user to calculate the the maximum allowed current of a particular track on a PCB for a given temperature rise. Calculated in accordance with the equations in IPC-2221A Section 6.2 (formerly IPC-D-275).
+
+Based on the calculator found at `http://www.mbedded.ninja/online-calculators/pcb-design/track-width-calculator 
+<http://www.mbedded.ninja/online-calculators/pcb-design/track-width-calculator>`_.
+
+Draw Polygon
+------------
+
+File: src/Tools/DrawPolygon.vbs
+
+Allows you to easily draw a polygon on a PCB. You can specify the number of sides, the track width, the rotation, and more.
+
+Resize Designators
+------------------
+
+File: src/Tools/ResizeDesignators.vbs
+
+Changes the font size (width and height) of all component designators on the PCB.
+
+Rotate Designators
+------------------
+
+File: src/Tools/RotateDesignators.vbs
+
+Rotates all PCB component designators so that they are rotated to only 1 of 2 positions.
+
+Via Stamper
+-----------
+
+File: src/Tools/ViaStamper.vbs
+
+Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless you do a special paste).
 
 Checks
-------------------
+======
 
 Checks are scripts designed to be run before the board is released to the manufacturer. All are located in :code:`src/Checks/`. 
 
@@ -87,7 +135,7 @@ Filename                                 Description
 ComponentValidator.vbs                   This is essentially the "main" file for the component validators. It is called by Main.vbs and in turn calls the individual component validator files, once it recognises a valid designator (the valid designators are contained in Config.vbs).
 ValidateCapacitor.vbs                    Makes sure that all the capacitors on the schematic are showing the correct parameters.
 ValidateInductor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
-ValidateResistor.vbs	                    Makes sure that all the inductors on the schematic are showing the correct parameters.
+ValidateResistor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
 ======================================== ==================================================================
 
 Statistics
@@ -111,6 +159,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v21.0.0.1 2014-11-24 Added 'based on calculator found at...' in README for 'Current Calculator', closes #150. Rearranged README with better script module descriptions, closes #151.
 v21.0.0.0 2014-11-24 Added a script which calculates the track/trace current for a given temperature rise, closes #149.
 v20.4.1.0 2014-11-15 Removed images from repo, they are now stored in the GitHub issues, closes #138. Moved the integer checker function into it's own file, 'Utils/Utils.vbs'.
 v20.4.0.0 2014-11-14 Added ability to specify polygon by length of one edge in the 'DrawPolygon' script, closes #147.
