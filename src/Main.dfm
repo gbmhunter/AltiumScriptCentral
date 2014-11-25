@@ -2,8 +2,8 @@ object FormMainScript: TFormMainScript
   Left = 0
   Top = 0
   Caption = 'Altium Script Central'
-  ClientHeight = 758
-  ClientWidth = 1060
+  ClientHeight = 412
+  ClientWidth = 973
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,12 +14,12 @@ object FormMainScript: TFormMainScript
   OnCreate = FormMain_Create
   PixelsPerInch = 96
   TextHeight = 13
-  object lblErrors: TLabel
-    Left = 50
-    Top = 396
-    Width = 98
+  object Label2: TLabel
+    Left = 730
+    Top = 20
+    Width = 159
     Height = 39
-    Caption = 'Errors'
+    Caption = 'PCB Tools'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -32
@@ -28,11 +28,11 @@ object FormMainScript: TFormMainScript
     ParentFont = False
   end
   object Label1: TLabel
-    Left = 42
-    Top = 92
-    Width = 101
+    Left = 362
+    Top = 20
+    Width = 261
     Height = 39
-    Caption = 'Status'
+    Caption = 'Schematic Tools'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -32
@@ -40,12 +40,12 @@ object FormMainScript: TFormMainScript
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label2: TLabel
-    Left = 762
-    Top = 92
-    Width = 86
+  object Label3: TLabel
+    Left = 66
+    Top = 20
+    Width = 211
     Height = 39
-    Caption = 'Tools'
+    Caption = 'Project Tools'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -32
@@ -53,134 +53,139 @@ object FormMainScript: TFormMainScript
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object ButtonRunPrereleaseChecks: TButton
-    Left = 266
-    Top = 48
-    Width = 206
-    Height = 48
-    Caption = 'Run Pre-release Checks'
-    TabOrder = 0
-    OnClick = ButtonRunPrereleaseChecksClick
+  object Panel3: TPanel
+    Left = 658
+    Top = 64
+    Width = 286
+    Height = 272
+    ParentBackground = False
+    TabOrder = 14
   end
-  object MemoStdOut: TMemo
-    Left = 41
-    Top = 133
-    Width = 655
-    Height = 259
-    ScrollBars = ssVertical
-    TabOrder = 1
+  object Panel2: TPanel
+    Left = 346
+    Top = 64
+    Width = 286
+    Height = 272
+    ParentBackground = False
+    TabOrder = 13
   end
-  object MemoStdErr: TMemo
-    Left = 41
-    Top = 437
-    Width = 655
-    Height = 259
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clRed
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    ScrollBars = ssVertical
-    TabOrder = 2
+  object Panel1: TPanel
+    Left = 34
+    Top = 64
+    Width = 286
+    Height = 272
+    Ctl3D = True
+    ParentBackground = False
+    ParentCtl3D = False
+    ShowCaption = False
+    TabOrder = 12
   end
   object ButPushProjectParameters: TButton
-    Left = 762
-    Top = 144
+    Left = 386
+    Top = 176
     Width = 206
     Height = 24
     Caption = 'Push Project Parameters To Schematics'
-    TabOrder = 3
+    TabOrder = 0
     OnClick = MainPushProjectParametersToSchematics
   end
   object ButRenumberPads: TButton
-    Left = 762
-    Top = 184
+    Left = 706
+    Top = 176
     Width = 206
     Height = 24
     Caption = 'Renumber Pads'
-    TabOrder = 4
+    TabOrder = 1
     OnClick = MainRenumberPads
   end
   object Button2: TButton
-    Left = 764
-    Top = 222
+    Left = 708
+    Top = 206
     Width = 204
     Height = 25
     Caption = 'Resize Designators'
-    TabOrder = 5
+    TabOrder = 2
     OnClick = MainResizeDesignators
   end
   object ButNumberSchematics: TButton
-    Left = 764
-    Top = 262
+    Left = 388
+    Top = 142
     Width = 204
     Height = 25
     Caption = 'Number Schematics'
-    TabOrder = 6
+    TabOrder = 3
     OnClick = ButNumberSchematics_Click
   end
   object ButRotateDesignators: TButton
-    Left = 764
-    Top = 302
+    Left = 708
+    Top = 238
     Width = 204
     Height = 25
     Caption = 'Rotate Designators'
-    TabOrder = 7
+    TabOrder = 4
     OnClick = ButRotateDesignatorsClick
   end
   object ButDeleteSchParams: TButton
-    Left = 764
-    Top = 342
+    Left = 388
+    Top = 110
     Width = 204
     Height = 26
     Caption = 'Delete Schematic Parameters'
-    TabOrder = 8
+    TabOrder = 5
     OnClick = ButDeleteSchParamsClick
   end
   object ButAddSpecialSchematicParameters: TButton
-    Left = 764
-    Top = 382
+    Left = 388
+    Top = 78
     Width = 204
     Height = 25
     Caption = 'Add Special Schematic Parameters'
-    TabOrder = 9
+    TabOrder = 6
     OnClick = ButAddSpecialSchematicParametersClick
   end
   object ButtonDisplayPcbStats: TButton
-    Left = 764
-    Top = 422
+    Left = 708
+    Top = 110
     Width = 204
     Height = 25
     Caption = 'Display PCB Stats'
-    TabOrder = 10
+    TabOrder = 7
     OnClick = ButtonDisplayPcbStatsClick
   end
   object ButtonViaStamper: TButton
-    Left = 764
-    Top = 462
+    Left = 708
+    Top = 270
     Width = 204
     Height = 26
     Caption = 'Via Stamper'
-    TabOrder = 11
+    TabOrder = 8
     OnClick = ButtonViaStamperClick
   end
   object ButtonDrawPolygon: TButton
-    Left = 764
-    Top = 502
+    Left = 708
+    Top = 142
     Width = 204
     Height = 25
     Caption = 'Draw Polygon'
-    TabOrder = 12
+    TabOrder = 9
     OnClick = ButtonDrawPolygonClick
   end
   object ButtonCurrentCalculator: TButton
-    Left = 764
-    Top = 542
+    Left = 708
+    Top = 78
     Width = 204
     Height = 26
     Caption = 'Current Calculator'
-    TabOrder = 13
+    TabOrder = 10
     OnClick = ButtonCurrentCalculatorClick
+  end
+  object ButtonRunPreReleaseChecks: TButton
+    Left = 66
+    Top = 80
+    Width = 206
+    Height = 24
+    Caption = 'Run Pre-release Checks'
+    TabOrder = 11
+    OnClick = ButtonRunPreReleaseChecksClick
   end
 end

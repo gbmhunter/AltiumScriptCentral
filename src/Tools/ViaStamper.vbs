@@ -2,7 +2,7 @@
 ' @file               ViaStamper.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2014-11-11
+' @last-modified      2014-11-25
 ' @brief              Script allows user to quickly 'stamp' many copies of a via onto a PCB.
 '                     Useful when placing GND vias.
 ' @details
@@ -24,7 +24,7 @@ Sub ViaStamper(DummyVar)
         Exit Sub
     End If
 
-    ShowMessage("First select via you wish to copy and then click repeatidly to 'stamp'.")
+    'ShowMessage("First select via you wish to copy and then click repeatidly to 'stamp'.")
 
     ' Ask user to select first pad object
     Board.ChooseLocation x, y, "Choose a via to copy."
