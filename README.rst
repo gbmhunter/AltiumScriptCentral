@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-11-25
-- Version: v21.1.0.0
+- Last Modified: 2014-11-26
+- Version: v21.1.1.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -159,6 +159,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v21.1.1.0 2014-11-26 Fixed bug where 'Delete Schematic Parameters' does not produce any output, closes #158. Fixed bug where 'Number Schematics' does not produce any output, closes #159. Made all button choices on the main script close the main script form, closes #160.
 v21.1.0.0 2014-11-25 Created a new form for pre-release checks, and moved the 'stdout' and 'stderr' message boxes to this form, closes #148. Splitted tools section into sub-categories, closes #140. Removed 'via stamper' prompt, closes #152.
 v21.0.0.1 2014-11-24 Added 'based on calculator found at...' in README for 'Current Calculator', closes #150. Rearranged README with better script module descriptions, closes #151.
 v21.0.0.0 2014-11-24 Added a script which calculates the track/trace current for a given temperature rise, closes #149.

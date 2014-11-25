@@ -1,4 +1,16 @@
-Sub DeleteAllSchematicParameters(dummyVar)
+'
+' @file               DeleteAllSchematicParameters.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-11-26
+' @brief              Deletes all schematic parameters for the current project.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' @brief     Deletes all schematic parameters.
+' @param     DummyVar    Dummy variable so that this sub does not show up to the user when
+'                        they click "Run Script".
+Sub DeleteAllSchematicParameters(DummyVar)
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument
@@ -8,11 +20,11 @@ Sub DeleteAllSchematicParameters(dummyVar)
     Dim compIterator        ' As ISch_Iterator
     Dim component           ' As IComponent
 
-    StdOut("Deleting all schematic parameters...")
+    'ShowMessage("Deleting all schematic parameters...")
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-        StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
+        ShowMessage("ERROR: Schematic server not online." + VbLf + VbCr)
         Exit Sub
     End If
 
@@ -21,7 +33,7 @@ Sub DeleteAllSchematicParameters(dummyVar)
     Set pcbProject = workspace.DM_FocusedProject
 
     If pcbProject Is Nothing Then
-        StdErr("ERROR: Current project is not a PCB project." + VbLf + VbCr)
+        ShowMessage("ERROR: Current project is not a PCB project." + VbLf + VbCr)
         Exit Sub
     End If
 
@@ -37,8 +49,8 @@ Sub DeleteAllSchematicParameters(dummyVar)
    ' If we couldn't get the flattened sheet, then most likely the project has
    ' not been compiled recently
    If flatHierarchy Is Nothing Then
-      StdErr("ERROR: Compile the project before running this script." + VbCr + VbLf)
-      Exit Sub
+      'ShowMessage("ERROR: Compile the project before running this script." + VbCr + VbLf)
+      'Exit Sub
    End If
 
     ' Loop through all project documents
@@ -50,7 +62,7 @@ Sub DeleteAllSchematicParameters(dummyVar)
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             'ShowMessage(document.DM_FullPath);
             If sheet Is Nothing Then
-                StdErr("ERROR: Sheet '" + document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)
+                ShowMessage("ERROR: Sheet '" + document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)
                 Exit Sub
             End If
 
@@ -65,7 +77,7 @@ Sub DeleteAllSchematicParameters(dummyVar)
             ' Set up iterator to look for parameter objects only
             Set paramIterator = sheet.SchIterator_Create
             If paramIterator Is Nothing Then
-                StdErr("ERROR: Iterator could not be created.")
+                ShowMessage("ERROR: Iterator could not be created.")
                 Exit Sub
             End If
 
@@ -90,12 +102,15 @@ Sub DeleteAllSchematicParameters(dummyVar)
             ' Redraw schematic sheet
             sheet.GraphicallyInvalidate
 
+            ' Increment sheet count
+            SheetCount = SheetCount + 1
+
             ' End of undo block
             Call SchServer.ProcessControl.PostProcess(sheet, "")
 
         End If ' If document.DM_DocumentKind = "SCH" Then
     Next ' For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
 
-    StdOut("All schematic parameters have been deleted." + VbCr + VbLf)
+    ShowMessage("Deleted parameters from '" + CStr(SheetCount) + "' sheets.")
 
 End Sub

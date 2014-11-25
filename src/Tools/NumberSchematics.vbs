@@ -1,3 +1,17 @@
+'
+' @file               NumberSchematics.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-11-26
+' @brief              Numbers all schematic sheets for the current project. Designed to work
+'                     with a schematic template which displays the sheet number and total sheets
+'                     on the schematic.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' @brief     Numbers all schematic sheets for the current project.
+' @param     DummyVar    Dummy variable so that this sub does not show up to the user when
+'                        they click "Run Script".
 Sub NumberSchematics(dummyVar)
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
@@ -13,11 +27,11 @@ Sub NumberSchematics(dummyVar)
     Dim schematicSheetCount ' As Integer
     Dim totalSheetCount     ' As Integer
 
-    StdOut("Numbering schematics...")
+    'StdOut("Numbering schematics...")
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-        StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
+        ShowMessage("ERROR: Schematic server not online." + VbLf + VbCr)
         Exit Sub
     End If
 
@@ -26,7 +40,7 @@ Sub NumberSchematics(dummyVar)
     Set pcbProject = workspace.DM_FocusedProject
 
     If pcbProject Is Nothing Then
-        StdErr("ERROR: Current Project is not a PCB Project" + VbLf + VbCr)
+        ShowMessage("ERROR: Current Project is not a PCB Project" + VbLf + VbCr)
         Exit Sub
     End If
 
@@ -42,7 +56,7 @@ Sub NumberSchematics(dummyVar)
    ' If we couldn't get the flattened sheet, then most likely the project has
    ' not been compiled recently
    If flatHierarchy Is Nothing Then
-      StdErr("ERROR: Compile the project before running this script." + VbCr + VbLf)
+      ShowMessage("ERROR: Compile the project before running this script." + VbCr + VbLf)
       Exit Sub
    End If
 
@@ -58,7 +72,7 @@ Sub NumberSchematics(dummyVar)
         If document.DM_DocumentKind = "SCH" Then
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             If sheet Is Nothing Then
-                StdErr("ERROR: Sheet '" + document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)
+                ShowMessage("ERROR: Sheet '" + document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)
                 Exit Sub
             End If
             ' Increment count
@@ -79,7 +93,7 @@ Sub NumberSchematics(dummyVar)
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             'ShowMessage(document.DM_FullPath);
             If sheet Is Nothing Then
-                StdErr("ERROR: No sheet found." + VbCr + VbLf)
+                ShowMessage("ERROR: No sheet found." + VbCr + VbLf)
                 Exit Sub
             End If
 
@@ -94,7 +108,7 @@ Sub NumberSchematics(dummyVar)
             ' Set up iterator to look for parameter objects only
             Set paramIterator = sheet.SchIterator_Create
             If paramIterator Is Nothing Then
-                StdErr("ERROR: Iterator could not be created.")
+                ShowMessage("ERROR: Iterator could not be created.")
                 Exit Sub
             End If
 
@@ -139,6 +153,6 @@ Sub NumberSchematics(dummyVar)
         End If ' If document.DM_DocumentKind = "SCH" Then
     Next ' For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
 
-    StdOut("Schematic numbers have been added." + VbCr + VbLf)
+    ShowMessage("Schematic numbers have been added to '" + CStr(totalSheetCount) + "' sheets.")
 
 End Sub

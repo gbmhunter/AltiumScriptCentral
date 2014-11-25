@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-25
+' @last-modified      2014-11-26
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -19,7 +19,9 @@ End Sub
 
 
 Sub MainPushProjectParametersToSchematics(Sender)
-    PushProjectParametersToSchematics(dummyVar)
+    FormMainScript.Hide
+    PushProjectParametersToSchematics(DummyVar)
+    FormMainScript.Close
 End Sub
 
 Sub MainRenumberPads(Sender)
@@ -42,17 +44,23 @@ Sub MainResizeDesignators(Sender)
 End Sub
 
 Sub ButNumberSchematics_Click(Sender)
+    FormMainScript.Hide
     NumberSchematics(dummyVar)
+    FormMainScript.Close
 End Sub
 
 ' Called when the "Rotate Designators" button is clicked
 Sub ButRotateDesignatorsClick(Sender)
+    FormMainScript.Hide
     RotateDesignators(dummyVar)
+    FormMainScript.Close
 End Sub
 
 ' Called when the "Delete Schematic Parameters" button is clicked
 Sub ButDeleteSchParamsClick(Sender)
-    DeleteAllSchematicParameters(dummyVar)
+    FormMainScript.Hide
+    DeleteAllSchematicParameters(DummyVar)
+    FormMainScript.Close
 End Sub
 
 ' Called when the "Add Special Schematic Parameters" button is clicked
