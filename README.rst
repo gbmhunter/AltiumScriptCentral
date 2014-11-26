@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2014-11-26
-- Version: v21.1.2.0
+- Version: v21.1.3.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -159,6 +159,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v21.1.3.0 2014-11-26 Attempted a Delphi rewrite but gave up after I discovered that the context help isn't actually any better. Put test files in 'old/'.
 v21.1.2.0 2014-11-26 Fixed bug where assignment error is thrown with pad variable in the 'Display PCB Stats' script, closes #161. Tidied up the formatting of the 'Display PCB Stats' script, closes #162.
 v21.1.1.0 2014-11-26 Fixed bug where 'Delete Schematic Parameters' does not produce any output, closes #158. Fixed bug where 'Number Schematics' does not produce any output, closes #159. Made all button choices on the main script close the main script form, closes #160.
 v21.1.0.0 2014-11-25 Created a new form for pre-release checks, and moved the 'stdout' and 'stderr' message boxes to this form, closes #148. Splitted tools section into sub-categories, closes #140. Removed 'via stamper' prompt, closes #152.

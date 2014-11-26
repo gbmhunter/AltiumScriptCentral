@@ -1,9 +1,9 @@
-object FormStats: TFormStats
+object FormStatsD: TFormStatsD
   Left = 0
   Top = 0
-  Caption = 'PCB Stats'
-  ClientHeight = 301
-  ClientWidth = 320
+  Caption = 'FormStatsD'
+  ClientHeight = 270
+  ClientWidth = 301
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,11 +11,7 @@ object FormStats: TFormStats
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnActivate = FormStatsActivate
-  OnContextPopup = FormStatsContextPopup
-  OnCreate = FormStatsCreate
-  OnPaint = FormStatsPaint
-  OnShow = FormStatsShow
+  OnShow = FormStatsDShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label2: TLabel

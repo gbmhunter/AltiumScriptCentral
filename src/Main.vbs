@@ -72,6 +72,7 @@ End Sub
 Sub ButtonDisplayPcbStatsClick(Sender)
     FormMainScript.Hide
 
+    FormStats.Create
     ' Show PCB stats form
     FormStats.ShowModal
 

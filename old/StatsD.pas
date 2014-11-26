@@ -1,32 +1,151 @@
-'
-' @file               Stats.vbs
-' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
-' @created            2014-11-03
-' @last-modified      2014-11-26
-' @brief              Code for showing PCB statistics.
-' @details
-'                     See README.rst in repo root dir for more info.
+//
+// @file               StatsD.pas
+// @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+// @created            2014-11-03
+// @last-modified      2014-11-26
+// @brief              Code for showing PCB statistics.
+// @details
+//                     See README.rst in repo root dir for more info.
 
-Sub FormStatsShow(Sender)
-    'StdOut("Displaying PCB stats...")
+function CountVias(board : IPCB_Board) : Integer;
+var
+   count : Integer;
+   iterator: IPCB_BoardIterator;
+   compDes;
+begin
 
-    ' Get the current PCB board, which we will pass to all
-    ' the child functions
-    Set board = PCBServer.GetCurrentPCBBoard
-    If board Is Nothing Then
-        ShowMessage("Could not find a PCB board, please make sure PCB file you want to use it currently open.")
-        Exit Sub
-    End If
+    iterator := board.BoardIterator_Create;
+    iterator.AddFilter_ObjectSet(MkSet(eViaObject));
+    iterator.AddFilter_LayerSet(AllLayers);
+    iterator.AddFilter_Method(eProcessAll);
 
-    ' Count the number of holes on PCB
-    LabelNumOfVias.Caption = CountVias(board)
-    LabelNumOfPadsWithHoles.Caption = CountNumPadsWithHoles(board)
-    LabelTotalNumOfHoles.Caption = CInt(LabelNumOfVias.Caption) + CInt(LabelNumOfPadsWithHoles.Caption)
+    compDes := iterator.FirstPCBObject;
 
-    ' Get the number of different hole sizes
-    LabelNumDiffHoleSizes.Caption = CountNumDiffHoleSizes(board)
+    count := 0;
 
-    ' Minimum widths
+    // Iterate through all objects
+    While CompDes <> Nil Do
+    Begin
+        Inc(count);
+
+        CompDes := Iterator.NextPCBObject;
+    End;
+
+    board.BoardIterator_Destroy(Iterator);
+
+    //LabelNumOfVias.Caption = count
+    Result := count;
+
+end;
+
+function CountNumPadsWithHoles(board : IPCB_Board) : Integer;
+var
+   iterator : IPCB_BoardIterator;
+   padObj : IPCB_Primitive;
+   count : Integer;
+begin
+
+    iterator := Board.BoardIterator_Create;
+    iterator.AddFilter_ObjectSet(MkSet(ePadObject));
+    iterator.AddFilter_LayerSet(AllLayers);
+    iterator.AddFilter_Method(eProcessAll);
+
+    padObj := iterator.FirstPCBObject;
+
+    count := 0;
+
+    // Iterate through all pads
+    while padObj <> Nil do
+    begin
+       // Note that unlike vias, not all pads will have holes in them, we have to find this out now...
+       if padObj.HoleSize > 0 then
+       begin
+          // We have found a pad with a hole in it!
+          Inc(Count);
+       end;
+
+       if padObj.Plated = True Then
+       begin
+            //ShowMessage('Pad is plated!');
+       end;
+
+       padObj := iterator.NextPCBObject;
+    end;
+
+    board.BoardIterator_Destroy(Iterator);
+
+    Result := count;
+
+end;
+
+function CountNumDiffHoleSizes(board : IPCB_Board) : Integer;
+var
+   //holeSizeList : System.Collections.ArrayList;
+   holeSizeList : Tlist;
+   iterator : IPCB_Iterator;
+   viaPad : IPCB_Primitive;
+begin
+
+   // Create an ArrayList to store the unique hole sizes present on the PCB
+   //holeSizeList := CreateObject('System.Collections.ArrayList');
+   holeSizeList := TList.Create;
+
+   // Create an iterator to iterate over all vias and pads on the PCBs
+   iterator := board.BoardIterator_Create;
+   iterator.AddFilter_ObjectSet(MkSet(eViaObject, ePadObject));
+   iterator.AddFilter_LayerSet(AllLayers);
+   iterator.AddFilter_Method(eProcessAll);
+
+   viaPad := iterator.FirstPCBObject;
+          TList.
+   // Iterate through all objects
+   while viaPad <> Nil do
+   begin
+      // Check that hole size is not 0 (i.e. no hole) and hole is not already in list
+      if (viaPad.HoleSize <> 0) And (holeSizeList(viaPad.HoleSize) = False) Then
+      begin
+         // Hole size was not found in the list, and was greater than 0mm, so lets
+         // add it to our list of unique hole sizes
+         holeSizeList.Add(viaPad.HoleSize);
+      end;
+
+      viaPad := Iterator.NextPCBObject;
+   end;
+
+   board.BoardIterator_Destroy(Iterator);
+
+   // Return the number of different hole sizes
+   Result := holeSizeList.Count;
+
+end;
+
+procedure TFormStatsD.FormStatsDShow(Sender: TObject);
+var
+   board : IPCB_Board;
+begin
+
+    //ShowMessage('Displaying PCB stats...');
+
+    // Get the current PCB board, which we will pass to all
+    // the child functions
+
+    board := PCBServer.GetCurrentPCBBoard;
+    If board = Nil Then
+    begin
+        ShowMessage('Could not find a PCB board, please make sure PCB file you want to use it currently open.');
+        Exit;
+    end;
+
+    // Count the number of holes on PCB
+    LabelNumOfVias.Caption := CountVias(board);
+
+    LabelNumOfPadsWithHoles.Caption := CountNumPadsWithHoles(board);
+    LabelTotalNumOfHoles.Caption := StrToInt(LabelNumOfVias.Caption) + StrToInt(LabelNumOfPadsWithHoles.Caption);
+
+    // Get the number of different hole sizes
+    LabelNumDiffHoleSizes.Caption := CountNumDiffHoleSizes(board);
+      {
+    // Minimum widths
     LabelMinAnnularRingMm.Caption = CStr(FindMinAnnularRingMm(board))
     LabelMinTrackWidthMm.Caption = CStr(FindMinTrackWidthMm(board))
 
@@ -43,65 +162,13 @@ Sub FormStatsShow(Sender)
     'FormStats.Show
 
     'StdOut("Finished displaying PCB stats." + VbCr + VbLf)
-End Sub
+    }
+end;
 
-Function CountVias(board)
-    Dim count                ' As Integer
 
-    Set iterator = board.BoardIterator_Create
-    iterator.AddFilter_ObjectSet(MkSet(eViaObject))
-    iterator.AddFilter_LayerSet(AllLayers)
-    iterator.AddFilter_Method(eProcessAll)
 
-    Set compDes = iterator.FirstPCBObject
 
-    count = 0
-
-    ' Iterate through all objects
-    Do While Not (CompDes Is Nothing)
-        count = count + 1
-
-        Set CompDes = Iterator.NextPCBObject
-    Loop
-
-    board.BoardIterator_Destroy(Iterator)
-
-    'LabelNumOfVias.Caption = count
-    CountVias = count
-
-End Function
-
-Function CountNumPadsWithHoles(Board)
-
-    Set iterator = Board.BoardIterator_Create
-    iterator.AddFilter_ObjectSet(MkSet(ePadObject))
-    iterator.AddFilter_LayerSet(AllLayers)
-    iterator.AddFilter_Method(eProcessAll)
-
-    Set PadObj = iterator.FirstPCBObject
-
-    Count = 0
-
-    ' Iterate through all pads
-    Do While Not (PadObj Is Nothing)
-       ' Note that unlike vias, not all pads will have holes in them, we have to find this out now...
-       If PadObj.HoleSize > 0 Then
-          ' We have found a pad with a hole in it!
-          Count = Count + 1
-       End If
-
-       If PadObj.Plated = True Then
-             ShowMessage("Pad is plated!")
-       End If
-
-       Set PadObj = Iterator.NextPCBObject
-    Loop
-
-    Board.BoardIterator_Destroy(Iterator)
-
-    CountNumPadsWithHoles = Count
-
-End Function
+{
 
 Function FindMinAnnularRingMm(board)
 
@@ -265,39 +332,7 @@ Function GetPcbBoundingRectangleDimensions(board)
 
 End Function
 
-Function CountNumDiffHoleSizes(board)
 
-   ' Create an ArrayList to store the unique hole sizes present on the PCB
-   dim holeSizeList
-   Set holeSizeList = CreateObject("System.Collections.ArrayList")
-
-   ' Create an iterator to iterate over all vias and pads on the PCBs
-   Set iterator = board.BoardIterator_Create
-   iterator.AddFilter_ObjectSet(MkSet(eViaObject, ePadObject))
-   iterator.AddFilter_LayerSet(AllLayers)
-   iterator.AddFilter_Method(eProcessAll)
-
-   Set viaPad = iterator.FirstPCBObject
-
-   ' Iterate through all objects
-   Do While Not (viaPad Is Nothing)
-
-      ' Check that hole size is not 0 (i.e. no hole) and hole is not already in list
-      If Not (viaPad.HoleSize = 0) And (holeSizeList.Contains(viaPad.HoleSize) = False) Then
-         ' Hole size was not found in the list, and was greater than 0mm, so lets
-         ' add it to our list of unique hole sizes
-         holeSizeList.Add viaPad.HoleSize
-      End If
-
-      Set viaPad = Iterator.NextPCBObject
-   Loop
-
-   board.BoardIterator_Destroy(Iterator)
-
-   ' Return the number of different hole sizes
-   CountNumDiffHoleSizes = holeSizeList.Count
-
-End Function
 
 Sub FormStatsActivate(Sender)
 ShowMessage("Form activated")
@@ -312,5 +347,8 @@ Sub FormStatsContextPopup(Sender, MousePos, Handled)
 End Sub
 
 Sub FormStatsPaint(Sender)
-     ShowMessage("Form painted")   
+     ShowMessage("Form painted")
 End Sub
+
+                       }
+
