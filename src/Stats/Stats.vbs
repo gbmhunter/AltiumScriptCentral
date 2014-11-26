@@ -7,8 +7,8 @@
 ' @details
 '                     See README.rst in repo root dir for more info.
 
-Sub FormStatsShow(Sender)
-    'StdOut("Displaying PCB stats...")
+Sub GetStats(DummyVar)
+     'StdOut("Displaying PCB stats...")
 
     ' Get the current PCB board, which we will pass to all
     ' the child functions
@@ -20,8 +20,9 @@ Sub FormStatsShow(Sender)
 
     ' Count the number of holes on PCB
     LabelNumOfVias.Caption = CountVias(board)
-    LabelNumOfPadsWithHoles.Caption = CountNumPadsWithHoles(board)
-    LabelTotalNumOfHoles.Caption = CInt(LabelNumOfVias.Caption) + CInt(LabelNumOfPadsWithHoles.Caption)
+    LabelNumOfPadsWithPlatedHoles.Caption = CountNumPadsWithPlatedHoles(board)
+    LabelNumOfPadsWithUnplatedHoles.Caption = CountNumPadsWithUnplatedHoles(board)
+    LabelTotalNumOfHoles.Caption = CInt(LabelNumOfVias.Caption) + CInt(LabelNumOfPadsWithPlatedHoles.Caption) + CInt(LabelNumOfPadsWithUnplatedHoles.Caption)
 
     ' Get the number of different hole sizes
     LabelNumDiffHoleSizes.Caption = CountNumDiffHoleSizes(board)
@@ -71,7 +72,7 @@ Function CountVias(board)
 
 End Function
 
-Function CountNumPadsWithHoles(Board)
+Function CountNumPadsWithPlatedHoles(Board)
 
     Set iterator = Board.BoardIterator_Create
     iterator.AddFilter_ObjectSet(MkSet(ePadObject))
@@ -85,13 +86,9 @@ Function CountNumPadsWithHoles(Board)
     ' Iterate through all pads
     Do While Not (PadObj Is Nothing)
        ' Note that unlike vias, not all pads will have holes in them, we have to find this out now...
-       If PadObj.HoleSize > 0 Then
-          ' We have found a pad with a hole in it!
+       If PadObj.HoleSize > 0 And PadObj.Plated = True Then
+          ' We have found a pad with a plated hole in it!
           Count = Count + 1
-       End If
-
-       If PadObj.Plated = True Then
-             ShowMessage("Pad is plated!")
        End If
 
        Set PadObj = Iterator.NextPCBObject
@@ -99,7 +96,35 @@ Function CountNumPadsWithHoles(Board)
 
     Board.BoardIterator_Destroy(Iterator)
 
-    CountNumPadsWithHoles = Count
+    CountNumPadsWithPlatedHoles = Count
+
+End Function
+
+Function CountNumPadsWithUnplatedHoles(Board)
+
+    Set iterator = Board.BoardIterator_Create
+    iterator.AddFilter_ObjectSet(MkSet(ePadObject))
+    iterator.AddFilter_LayerSet(AllLayers)
+    iterator.AddFilter_Method(eProcessAll)
+
+    Set PadObj = iterator.FirstPCBObject
+
+    Count = 0
+
+    ' Iterate through all pads
+    Do While Not (PadObj Is Nothing)
+       ' Note that unlike vias, not all pads will have holes in them, we have to find this out now...
+       If PadObj.HoleSize > 0 And PadObj.Plated = False Then
+          ' We have found a pad with a unplated hole in it!
+          Count = Count + 1
+       End If
+
+       Set PadObj = Iterator.NextPCBObject
+    Loop
+
+    Board.BoardIterator_Destroy(Iterator)
+
+    CountNumPadsWithUnplatedHoles = Count
 
 End Function
 
@@ -298,19 +323,3 @@ Function CountNumDiffHoleSizes(board)
    CountNumDiffHoleSizes = holeSizeList.Count
 
 End Function
-
-Sub FormStatsActivate(Sender)
-ShowMessage("Form activated")
-End Sub
-
-Sub FormStatsCreate(Sender)
-       ShowMessage("From created")
-End Sub
-
-Sub FormStatsContextPopup(Sender, MousePos, Handled)
-       ShowMessage("Form stats")
-End Sub
-
-Sub FormStatsPaint(Sender)
-     ShowMessage("Form painted")   
-End Sub
