@@ -2,21 +2,20 @@
 ' @file               Stats.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-03
-' @last-modified      2014-11-04
+' @last-modified      2014-11-26
 ' @brief              Code for showing PCB statistics.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
-Function DisplayPcbStats(dummyVar)
-
-    StdOut("Displaying PCB stats...")
+Sub FormStatsCreate(Sender)
+    'StdOut("Displaying PCB stats...")
 
     ' Get the current PCB board, which we will pass to all
     ' the child functions
     Set board = PCBServer.GetCurrentPCBBoard
     If board Is Nothing Then
         ShowMessage("Could not find a PCB board, please make sure PCB file you want to use it currently open.")
-        Exit Function
+        Exit Sub
     End If
 
     ' Count the number of holes on PCB
@@ -41,11 +40,10 @@ Function DisplayPcbStats(dummyVar)
     LabelBoardAreaMm.Caption = dimensions(2)
 
     ' Now that everything has been calculated, show the form, in non-modal fashion
-    FormStats.Show
+    'FormStats.Show
 
-    StdOut("Finished displaying PCB stats." + VbCr + VbLf)
-
-End Function
+    'StdOut("Finished displaying PCB stats." + VbCr + VbLf)
+End Sub
 
 Function CountVias(board)
     Dim count                ' As Integer
@@ -142,6 +140,7 @@ Function FindMinAnnularRingMm(board)
     iterator.AddFilter_LayerSet(AllLayers)
     iterator.AddFilter_Method(eProcessAll)
 
+    Dim pad
     Set pad = iterator.FirstPCBObject
 
     ' Iterate through all pads

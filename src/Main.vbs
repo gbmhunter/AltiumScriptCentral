@@ -70,8 +70,12 @@ End Sub
 
 ' Called when the "Display PCB Stats" button is clicked
 Sub ButtonDisplayPcbStatsClick(Sender)
-    ' Call external script
-    DisplayPcbStats(dummyVar)
+    FormMainScript.Hide
+
+    ' Show PCB stats form
+    FormStats.ShowModal
+
+    FormMainScript.Close
 End Sub
 
 Sub ButtonViaStamperClick(Sender)

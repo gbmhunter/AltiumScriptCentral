@@ -516,7 +516,7 @@ DocumentUniqueId=
 StartProcName=src\Main.vbs>RunMainScript
 
 [Generic_Watches]
-2=LayerId
+2=iterator.FirstPCBObject
 
 [OutputGroup1]
 Name=Netlist Outputs
