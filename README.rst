@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-12-22
-- Version: v22.2.0.0
+- Last Modified: 2014-12-23
+- Version: v22.2.1.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -159,6 +159,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.2.1.0 2014-12-23 Added a 'Find New Track' button to current calculator script, closes #169.
 v22.2.0.0 2014-12-22 Added user changeable temp rise to the current calculator module, closes #168.
 v22.1.1.0 2014-12-22 Fixed the formatting issues with the Current Calculator message box data (tabbing is incorrect), closes #154.
 v22.1.0.0 2014-12-22 Added smallest and largest hole statistics to the PCB stats script, closes #163.

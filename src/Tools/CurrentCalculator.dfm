@@ -2,7 +2,7 @@ object FormCurrentCalculator: TFormCurrentCalculator
   Left = 0
   Top = 0
   Caption = 'Current Calculator'
-  ClientHeight = 178
+  ClientHeight = 219
   ClientWidth = 304
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -110,5 +110,14 @@ object FormCurrentCalculator: TFormCurrentCalculator
     TabOrder = 0
     Text = '20'
     OnChange = EditAllowedTempRiseChange
+  end
+  object ButtonFindAnotherTrack: TButton
+    Left = 82
+    Top = 169
+    Width = 134
+    Height = 25
+    Caption = 'Find Another Track'
+    TabOrder = 1
+    OnClick = ButtonFindAnotherTrackClick
   end
 end

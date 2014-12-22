@@ -2,7 +2,7 @@
 ' @file               CurrentCalculator.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-24
-' @last-modified      2014-12-22
+' @last-modified      2014-12-23
 ' @brief              Script allows user to determine the maximum allowed current
 '                     of a particular track for a given temperature rise.
 ' @details
@@ -18,10 +18,8 @@ c = 0.725
 
 Private k
 
-' @brief    Calcuates the maximum allowed current for a given temperature rise.
-' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
-Sub CurrentCalculator(DummyVar)
-
+' @brief       Asks user to select a track and then updates associated form values.
+Sub GetTrackAndUpdateVals(DummyVar)
     ' Load current board
     If PCBServer Is Nothing Then
         ShowMessage("ERROR: Could not load the PCB server.")
@@ -95,7 +93,14 @@ Sub CurrentCalculator(DummyVar)
     'LabelMaxCurrentA.Caption = SfFormat(MaxCurrentA, 3)
 
      Call CalcMaxCurrentA(StrToFloat(EditAllowedTempRise.Text), StrToFloat(LabelTrackCrosssectionalAreaMm2.Caption))
+End Sub
 
+' @brief    Calcuates the maximum allowed current for a given temperature rise.
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Sub CurrentCalculator(DummyVar)
+
+
+    GetTrackAndUpdateVals(DummyVar)
     'FormMainScript.Visible = True
 
     ' Now lets show the form
@@ -127,4 +132,18 @@ Sub EditAllowedTempRiseChange(Sender)
 
      ' Allowed temp range has changed, so re-calculate the max current
      Call CalcMaxCurrentA(EditAllowedTempRise.Text, LabelTrackCrosssectionalAreaMm2.Caption)
+End Sub
+
+Sub ButtonFindAnotherTrackClick(Sender)
+
+     ' Hide the form so the user can easily select a new track
+     FormCurrentCalculator.Hide
+
+     ' Call subroutine which asks user for a track and updates
+     ' form values
+     Dim DummyVar
+     Call GetTrackAndUpdateVals(DummyVar)
+
+     ' Now show the form again
+     FormCurrentCalculator.Show
 End Sub
