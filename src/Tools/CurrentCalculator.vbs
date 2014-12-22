@@ -2,33 +2,40 @@
 ' @file               CurrentCalculator.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-24
-' @last-modified      2014-11-24
+' @last-modified      2014-12-22
 ' @brief              Script allows user to determine the maximum allowed current
 '                     of a particular track for a given temperature rise.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
 ' @brief    Calcuates the maximum allowed current for a given temperature rise.
-' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue. 
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub CurrentCalculator(DummyVar)
 
     ' Load current board
     If PCBServer Is Nothing Then
-        ShowMessage("Not a PCB or Footprint editor activated.")
+        ShowMessage("ERROR: Could not load the PCB server.")
     End If
 
+    Dim Board
     Set Board = PCBServer.GetCurrentPCBBoard
     If Board Is Nothing Then
-        ShowMessage("Not a PCB or Footprint loaded.")
+        ShowMessage("ERROR: Could not load a PCB or footprint library. Please make sure one of these has focus.")
         Exit Sub
     End If
 
     ' Get the layer stack for the board, this will be used later
     ' to extract the layer that the track of interest is on
+    Dim LayerStack
     LayerStack = Board.LayerStack
 
     ' Ask user to select first pad object
+    Dim x, y
     Board.ChooseLocation x, y, "Choose a track for current calculations."
+    Dim ExisTrack
     Set ExisTrack = Board.GetObjectAtXYAskUserIfAmbiguous(x, y, MkSet(eTrackObject), AllLayers, eEditAction_Select)
 
     ' Make sure via was valid
@@ -37,45 +44,55 @@ Sub CurrentCalculator(DummyVar)
        Exit Sub
     End If
 
-    PadNum = 30
-
     ' If here, we must have a valid track
     ' Get the layer object for this track
+    Dim ExisTrackLayer
     ExisTrackLayer = LayerStack.LayerObject(ExisTrack.Layer)
 
     ' Now get thickness of track (equal to thickness of layer track is on)
+    Dim TrackThicknessMm
     TrackThicknessMm = CoordToMms(ExisTrackLayer.CopperThickness)
-    Message = Message + Pad("Track Thickness: ", PadNum) + CStr(TrackThicknessMm) + "mm." + VbCr + VbLf
+    LabelTrackThicknessUm.Caption = TrackThicknessMm*1000
 
+    Dim TrackWidthMm
     TrackWidthMm = CoordToMms(ExisTrack.Width)
-    Message = Message + Pad("Track Width: ", PadNum) + CStr(TrackWidthMm) + "mm." + VbCr + VbLf
+    LabelTrackWidthMm.Caption = TrackWidthMm
 
     ' Determine the constant k, which is dependent on whether track
     ' is on internal or external layer
+    Dim k
     If IsInternalLayer(ExisTrack.Layer) Then
          k = 0.024
-         Message = Message + Pad("Layer: Internal.", PadNum) + VbCr + VbLf
+         LabelLayer.Caption = "Internal"
     Else
         k = 0.048
-        Message = Message + Pad("Layer: External.", PadNum) + VbCr + VbLf
+        LabelLayer.Caption = "External"
     End If
 
     ' Equation: I = k x dT^b x A^c
     ' where A = cross-secitonal area of track (mills^2), b = 0.44, c = 0.725, k = layer dependent
+    Dim b, c
     b = 0.44
     c = 0.725
 
     ' Calculate cross-sectional area
+    Dim CrossSectionalAreaMm2
     CrossSectionalAreaMm2 = TrackThicknessMm*TrackWidthMm
-    Message = Message + Pad("Track Cross-sectional Area: ", PadNum) + CStr(CrossSectionalAreaMm2) + "mm^2." + VbCr + VbLf
+    LabelTrackCrosssectionalAreaMm2.Caption = CrossSectionalAreaMm2
 
     ' Convert mm^2 to mills^2 for equation
+    Dim CrossSectionalAreaMill2
     CrossSectionalAreaMill2 = CrossSectionalAreaMm2 * (1000/25.4) * (1000/25.4)
 
-    MaxCurrent = k * 20^b * CrossSectionalAreaMill2^c
+    Dim AllowedTempRise
+    AllowedTempRise = StrToFloat(EditAllowedTempRise.Text)
 
-    Message = Message + Pad("Maximum Current: ", PadNum) + CStr(Round(MaxCurrent, 2)) + "A." + VbCr + VbLf
+    Dim MaxCurrentA
+    MaxCurrentA = k * AllowedTempRise^b * CrossSectionalAreaMill2^c
+    LabelMaxCurrentA.Caption = SfFormat(MaxCurrentA, 3)
 
-    ShowMessage(Message)
+    ' Now lets show the form
+    FormCurrentCalculator.ShowModal
 
 End Sub
+
