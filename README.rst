@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2014-12-22
-- Version: v22.0.0.0
+- Version: v22.1.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -159,6 +159,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.1.0.0 2014-12-22 Added smallest and largest hole statistics to the PCB stats script, closes #163.
 v22.0.0.0 2014-12-22 Started fixing bugs when schematics sheets were not open, scripts now open them by themselves. Added better error reporting to StdErr, module name is reported for every error. PCB Server is now started automatically. PCB documents are now opened automatically. Via tenting checker now reports total number of vias found, closes #167. Added script that can swap two PCB components, closes #166. Fixed 'Checking bottom dimension layer...Enum = 12Enum=12Enum=12...' bug, closes #165. Fixed the layout of the Pre-release Checks window (size needs adjusting), closes #156. Fixed the error 'ERROR: Could not retrieve 'C:\MCU.SchDoc'. Please compile project. ERROR: No sheet found. ERROR: No sheet found.' if any schematic sheet is not open when pre-release checks are run, closes #155.
 v21.1.4.0 2014-11-26 Added 'Num. of Plated Holes' and 'Num. of Unplated Holes' to PCB statistics, closes #120.
 v21.1.3.0 2014-11-26 Attempted a Delphi rewrite but gave up after I discovered that the context help isn't actually any better. Put test files in 'old/'.

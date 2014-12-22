@@ -80,12 +80,14 @@ End Sub
 Sub ButtonDisplayPcbStatsClick(Sender)
     FormMainScript.Hide
 
-    ' FormStats.Creat
+    FormMainScript.Close
+
     ' Show PCB stats form
     Call GetStats(DummyVar)
     FormStats.ShowModal
 
-    FormMainScript.Close
+    'FormMainScript.Close
+
 End Sub
 
 Sub ButtonViaStamperClick(Sender)
