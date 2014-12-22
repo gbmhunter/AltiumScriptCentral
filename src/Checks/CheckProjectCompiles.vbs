@@ -2,15 +2,22 @@
 ' @file               CheckProjectCompiles.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-04
+' @last-modified      2014-12-22
 ' @brief              Script that checks to make sure the current project compiles successfully.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "CheckProjectCompiles.vbs"
+
 ' @brief    This makes sure the project is compiled.
 ' @details  Note that this does not check to see whether the project compiles without errors, this
 '           will still return True if it compiles with errors.
-Function CheckProjectCompiles(dummyVar)
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Function CheckProjectCompiles(DummyVar)
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument
@@ -18,7 +25,8 @@ Function CheckProjectCompiles(dummyVar)
 
     StdOut("Checking project compiles...")
 
-    violationFnd = false
+    Dim ViolationFnd
+    ViolationFnd = false
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then

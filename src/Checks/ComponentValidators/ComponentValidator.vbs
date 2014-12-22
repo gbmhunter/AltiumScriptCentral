@@ -1,4 +1,6 @@
-Sub ComponentValidator(dummyVar)
+
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Sub ComponentValidator(DummyVar)
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
     Dim document            ' As IDocument

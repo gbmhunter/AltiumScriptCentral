@@ -2,10 +2,16 @@
 ' @file               ResizeDesignators.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-07
+' @last-modified      2014-12-22
 ' @brief              Code to change the font size of many PCB designators all at once.
 ' @details
 '                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "ResizeDesignators.vbs"
 
 ' @brief    Called when 'Resize Designators' is called from the main AltiumScriptCentral form.
 Function ResizeDesignators(dummyVar)
@@ -15,10 +21,9 @@ End Function
 
 Sub ButtonOkClick(Sender)
 
-    Dim board       ' As IPCB_Board
-    Dim iterator
-    Dim component
-    Dim compDes
+    Dim Board       ' As IPCB_Board
+    Dim Component
+    Dim CompDes
 
     Set Board = PCBServer.GetCurrentPCBBoard
     If Board Is Nothing Then
@@ -26,8 +31,10 @@ Sub ButtonOkClick(Sender)
         Exit Sub
     End If
 
+    Dim NumDesignatorsModified
     NumDesignatorsModified = 0
 
+    Dim Iterator
     Set iterator = board.BoardIterator_Create
     iterator.AddFilter_ObjectSet(MkSet(eComponentObject))
     iterator.AddFilter_LayerSet(AllLayers)

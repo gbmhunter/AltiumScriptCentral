@@ -1,23 +1,39 @@
-Sub CheckNoSupplierPartNumShown(dummyVar) ' As TMemo
-    Dim workspace           ' As IWorkspace
-    Dim pcbProject          ' As IProject
-    Dim document            ' As IDocument
-    Dim flatHierarchy       ' As IDocument
-    Dim sheet               ' As ISch_Document
-    Dim docNum              ' As Integer
-    Dim iterator            ' As ISch_Iterator
-    Dim compIterator        ' As ISch_Iterator
-    Dim component           ' As IComponent
-    Dim parameter, parameter2 ' As ISch_Parameter
-    Dim violationCount      ' As Integer
+'
+' @file               CheckNoSupplierPartNumShown.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-12-22
+' @brief              Checks that no supplier part numbers are shown on the schematics (you should show manufacturing part numbers!)
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "CheckNoSupplierPartNumShown.vbs"
+
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Sub CheckNoSupplierPartNumShown(DummyVar) ' As TMemo
+    Dim Workspace           ' As IWorkspace
+    Dim PcbProject          ' As IProject
+    Dim Document            ' As IDocument
+    Dim FlatHierarchy       ' As IDocument
+    Dim Sheet               ' As ISch_Document
+    Dim DocNum              ' As Integer
+    Dim Iterator            ' As ISch_Iterator
+    Dim CompIterator        ' As ISch_Iterator
+    Dim Component           ' As IComponent
+    Dim Parameter, Parameter2 ' As ISch_Parameter
+    Dim ViolationCount      ' As Integer
 
     Call StdOut("Looking for visible supplier part numbers...")
 
-    violationCount = 0
+    ViolationCount = 0
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-        Call StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
+        Call StdErr(ModuleName, "Schematic server not online.")
         Exit Sub
     End If
 
@@ -26,7 +42,7 @@ Sub CheckNoSupplierPartNumShown(dummyVar) ' As TMemo
     Set pcbProject = workspace.DM_FocusedProject
 
     If pcbProject Is Nothing Then
-        Call StdErr("ERROR: Current Project is not a PCB Project" + VbLf + VbCr)
+        Call StdErr(ModuleName, "Current Project is not a PCB Project")
         Exit Sub
     End If
 
@@ -45,7 +61,7 @@ Sub CheckNoSupplierPartNumShown(dummyVar) ' As TMemo
         ' Try Again to open the flattened document
         Set flatHierarchy = PCBProject.DM_DocumentFlattened
         If flatHierarchy Is Nothing Then
-           Call StdErr("ERROR: Compile the project before running this script." + VbCr + VbLf)
+           Call StdErr(ModuleName, "Compile the project before running this script.")
            Exit Sub
         End If
     End If
@@ -59,14 +75,14 @@ Sub CheckNoSupplierPartNumShown(dummyVar) ' As TMemo
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             'ShowMessage(document.DM_FullPath);
             If sheet Is Nothing Then
-                Call StdErr("ERROR: No sheet found." + VbCr + VbLf)
+                Call StdErr(ModuleName, "No sheet found.")
                 Exit Sub
             End If
 
             ' Set up iterator to look for power port objects only
-            Set iterator = sheet.SchIterator_Create
-            If iterator Is Nothing Then
-                Call StdErr("ERROR: Iterator could not be created.")
+            Set Iterator = Sheet.SchIterator_Create
+            If Iterator Is Nothing Then
+                Call StdErr(ModuleName, "Iterator could not be created.")
                 Exit Sub
             End If
 
@@ -82,7 +98,7 @@ Sub CheckNoSupplierPartNumShown(dummyVar) ' As TMemo
                     ' Check for supplier part number parameter thats visible on sheet
                     If(parameter.Name = "Supplier Part Number 1") and (parameter.IsHidden = false) Then
                         violationCount = violationCount + 1
-                        Call StdErr("ERROR: Supplier part num violation '" + parameter.Text + "' in component '" + component.Designator.Text + "'." + VbCr + VbLf)
+                        Call StdErr(ModuleName, "Supplier part num violation '" + parameter.Text + "' in component '" + component.Designator.Text + "'.")
                     End If
 
                     'if ((AnsiUpperCase(Parameter.Name) = 'GROUP') and (Parameter.Text <> '') and (Parameter.Text <> '*')) then

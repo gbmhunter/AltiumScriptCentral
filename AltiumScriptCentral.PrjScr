@@ -343,7 +343,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document19]
-DocumentPath=src\Tools\RenumberPads.vbs
+DocumentPath=src\Tools\SwapComponents.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -360,7 +360,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document20]
-DocumentPath=src\Tools\ResizeDesignators.vbs
+DocumentPath=src\Tools\RenumberPads.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -377,7 +377,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document21]
-DocumentPath=src\Tools\RotateDesignators.vbs
+DocumentPath=src\Tools\ResizeDesignators.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -394,7 +394,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document22]
-DocumentPath=src\Checks\RunPreReleaseChecks.vbs
+DocumentPath=src\Tools\RotateDesignators.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -411,7 +411,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document23]
-DocumentPath=src\Stats\Stats.vbs
+DocumentPath=src\Checks\RunPreReleaseChecks.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -428,7 +428,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document24]
-DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
+DocumentPath=src\Stats\Stats.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -445,7 +445,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document25]
-DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -462,7 +462,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document26]
-DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -479,7 +479,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document27]
-DocumentPath=src\Tools\ViaStamper.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -496,6 +496,23 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document28]
+DocumentPath=src\Tools\ViaStamper.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
+[Document29]
 DocumentPath=src\Util\Util.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1

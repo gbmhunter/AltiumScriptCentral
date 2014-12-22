@@ -2,21 +2,31 @@
 ' @file               CheckTentedVias.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-11
+' @last-modified      2014-12-22
 ' @brief              Script that checks to make sure that most vias are tented on the PCB.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+' @brief The name of this module for logging purposes
+Private ModuleName
+ModuleName = "CheckTentedVias.vbs"
+
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub CheckTentedVias(DummyVar)
-    Dim workspace           'As IWorkspace
-    Dim pcbProject          'As IProject
-    Dim document            'As IDocument
-    Dim violationCnt        'As Integer
-    Dim pcbBoard            'As IPCB_Board
-    Dim pcbObject           'As IPCB_Primitive;
-    Dim docNum              'As Integer
-    Dim tentedViaCount      'As Integer
-    Dim nonTentedViaCount   'As Integer
+    Dim Workspace           'As IWorkspace
+    Dim PcbProject          'As IProject
+    Dim Document            'As IDocument
+    Dim ViolationCnt        'As Integer
+    Dim PcbBoard            'As IPCB_Board
+    Dim PcbObject           'As IPCB_Primitive;
+    Dim DocNum              'As Integer
+    Dim TentedViaCount      'As Integer
+    Dim NonTentedViaCount   'As Integer
+    Dim PcbIterator
+    Dim TentedViaRatio
 
     ' Zero count variables
     TentedViaCount = 0
@@ -27,7 +37,7 @@ Sub CheckTentedVias(DummyVar)
 
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
-        StdErr("ERROR: PCB server not online." + VbCr + VbLf)
+        Call StdErr(ModuleName, "PCB server not online.")
         StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
@@ -37,7 +47,7 @@ Sub CheckTentedVias(DummyVar)
     Set PcbProject = Workspace.DM_FocusedProject
 
     If PcbProject Is Nothing Then
-        StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
+        Call StdErr(ModuleName, "Current Project is not a PCB Project.")
         StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
@@ -59,7 +69,7 @@ Sub CheckTentedVias(DummyVar)
     'pcbBoard := pcbProject.DM_TopLevelPhysicalDocument;
 
     If PcbBoard Is Nothing Then
-        StdErr("ERROR: No PCB document found. Path used = " + document.DM_FullPath + "." + vbCr + vbLf)
+        Call StdErr(ModuleName, "No PCB document found. Path used = " + document.DM_FullPath + ".")
         StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
@@ -67,7 +77,7 @@ Sub CheckTentedVias(DummyVar)
     ' Get iterator, limiting search to mech 1 layer
     Set PcbIterator = PcbBoard.BoardIterator_Create
     If PcbIterator Is Nothing Then
-        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Call StdErr(ModuleName, "PCB iterator could not be created.")
         StdOut("Tented via checking finished." + VbCr + VbLf)
         Exit Sub
     End If
@@ -83,13 +93,32 @@ Sub CheckTentedVias(DummyVar)
         'StdOut("Exp = " + IntToStr(pcbObject.Cache.SolderMaskExpansion) + ",")
         'StdOut("Valid = " + IntToStr(pcbObject.Cache.SolderMaskExpansionValid) + ";")
 
-        If PcbObject.Cache.SolderMaskExpansion*2 <= -PcbObject.Size Then
-            ' Via is tented (both sides)
-            TentedViaCount = RentedViaCount + 1
+        ' NEW METHOD (2014-12-22)
+
+        'Via.SetState_IsTenting_Top(False);
+        'Via.SetState_IsTenting_Bottom(False);
+
+        If (PcbObject.GetState_IsTenting_Top = True) And (PcbObject.GetState_IsTenting_Bottom = True) Then
+            ' Via is tented (on both sides)
+            TentedViaCount = TentedViaCount + 1
         Else
-            ' Via is not tented (on both sides)
+           ' Via is not tented (on one or both sides)
             NonTentedViaCount = NonTentedViaCount + 1
         End If
+
+        'Via.SetState_IsTenting_Bottom(False);
+
+        ' OLD METHOD
+
+        ' This was the other way of tenting vias, by adding a rule instead
+        ' of selecting "Force complete tenting on top/bottom" in Via properties.
+        'If PcbObject.Cache.SolderMaskExpansion*2 <= -PcbObject.Size Then
+        '    ' Via is tented (both sides)
+        '    TentedViaCount = TentedViaCount + 1
+        'Else
+        '   ' Via is not tented (on both sides)
+        '    NonTentedViaCount = NonTentedViaCount + 1
+        'End If
 
         Set PcbObject =  PcbIterator.NextPCBObject
     WEnd
@@ -109,10 +138,10 @@ Sub CheckTentedVias(DummyVar)
     End If
 
     ' Output
-    StdOut("Tented via ratio = " + FormatNumber(tentedViaRatio) + ". Tented via check complete." + vbCr + vbLf)
+    StdOut("Tented via ratio = " + FormatNumber(tentedViaRatio) + ". Number of vias found = " + IntToStr(TentedViaCount + NonTentedViaCount) + ". Tented via check complete." + vbCr + vbLf)
 
     If(tentedViaRatio < MIN_TENTED_VIA_RATIO) Then
-        StdErr("ERROR: Tented via ratio violation found (ratio = " + FormatNumber(tentedViaRatio) + ", minimum allowed ratio = " + FormatNumber(MIN_TENTED_VIA_RATIO) + "). Have you forgotten to tent vias?" + vbCr + vbLf)
+        Call StdErr(ModuleName, "Tented via ratio violation found (ratio = " + FormatNumber(tentedViaRatio) + ", minimum allowed ratio = " + FormatNumber(MIN_TENTED_VIA_RATIO) + "). Number of violating vias = " + IntToStr(NonTentedViaCount) + ". Have you forgotten to tent vias?")
     End If
 
 End Sub

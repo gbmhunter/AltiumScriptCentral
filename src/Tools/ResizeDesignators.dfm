@@ -67,6 +67,8 @@ object FormResizeDesignators: TFormResizeDesignators
     Width = 217
     Height = 17
     Caption = 'Only modify default-sized designators'
+    Checked = True
+    State = cbChecked
     TabOrder = 4
   end
 end

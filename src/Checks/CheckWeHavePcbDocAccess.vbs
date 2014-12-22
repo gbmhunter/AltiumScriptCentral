@@ -2,49 +2,68 @@
 ' @file               CheckWeHavePcbDocAccess.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-04
-' @last-modified      2014-11-11
+' @last-modified      2014-12-22
 ' @brief              Script that checks to make sure we have access to a PCB document belonging to the current project.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "CheckWeHavePcbDocAccess.vbs"
+
 ' @brief       Checks to make sure we have access to a PCB document belonging to the current project.
 ' @details
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 ' @returns     Returns True if we have access, otherwise false.
-Function CheckWeHavePcbDocAccess(dummyVar)
+Function CheckWeHavePcbDocAccess(DummyVar)
 
     StdOut("Checking we have PCB access...")
 
     ' Obtain the PCB server interface.
+    Client.StartServer("PCB")
     If PCBServer Is Nothing Then
-        StdErr("ERROR: PCB server not online." + VbCr + VbLf)
+        Call StdErr(ModuleName, "PCB server not online and could not be started.")
         Exit Function
     End If
 
     ' Get pcb project interface
-    Set workspace = GetWorkspace
-    Set pcbProject = workspace.DM_FocusedProject
+    Dim Workspace
+    Set Workspace = GetWorkspace
 
-    IF pcbProject Is Nothing Then
-        StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
+    Dim PcbProject
+    Set PcbProject = workspace.DM_FocusedProject
+
+    IF PcbProject Is Nothing Then
+        Call StdErr(ModuleName, "Current project is not a PCB project.")
         Exit Function
     End If
 
+    Dim DocNum
+    Dim Document
+    Dim PcbDocument
+    Dim PcbBoard
+
     ' Loop through all project documents
-    For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
-        Set document = pcbProject.DM_LogicalDocuments(docNum)
+    For DocNum = 0 To PcbProject.DM_LogicalDocumentCount - 1
+        Set Document = PcbProject.DM_LogicalDocuments(DocNum)
         ' ShowMessage(document.DM_DocumentKind)
         ' If this is PCB document
-        If document.DM_DocumentKind = "PCB" Then
+        If Document.DM_DocumentKind = "PCB" Then
             ' ShowMessage('PCB Found');
+
+            ' Open the PCB document, so we can then can a handle for it
+            PcbDocument = Client.OpenDocument("PCB", Document.DM_FullPath)
             ' Try a get the current PCB file, this will only work if
             ' it is open
-            Set pcbBoard = PCBServer.GetPCBBoardByPath(document.DM_FullPath)
+            Set PcbBoard = PCBServer.GetPCBBoardByPath(Document.DM_FullPath)
             Exit For
         End If
     Next
 
-    If pcbBoard Is Nothing Then
-        StdErr("ERROR: Could not get access to PcbDoc file. Please make sure PCB file is open and run checks again." + VbCr + VbLf)
+    If PcbBoard Is Nothing Then
+       Call StdErr(ModuleName, "Could not get access to PcbDoc file. Please make sure PCB file is open and run checks again.")
        CheckWeHavePcbDocAccess = False
        StdOut(" PCB access checking complete." + VbCr + VbLf)
        Exit Function

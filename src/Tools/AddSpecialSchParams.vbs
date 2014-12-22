@@ -1,5 +1,7 @@
 ' Cal this to load the associated form
-Sub AddSpecialSchParams(dummyVar)
+
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Sub AddSpecialSchParams(DummyVar)
 
     Call StdOut("Adding special schematic parameters...")
 

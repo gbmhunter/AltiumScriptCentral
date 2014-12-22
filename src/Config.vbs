@@ -1,3 +1,18 @@
+'
+' @file               Config.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-12-22
+' @brief              Configuration settings and variables for AltiumScriptCentral.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "Config.vbs"
+
 Dim BOARD_OUTLINE_LAYER
 Dim PCB_INFO_LAYER
 Dim TOP_DIMENSIONS_LAYER
@@ -46,7 +61,7 @@ Sub ConfigInit(dummyVar)
     BOT_MECH_BODY_LAYER     = eMechanical14
     TOP_COURTYARD_LAYER     = eMechanical15
     BOT_COURTYARD_LAYER     = eMechanical16
-    UNUSED_LAYERS           = MkSet(eMechanical3, eMechanical4, eMechanical5, eMechanical6, eMechanical7, eMechanical8, eMechanical9, eMechanical0, eMechanical17, eMechanical18, eMechanical19, eMechanical20, eMechanical21, eMechanical22, eMechanical23, eMechanical24, eMechanical25, eMechanical26, eMechanical27, eMechanical28, eMechanical29, eMechanical30, eMechanical31, eMechanical32)
+    UNUSED_LAYERS           = MkSet(eMechanical3, eMechanical4, eMechanical5, eMechanical6, eMechanical7, eMechanical8, eMechanical9, eMechanical10)
 
     MIN_TENTED_VIA_RATIO    = 0.90
 

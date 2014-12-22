@@ -2,7 +2,7 @@ object FormPreReleaseChecks: TFormPreReleaseChecks
   Left = 0
   Top = 0
   Caption = 'Pre-release Checks'
-  ClientHeight = 595
+  ClientHeight = 654
   ClientWidth = 844
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,8 +15,8 @@ object FormPreReleaseChecks: TFormPreReleaseChecks
   PixelsPerInch = 96
   TextHeight = 13
   object lblErrors: TLabel
-    Left = 50
-    Top = 396
+    Left = 42
+    Top = 324
     Width = 98
     Height = 39
     Caption = 'Errors'
@@ -29,7 +29,7 @@ object FormPreReleaseChecks: TFormPreReleaseChecks
   end
   object Label1: TLabel
     Left = 42
-    Top = 92
+    Top = 12
     Width = 101
     Height = 39
     Caption = 'Status'
@@ -41,16 +41,16 @@ object FormPreReleaseChecks: TFormPreReleaseChecks
     ParentFont = False
   end
   object MemoStdOut: TMemo
-    Left = 41
-    Top = 133
+    Left = 33
+    Top = 61
     Width = 655
     Height = 259
     ScrollBars = ssVertical
     TabOrder = 0
   end
   object MemoStdErr: TMemo
-    Left = 41
-    Top = 445
+    Left = 33
+    Top = 373
     Width = 655
     Height = 259
     Font.Charset = DEFAULT_CHARSET

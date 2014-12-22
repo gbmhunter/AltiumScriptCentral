@@ -2,7 +2,7 @@
 ' @file               DrawPolygon.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2014-11-15
+' @last-modified      2014-12-08
 ' @brief              Script draws a polygon made from tracks.
 '                     Ability to specify the number of edges, track width, rotation, e.t.c.
 ' @details
@@ -10,6 +10,7 @@
 
 Dim Board
 
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub DrawPolygon(DummyVar)
 
     ' Load current board

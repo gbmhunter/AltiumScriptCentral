@@ -2,10 +2,18 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-26
+' @last-modified      2014-12-22
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "Main.vbs"
+
+Private DummyVar
 
 Sub RunMainScript
     FormMainScript.ShowModal
@@ -14,7 +22,7 @@ End Sub
 ' Called when FormMain is created
 Sub FormMain_Create(Sender)
     ' Initialise global variables
-    ConfigInit(dummyVar)
+    ConfigInit(DummyVar)
 End Sub
 
 
@@ -91,6 +99,7 @@ Sub ButtonViaStamperClick(Sender)
     FormMainScript.Close
 End Sub
 
+
 Sub ButtonDrawPolygonClick(Sender)
     ' Close main form
     FormMainScript.Close
@@ -119,4 +128,16 @@ Sub ButtonRunPreReleaseChecksClick(Sender)
 
     ' Close main form
     FormMainScript.Close
+End Sub
+
+Sub ButtonSwapComponentsClick(Sender)
+
+    ' Hide main form
+    FormMainScript.Hide
+
+    Call SwapComponents(DummyVar)
+
+    ' Close main form
+    FormMainScript.Close
+
 End Sub

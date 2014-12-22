@@ -1,6 +1,22 @@
+'
+' @file               PowerPortChecker.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-12-22
+' @brief              Deletes all schematic parameters for the current project.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "PowerPortChecker.vbs"
+
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue. 
 Function PowerPortChecker(dummyVar)
-    Dim workspace   ' As IWorkspace
-    Dim pcbProject  ' As IProject
+    Dim Workspace   ' As IWorkspace
+    Dim PcbProject  ' As IProject
     Dim powerObj    ' As ISch_PowerObject
     Dim document    ' As IDocument
     Dim sheet       ' As ISch_Document
@@ -20,11 +36,13 @@ Function PowerPortChecker(dummyVar)
     End If
 
     ' Get pcb project interface
-    Set workspace = GetWorkspace
-    Set pcbProject = workspace.DM_FocusedProject
+    Set Workspace = GetWorkspace
+    Set PcbProject = Workspace.DM_FocusedProject
 
     ' Initialize the robots in Schematic editor.
     ' SchServer.ProcessControl.PreProcess(CurrentSheet, '');
+
+    Dim SchDocument
 
     ' Loop through all project documents
     For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
@@ -34,16 +52,18 @@ Function PowerPortChecker(dummyVar)
         ' If this is SCH document
         If document.DM_DocumentKind = "SCH" Then
 
+           ' Open document first as GetSchDocumentByPath only gets document if it is open!!!
+           SchDocument = Client.OpenDocument("SCH", document.DM_FullPath)
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             If sheet Is Nothing Then
-                StdErr("ERROR: Could not retrieve '" + document.DM_FullPath + "'. Please compile project." + VbCr + VbLf)
+                StdErr("ERROR (" + Filename + "): Could not retrieve '" + document.DM_FullPath + "'. Please compile project." + VbCr + VbLf)
                 Exit Function
             End If
 
             ' Set up iterator to look for popwer port objects only
             Set iterator = sheet.SchIterator_Create
             If iterator Is Nothing Then
-               StdErr("ERROR: Iterator creation failed." + VbCr + VbLf)
+               StdErr("ERROR (" + Filename + "): Iterator creation failed." + VbCr + VbLf)
                Exit Function
             End If
 

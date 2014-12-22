@@ -57,7 +57,7 @@ object FormMainScript: TFormMainScript
     Left = 658
     Top = 64
     Width = 286
-    Height = 272
+    Height = 320
     ParentBackground = False
     TabOrder = 14
   end
@@ -65,7 +65,7 @@ object FormMainScript: TFormMainScript
     Left = 346
     Top = 64
     Width = 286
-    Height = 272
+    Height = 320
     ParentBackground = False
     TabOrder = 13
   end
@@ -73,7 +73,7 @@ object FormMainScript: TFormMainScript
     Left = 34
     Top = 64
     Width = 286
-    Height = 272
+    Height = 320
     Ctl3D = True
     ParentBackground = False
     ParentCtl3D = False
@@ -91,7 +91,7 @@ object FormMainScript: TFormMainScript
   end
   object ButRenumberPads: TButton
     Left = 706
-    Top = 176
+    Top = 208
     Width = 206
     Height = 24
     Caption = 'Renumber Pads'
@@ -100,7 +100,7 @@ object FormMainScript: TFormMainScript
   end
   object Button2: TButton
     Left = 708
-    Top = 206
+    Top = 238
     Width = 204
     Height = 25
     Caption = 'Resize Designators'
@@ -118,7 +118,7 @@ object FormMainScript: TFormMainScript
   end
   object ButRotateDesignators: TButton
     Left = 708
-    Top = 238
+    Top = 270
     Width = 204
     Height = 25
     Caption = 'Rotate Designators'
@@ -154,12 +154,11 @@ object FormMainScript: TFormMainScript
   end
   object ButtonViaStamper: TButton
     Left = 708
-    Top = 270
+    Top = 302
     Width = 204
     Height = 26
     Caption = 'Via Stamper'
     TabOrder = 8
-    OnClick = ButtonViaStamperClick
   end
   object ButtonDrawPolygon: TButton
     Left = 708
@@ -187,5 +186,14 @@ object FormMainScript: TFormMainScript
     Caption = 'Run Pre-release Checks'
     TabOrder = 11
     OnClick = ButtonRunPreReleaseChecksClick
+  end
+  object ButtonSwapComponents: TButton
+    Left = 708
+    Top = 174
+    Width = 204
+    Height = 26
+    Caption = 'Swap Components'
+    TabOrder = 15
+    OnClick = ButtonSwapComponentsClick
   end
 end

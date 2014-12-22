@@ -1,4 +1,23 @@
-Sub CheckPcbTextHasCorrectOrientation(dummyVar)
+'
+' @file               CheckPcbTextHasCorrectOrientation.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-12-22
+' @brief              Checks that PCB text has the correct orientation (top-layer text not mirrored,
+'                     bottom layer text mirrored).
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "CheckPcbTextHasCorrectOrientation.vbs"
+
+' @brief     Checks that PCB text has the correct orientation (top-layer text not mirrored,
+'            bottom layer text mirrored).
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Sub CheckPcbTextHasCorrectOrientation(DummyVar)
 
     Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject
@@ -10,11 +29,11 @@ Sub CheckPcbTextHasCorrectOrientation(dummyVar)
 
     StdOut("Checking PCB text has correct orientation...")
 
-    violationCount = 0
+    ViolationCount = 0
 
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
-        StdErr("ERROR: PCB server not online." + VbCr + VbLf)
+        Call StdErr(ModuleName, "PCB server not online.")
         StdOut("PCB text orientation check complete." + vbCr + vbLf)
         Exit Sub
     End If
@@ -24,7 +43,7 @@ Sub CheckPcbTextHasCorrectOrientation(dummyVar)
     Set pcbProject = workspace.DM_FocusedProject
 
     IF pcbProject Is Nothing Then
-        StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
+        Call StdErr(ModuleName, "Current Project is not a PCB Project.")
         StdOut("PCB text orientation check complete." + vbCr + vbLf)
         Exit Sub
     End If
@@ -42,7 +61,7 @@ Sub CheckPcbTextHasCorrectOrientation(dummyVar)
     Next
 
     If pcbBoard Is Nothing Then
-        StdErr("ERROR: No PCB document found. Path used = " + document.DM_FullPath + "." + vbCr + vbLf)
+        Call StdErr(ModuleName, "No PCB document found. Path used = " + document.DM_FullPath + ".")
         StdOut("PCB text orientation check complete." + vbCr + vbLf)
         Exit Sub
     End If
@@ -52,7 +71,7 @@ Sub CheckPcbTextHasCorrectOrientation(dummyVar)
     ' Get iterator, limiting search to mech 1 layer
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
-        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Call StdErr(ModuleName, "PCB iterator could not be created.")
         StdOut("PCB text orientation check complete." + vbCr + vbLf)   
         Exit Sub
     End If
@@ -70,12 +89,12 @@ Sub CheckPcbTextHasCorrectOrientation(dummyVar)
         'StdOut("Valid = " + IntToStr(pcbObject.Cache.SolderMaskExpansionValid) + ";")
         If(pcbObject.Layer = eTopOverlay) And (pcbObject.MirrorFlag = true) Then
             violationCount = violationCount + 1
-            StdErr("ERROR: PCB text '" + pcbObject.Text + "' on the top overlay is mirrored." + VbCr + VbLf)
+            Call StdErr(ModuleName, "PCB text '" + pcbObject.Text + "' on the top overlay is mirrored.")
         End If
 
         If(pcbObject.Layer = eBottomOverlay) And (pcbObject.MirrorFlag = false) Then
             violationCount = violationCount + 1
-            StdErr("ERROR: PCB text '" + pcbObject.Text + "' on the bottom overlay is not mirrored." + VbCr + VbLf)
+            Call StdErr(ModuleName, "PCB text '" + pcbObject.Text + "' on the bottom overlay is not mirrored.")
         End If
 
         Set pcbObject =  pcbIterator.NextPCBObject
@@ -84,7 +103,7 @@ Sub CheckPcbTextHasCorrectOrientation(dummyVar)
     pcbBoard.BoardIterator_Destroy(pcbIterator)
 
    ' If violations then print to StdErr
-    If Not violationCount = 0 Then
+    If Not ViolationCount = 0 Then
         StdOut("ERROR: PCB text orientation violation(s) found. Please make sure text on the top layer is not mirrored, and text on the bottom layer is mirrored. Num. violations = " + IntToStr(violationCount) + ".")
     End If
 

@@ -1,46 +1,56 @@
 '
-' @file               Main.vbs
+' @file               CheckLayers.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-04
+' @last-modified      2014-12-22
 ' @brief              Script functions which check the PCB layers for violating objects.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
-Function CheckLayers(dummyVar)
-    Dim workspace       ' As IWorkspace
-    Dim pcbProject      ' As IProject
-    Dim document        ' As IDocument
-    Dim violationCnt    ' As Integer
+' Forces us to explicitly define all variables before using them
+Option Explicit
 
-    Dim pcbObject       ' As IPCB_Primitive
-    Dim docNum          ' As Integer
+' @brief The name of this module for logging purposes
+Private ModuleName
+ModuleName = "CheckLayers.vbs"
 
-    violationCnt = 0
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Function CheckLayers(DummyVar)
+    Dim Workspace       ' As IWorkspace
+    Dim PcbProject      ' As IProject
+    Dim Document        ' As IDocument
+    Dim ViolationCnt    ' As Integer
+
+    Dim PcbObject       ' As IPCB_Primitive
+    Dim DocNum          ' As Integer
+
+    ViolationCnt = 0
 
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
-        StdErr("ERROR: PCB server not online." + VbCr + VbLf)
+        Call StdErr(ModuleName, "PCB server not online.")
         Exit Function
     End If
 
     ' Get pcb project interface
-    Set workspace = GetWorkspace
-    Set pcbProject = workspace.DM_FocusedProject
+    Set Workspace = GetWorkspace
+    Set PcbProject = workspace.DM_FocusedProject
 
-    IF pcbProject Is Nothing Then
-        StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
+    If PcbProject Is Nothing Then
+        Call StdErr(ModuleName, "Current Project is not a PCB Project.")
         Exit Function
     End If
 
+    Dim PcbBoard
+
     ' Loop through all project documents
-    For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
-        Set document = pcbProject.DM_LogicalDocuments(docNum)
+    For DocNum = 0 To PcbProject.DM_LogicalDocumentCount - 1
+        Set Document = PcbProject.DM_LogicalDocuments(DocNum)
         ' ShowMessage(document.DM_DocumentKind)
         ' If this is PCB document
-        If document.DM_DocumentKind = "PCB" Then
+        If Document.DM_DocumentKind = "PCB" Then
             ' ShowMessage('PCB Found');
-            Set pcbBoard = PCBServer.GetPCBBoardByPath(document.DM_FullPath)
+            Set PcbBoard = PCBServer.GetPCBBoardByPath(document.DM_FullPath)
             Exit For
         End If
     Next
@@ -49,40 +59,40 @@ Function CheckLayers(dummyVar)
     ' be open to work)
     'pcbBoard = pcbProject.DM_TopLevelPhysicalDocument
 
-    If pcbBoard Is Nothing Then
-        StdErr("ERROR: No open PCB document found. Path used = '" + document.DM_FullPath + "'. Please open PCB file." + vbCr + vbLf)
+    If PcbBoard Is Nothing Then
+        Call StdErr(ModuleName, "No open PCB document found. Path used = '" + Document.DM_FullPath + "'. Please open PCB file.")
         Exit Function
     End If
 
-    CheckBoardOutlineLayer(pcbBoard)
-    CheckTopDimensionsLayer(pcbBoard)
-    CheckBotDimensionsLayer(pcbBoard)
-    CheckTopMechBodyLayer(pcbBoard)
-    CheckBotMechBodyLayer(pcbBoard)
-    CheckUnusedLayers(pcbBoard)
+    CheckBoardOutlineLayer(PcbBoard)
+    CheckTopDimensionsLayer(PcbBoard)
+    CheckBotDimensionsLayer(PcbBoard)
+    CheckTopMechBodyLayer(PcbBoard)
+    CheckBotMechBodyLayer(PcbBoard)
+    CheckUnusedLayers(PcbBoard)
 
 End Function
 
-Sub CheckBoardOutlineLayer(pcbBoard)
-    Dim pcbIterator
-    Dim pcbObject
-    Dim violationCnt    'As Integer
+Sub CheckBoardOutlineLayer(PcbBoard)
+    Dim PcbIterator
+    Dim PcbObject
+    Dim ViolationCnt    'As Integer
 
     StdOut("Checking board outline layer...")
 
     ' Init violation count
-    violationCnt = 0
+    ViolationCnt = 0
 
     ' Get iterator, limiting search to mech 1 layer
-    Set pcbIterator = pcbBoard.BoardIterator_Create
-    If pcbIterator Is Nothing Then
-        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+    Set PcbIterator = PcbBoard.BoardIterator_Create
+    If PcbIterator Is Nothing Then
+        Call StdErr(ModuleName, "PCB iterator could not be created.")
         Exit Sub
     End If
 
-    pcbIterator.AddFilter_ObjectSet(AllObjects)
-    pcbIterator.AddFilter_LayerSet(MkSet(BOARD_OUTLINE_LAYER))
-    pcbIterator.AddFilter_Method(eProcessAll)
+    PcbIterator.AddFilter_ObjectSet(AllObjects)
+    PcbIterator.AddFilter_LayerSet(MkSet(BOARD_OUTLINE_LAYER))
+    PcbIterator.AddFilter_Method(eProcessAll)
 
     ' Search  and  count  pads
     Set pcbObject =  pcbIterator.FirstPCBObject
@@ -100,7 +110,7 @@ Sub CheckBoardOutlineLayer(pcbBoard)
     StdOut(" Board outline layer check complete." + vbCr + vbLf)
 
     If(violationCnt <> 0) Then
-        StdErr("ERROR: Board outline layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+        Call StdErr(ModuleName, "Board outline layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + ".")
     End If
 End Sub
 
@@ -114,7 +124,7 @@ Sub CheckTopDimensionsLayer(pcbBoard)
     ' Get iterator, limiting search to specific layer
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
-        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Call StdErr(ModuleName, "PCB iterator could not be created.")
         Exit Sub
     End If
 
@@ -128,7 +138,8 @@ Sub CheckTopDimensionsLayer(pcbBoard)
         ' Make sure that only tracks/arcs/linear dimensions/angular dimensions are present on this layer
         If(pcbObject.ObjectId <> eTrackObject) And (pcbObject.ObjectId <> eArcObject) And (pcbObject.ObjectId <> eDimensionObject) And (pcbObject.ObjectId <> eLine) Then
             violationCnt = violationCnt + 1
-            StdOut("Enum = " + IntToStr(pcbObject.ObjectId))
+            ' Debug information, printing out enumeration of violating object
+            'StdOut("Enum = " + IntToStr(pcbObject.ObjectId))
         End If
         Set pcbObject =  pcbIterator.NextPCBObject
     WEnd
@@ -139,7 +150,7 @@ Sub CheckTopDimensionsLayer(pcbBoard)
     StdOut(" Top dimension layer check complete." + vbCr + vbLf)
 
     If(violationCnt <> 0) Then
-        StdErr("ERROR: Top dimension layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+        Call StdErr(ModuleName, "Top dimension layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + ".")
     End If
 End Sub
 
@@ -153,7 +164,7 @@ Sub CheckBotDimensionsLayer(pcbBoard)
     ' Get iterator, limiting search to specific layer
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
-        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Call StdErr(ModuleName, "PCB iterator could not be created.")
         Exit Sub
     End If
 
@@ -178,7 +189,7 @@ Sub CheckBotDimensionsLayer(pcbBoard)
     StdOut(" Bottom dimension layer check complete." + vbCr + vbLf)
 
     If(violationCnt <> 0) Then
-        StdErr("ERROR: Bottom dimension layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+        Call StdErr(ModuleName, "Bottom dimension layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + ".")
     End If
 End Sub
 
@@ -192,7 +203,7 @@ Sub CheckTopMechBodyLayer(pcbBoard)
     ' Get iterator, limiting search to specific layer
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
-        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Call StdErr(ModuleName, "PCB iterator could not be created.")
         Exit Sub
     End If
 
@@ -216,7 +227,7 @@ Sub CheckTopMechBodyLayer(pcbBoard)
     StdOut(" Top mech body layer check complete." + vbCr + vbLf)
 
     If(violationCnt <> 0) Then
-        StdErr("ERROR: Top mech body layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+        Call StdErr(ModuleName, "Top mech body layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + ".")
     End If
 End Sub
 
@@ -230,7 +241,7 @@ Sub CheckBotMechBodyLayer(pcbBoard)
     ' Get iterator, limiting search to specific layer
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
-        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Call StdErr(ModuleName, "PCB iterator could not be created.")
         Exit Sub
     End If
 
@@ -254,7 +265,7 @@ Sub CheckBotMechBodyLayer(pcbBoard)
     StdOut(" Bottom mechanical body layer check complete." + vbCr + vbLf)
 
     If(violationCnt <> 0) Then
-        StdErr("ERROR: Bottom mechanical body layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+        Call StdErr(ModuleName, "Bottom mechanical body layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + ".")
     End If
 End Sub
 
@@ -268,7 +279,7 @@ Sub CheckUnusedLayers(pcbBoard)
     ' Get iterator, limiting search to specific layer
     Set pcbIterator = pcbBoard.BoardIterator_Create
     If pcbIterator Is Nothing Then
-        StdErr("ERROR: PCB iterator could not be created."  + vbCr + vbLf)
+        Call StdErr(ModuleName, "PCB iterator could not be created.")
         Exit Sub
     End If
 
@@ -287,7 +298,7 @@ Sub CheckUnusedLayers(pcbBoard)
     pcbBoard.BoardIterator_Destroy(pcbIterator)
 
     If(violationCnt <> 0) Then
-        StdErr("ERROR: Unused layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + "." + vbCr + vbLf)
+        Call StdErr(ModuleName, "Unused layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + ".")
         StdOut("ERROR: Unused layer violation(s) found.")
     End If
 

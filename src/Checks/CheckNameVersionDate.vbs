@@ -1,4 +1,15 @@
-Sub CheckNameVersionDate(dummyVar)
+'
+' @file               CheckNameVersionDate.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2014-12-08
+' @brief              Script checks the PCB for a valid name, version and date.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' @brief     Checks the PCB for a valid name, version and date.
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Sub CheckNameVersionDate(DummyVar)
 
     Dim workspace           'As IWorkspace
     Dim pcbProject          'As IProject

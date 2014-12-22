@@ -2,7 +2,7 @@
 ' @file               RenumberPads.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-05
+' @last-modified      2014-12-08
 ' @brief              Script allows user to quickly renumber pads on a PCB component
 '                     by clicking them in order.
 ' @details
@@ -12,6 +12,7 @@ Dim Board       ' As IPCB_Board
 Dim PadObject   ' As IPCB_Pad
 
 ' @brief     Call this from AltiumScriptCentral
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub RenumberPads(DummyVar)
     ' Show form, non-modal
     ' ShowModal won't return until form is closed.

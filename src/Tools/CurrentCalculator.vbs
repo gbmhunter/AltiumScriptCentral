@@ -9,6 +9,7 @@
 '                     See README.rst in repo root dir for more info.
 
 ' @brief    Calcuates the maximum allowed current for a given temperature rise.
+' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue. 
 Sub CurrentCalculator(DummyVar)
 
     ' Load current board

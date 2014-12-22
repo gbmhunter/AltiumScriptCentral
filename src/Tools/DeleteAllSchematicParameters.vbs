@@ -2,10 +2,16 @@
 ' @file               DeleteAllSchematicParameters.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-11-26
+' @last-modified      2014-12-22
 ' @brief              Deletes all schematic parameters for the current project.
 ' @details
 '                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "DeleteAllSchematicParameters.vbs"
 
 ' @brief     Deletes all schematic parameters.
 ' @param     DummyVar    Dummy variable so that this sub does not show up to the user when
