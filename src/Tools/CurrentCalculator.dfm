@@ -2,7 +2,7 @@ object FormCurrentCalculator: TFormCurrentCalculator
   Left = 0
   Top = 0
   Caption = 'Current Calculator'
-  ClientHeight = 201
+  ClientHeight = 178
   ClientWidth = 304
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -65,9 +65,9 @@ object FormCurrentCalculator: TFormCurrentCalculator
   object LabelTrackCrosssectionalAreaMm2: TLabel
     Left = 200
     Top = 78
-    Width = 40
+    Width = 28
     Height = 13
-    Caption = 'External'
+    Caption = '0.008'
   end
   object Label7: TLabel
     Left = 16
@@ -109,5 +109,6 @@ object FormCurrentCalculator: TFormCurrentCalculator
     Height = 21
     TabOrder = 0
     Text = '20'
+    OnChange = EditAllowedTempRiseChange
   end
 end

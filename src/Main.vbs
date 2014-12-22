@@ -17,6 +17,7 @@ Private DummyVar
 
 Sub RunMainScript
     FormMainScript.ShowModal
+    'FormMainScript.Show
 End Sub
 
 ' Called when FormMain is created
@@ -113,11 +114,18 @@ End Sub
 Sub ButtonCurrentCalculatorClick(Sender)
 
     ' Hide main form
-    FormMainScript.Hide
-    ' Close main form
-    FormMainScript.Close
+    'FormMainScript.Hide
+    'FormMainScript.Visible = False
+
+    ' Make the form small enough that it is not intrusive while the user selects a
+    ' track to calculate current on. Note that this is the only way I could get it to work
+    ' so that events on the child form fired (e.g. ButtonClick(Sender))
+    FormMainScript.Height = 100
+    FormMainScript.Width = 100
 
     Call CurrentCalculator(DummyVar)
+
+    FormMainScript.Close
 End Sub
 
 Sub ButtonRunPreReleaseChecksClick(Sender)

@@ -11,6 +11,13 @@
 ' Forces us to explicitly define all variables before using them
 Option Explicit
 
+Private b
+b = 0.44
+Private c
+c = 0.725
+
+Private k
+
 ' @brief    Calcuates the maximum allowed current for a given temperature rise.
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub CurrentCalculator(DummyVar)
@@ -60,7 +67,6 @@ Sub CurrentCalculator(DummyVar)
 
     ' Determine the constant k, which is dependent on whether track
     ' is on internal or external layer
-    Dim k
     If IsInternalLayer(ExisTrack.Layer) Then
          k = 0.024
          LabelLayer.Caption = "Internal"
@@ -71,9 +77,6 @@ Sub CurrentCalculator(DummyVar)
 
     ' Equation: I = k x dT^b x A^c
     ' where A = cross-secitonal area of track (mills^2), b = 0.44, c = 0.725, k = layer dependent
-    Dim b, c
-    b = 0.44
-    c = 0.725
 
     ' Calculate cross-sectional area
     Dim CrossSectionalAreaMm2
@@ -81,18 +84,47 @@ Sub CurrentCalculator(DummyVar)
     LabelTrackCrosssectionalAreaMm2.Caption = CrossSectionalAreaMm2
 
     ' Convert mm^2 to mills^2 for equation
-    Dim CrossSectionalAreaMill2
-    CrossSectionalAreaMill2 = CrossSectionalAreaMm2 * (1000/25.4) * (1000/25.4)
+    'Dim CrossSectionalAreaMill2
+    'CrossSectionalAreaMill2 = CrossSectionalAreaMm2 * (1000/25.4) * (1000/25.4)
 
     Dim AllowedTempRise
     AllowedTempRise = StrToFloat(EditAllowedTempRise.Text)
 
-    Dim MaxCurrentA
-    MaxCurrentA = k * AllowedTempRise^b * CrossSectionalAreaMill2^c
-    LabelMaxCurrentA.Caption = SfFormat(MaxCurrentA, 3)
+   ' Dim MaxCurrentA
+    'MaxCurrentA = k * AllowedTempRise^b * CrossSectionalAreaMill2^c
+    'LabelMaxCurrentA.Caption = SfFormat(MaxCurrentA, 3)
+
+     Call CalcMaxCurrentA(StrToFloat(EditAllowedTempRise.Text), StrToFloat(LabelTrackCrosssectionalAreaMm2.Caption))
+
+    'FormMainScript.Visible = True
 
     ' Now lets show the form
     FormCurrentCalculator.ShowModal
 
 End Sub
 
+Function CalcMaxCurrentA(AllowedTempRise, CrossSectionalAreaMm2)
+
+     If(IsNumeric(AllowedTempRise) = False) Then
+          LabelMaxCurrentA.Caption = "NaN"
+          Exit Function
+     End If
+
+     If CDbl(AllowedTempRise) <= 0 Then
+          LabelMaxCurrentA.Caption = "NaN"
+          Exit Function
+     End If
+
+     Dim CrossSectionalAreaMill2
+     CrossSectionalAreaMill2 = StrToFloat(CrossSectionalAreaMm2) * (1000/25.4) * (1000/25.4)
+
+     Dim MaxCurrentA
+     MaxCurrentA = k * CDbl(AllowedTempRise)^b * CrossSectionalAreaMill2^c
+     LabelMaxCurrentA.Caption = SfFormat(MaxCurrentA, 3)
+End Function
+
+Sub EditAllowedTempRiseChange(Sender)
+
+     ' Allowed temp range has changed, so re-calculate the max current
+     Call CalcMaxCurrentA(EditAllowedTempRise.Text, LabelTrackCrosssectionalAreaMm2.Caption)
+End Sub
