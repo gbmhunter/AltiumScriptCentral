@@ -1,3 +1,17 @@
+'
+' @file               ComponentValidator.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2015-01-08
+' @brief              Validates schematic components.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "ComponentValidator.vbs"
 
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub ComponentValidator(DummyVar)
@@ -71,26 +85,27 @@ Sub ComponentValidator(DummyVar)
             Do While Not (component Is Nothing)
 
                 ' First, make sure component is a capacitor
-
-                Set regex = New RegExp
-                regex.IgnoreCase = True
-                regex.Global = True
+                Dim Regex
+                Set Regex = New RegExp
+                Regex.IgnoreCase = True
+                Regex.Global = True
                 ' Look for a designator
                 ' Designators are one ore more capital letters followed by
                 ' one or more numerals, with nothing else before or afterwards (i.e. anchored)
-                regex.Pattern = "^[A-Z][A-Z]*[0-9][0-9]*$"
+                Regex.Pattern = "^[A-Z][A-Z]*[0-9][0-9]*$"
 
                 ' Check for pattern match, using execute method.
-                Set matchColl = regex.Execute(component.Designator.Text)
+                Dim MatchColl
+                Set MatchColl = Regex.Execute(component.Designator.Text)
 
                 ' Make sure only one match was found
-                If matchColl.Count = 1 Then
+                If MatchColl.Count = 1 Then
                      ' Extract letters from designator
-                    regex.Pattern = "^[A-Z][A-Z]*"
-                    Set matchColl = regex.Execute(matchColl.Item(0).Value)
+                    Regex.Pattern = "^[A-Z][A-Z]*"
+                    Set MatchColl = Regex.Execute(MatchColl.Item(0).Value)
 
                     ' Make sure the designator letter(s) is valid
-                    Select Case matchColl.Item(0).Value
+                    Select Case MatchColl.Item(0).Value
                         Case DESIGNATOR_BATTERY
                         Case DESIGNATOR_CAPACITOR
                             If ValidateCapacitor(component) = False Then
@@ -123,10 +138,10 @@ Sub ComponentValidator(DummyVar)
                         Case DESIGNATOR_CRYSTAL
                         Case DESIGNATOR_FUSE_HOLDER
                         Case Else
-                            StdErr("ERROR: '" + matchColl.Item(0).Value + "' is not a recognised designator." + VbCr + VbLf)
+                            Call StdErr(ModuleName, "'" + MatchColl.Item(0).Value + "' is not a recognised designator.")
                     End Select
                 Else
-                    Call StdErr("ERROR: Designator '" + component.Designator.Text + "' does not follow the valid designator syntax." + VbCr + VbLf)
+                    Call StdErr(ModuleName, "Designator '" + component.Designator.Text + "' does not follow the valid designator syntax.")
                 End If
 
                 ' Go to next schematic component

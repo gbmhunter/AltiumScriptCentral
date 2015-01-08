@@ -17,14 +17,6 @@ ModuleName = "DeleteAllSchematicParameters.vbs"
 ' @param     DummyVar    Dummy variable so that this sub does not show up to the user when
 '                        they click "Run Script".
 Sub DeleteAllSchematicParameters(DummyVar)
-    Dim workspace           ' As IWorkspace
-    Dim pcbProject          ' As IProject
-    Dim document            ' As IDocument
-    Dim flatHierarchy       ' As IDocument
-    Dim sheet               ' As ISch_Document
-    Dim docNum              ' As Integer
-    Dim compIterator        ' As ISch_Iterator
-    Dim component           ' As IComponent
 
     'ShowMessage("Deleting all schematic parameters...")
 
@@ -35,10 +27,13 @@ Sub DeleteAllSchematicParameters(DummyVar)
     End If
 
     ' Get pcb project interface
-    Set workspace = GetWorkspace
-    Set pcbProject = workspace.DM_FocusedProject
+    Dim Workspace
+    Set Workspace = GetWorkspace
 
-    If pcbProject Is Nothing Then
+    Dim PcbProject
+    Set PcbProject = Workspace.DM_FocusedProject
+
+    If PcbProject Is Nothing Then
         ShowMessage("ERROR: Current project is not a PCB project." + VbLf + VbCr)
         Exit Sub
     End If
@@ -50,30 +45,37 @@ Sub DeleteAllSchematicParameters(DummyVar)
     Call AddStringParameter("ObjectKind", "Project")
     Call RunProcess("WorkspaceManager:Compile")
 
-    Set flatHierarchy = PCBProject.DM_DocumentFlattened
+    Dim FlatHierarchy
+    Set FlatHierarchy = PcbProject.DM_DocumentFlattened
 
    ' If we couldn't get the flattened sheet, then most likely the project has
    ' not been compiled recently
-   If flatHierarchy Is Nothing Then
+   If FlatHierarchy Is Nothing Then
       'ShowMessage("ERROR: Compile the project before running this script." + VbCr + VbLf)
       'Exit Sub
    End If
 
+   Dim SheetCount
+   SheetCount = 0
+
     ' Loop through all project documents
-    For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
-        Set document = pcbProject.DM_LogicalDocuments(docNum)
+    Dim DocNum
+    For DocNum = 0 To PcbProject.DM_LogicalDocumentCount - 1
+        Dim Document
+        Set Document = PcbProject.DM_LogicalDocuments(DocNum)
 
         ' If this is SCH document
-        If document.DM_DocumentKind = "SCH" Then
-            Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
+        If Document.DM_DocumentKind = "SCH" Then
+            Dim Sheet
+            Set Sheet = SCHServer.GetSchDocumentByPath(Document.DM_FullPath)
             'ShowMessage(document.DM_FullPath);
-            If sheet Is Nothing Then
-                ShowMessage("ERROR: Sheet '" + document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)
+            If Sheet Is Nothing Then
+                ShowMessage("ERROR: Sheet '" + Document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)
                 Exit Sub
             End If
 
             ' Start of undo block
-            Call SchServer.ProcessControl.PreProcess(sheet, "")
+            Call SchServer.ProcessControl.PreProcess(Sheet, "")
 
             ' Add all project parameters to this schematic
 
@@ -81,38 +83,40 @@ Sub DeleteAllSchematicParameters(DummyVar)
             ' DELETE SCHEMATIC PARAMETERS
 
             ' Set up iterator to look for parameter objects only
-            Set paramIterator = sheet.SchIterator_Create
-            If paramIterator Is Nothing Then
+            Dim ParamIterator
+            Set ParamIterator = Sheet.SchIterator_Create
+            If ParamIterator Is Nothing Then
                 ShowMessage("ERROR: Iterator could not be created.")
                 Exit Sub
             End If
 
-            paramIterator.AddFilter_ObjectSet(MkSet(eParameter))
-            Set schParameters = paramIterator.FirstSchObject
+            ParamIterator.AddFilter_ObjectSet(MkSet(eParameter))
+            Dim SchParameters
+            Set SchParameters = ParamIterator.FirstSchObject
 
            ' Call SchServer.RobotManager.SendMessage(document.I_ObjectAddress, c_BroadCast, SCHM_BeginModify, c_NoEventData)
 
             ' Iterate through schematic parameters and delete them
-            Do While Not (schParameters Is Nothing)            
-               sheet.RemoveSchObject(schParameters)
+            Do While Not (SchParameters Is Nothing)
+               Sheet.RemoveSchObject(SchParameters)
                'StdOut("Calling robot.")
                'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
                'Call SchServer.RobotManager.SendMessage(null, null, 1, schParameters.I_ObjectAddress)
                'StdOut("Finished robot.")
 
-                Set schParameters = paramIterator.NextSchObject
+                Set SchParameters = ParamIterator.NextSchObject
             Loop
 
-            sheet.SchIterator_Destroy(paramIterator)
+            Sheet.SchIterator_Destroy(ParamIterator)
 
             ' Redraw schematic sheet
-            sheet.GraphicallyInvalidate
+            Sheet.GraphicallyInvalidate
 
             ' Increment sheet count
             SheetCount = SheetCount + 1
 
             ' End of undo block
-            Call SchServer.ProcessControl.PostProcess(sheet, "")
+            Call SchServer.ProcessControl.PostProcess(Sheet, "")
 
         End If ' If document.DM_DocumentKind = "SCH" Then
     Next ' For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1

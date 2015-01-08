@@ -2,7 +2,7 @@
 ' @file               PowerPortChecker.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-12-22
+' @last-modified      2015-01-08
 ' @brief              Deletes all schematic parameters for the current project.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -78,7 +78,7 @@ Function PowerPortChecker(dummyVar)
                     ' Make sure they are facing downwards
                     If Not(powerObj.Orientation = eRotate270) Then
                         violationCnt = violationCnt + 1
-                        Call StdErr("ERROR: Gound symbol '" + powerObj.Text + "' with incorrect orientation on sheet " + document.DM_FullPath + " found. " + VbCr + VbLf)
+                        Call StdErr(ModuleName, "Gound symbol '" + powerObj.Text + "' with incorrect orientation on sheet " + document.DM_FullPath + " found. ")
                     End If
                 End If
                 If (powerObj.Style = ePowerBar) Then

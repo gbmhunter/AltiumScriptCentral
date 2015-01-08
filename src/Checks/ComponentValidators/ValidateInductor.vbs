@@ -1,50 +1,68 @@
-Function ValidateInductor(component)
-    Dim inductanceFound    ' As Boolean
-    Dim currentFound        ' As Boolean
+'
+' @file               ValidateInductor.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2015-01-08
+' @brief              Validates a inductor component that is on a schematic.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "ValidateInductor.vbs"
+
+Function ValidateInductor(Component)
+    Dim InductanceFound    ' As Boolean
+    Dim CurrentFound        ' As Boolean
 
     ' Create component iterator, masking only parameters
-    compIterator = component.SchIterator_Create
-    compIterator.AddFilter_ObjectSet(MkSet(eParameter))
+    Dim CompIterator
+    CompIterator = Component.SchIterator_Create
+    CompIterator.AddFilter_ObjectSet(MkSet(eParameter))
 
-    Set parameter = compIterator.FirstSchObject
+    Dim Parameter
+    Set Parameter = CompIterator.FirstSchObject
 
     ' Reset flags
-    capacitanceFound = false
-    voltageFound = false
+    InductanceFound = false
+    CurrentFound = false
 
     ' Loop through all parameters in object
-    Do While Not (parameter Is Nothing)
+    Do While Not (Parameter Is Nothing)
 
         ' Project and version regex
-        Set regex = New RegExp
-        regex.IgnoreCase = False
-        regex.Global = True
+        Dim Regex
+        Set Regex = New RegExp
+        Regex.IgnoreCase = False
+        Regex.Global = True
 
           ' Look for inductance
-        regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?[um]?H$"
+        Regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?[um]?H$"
 
-        If regex.Test(parameter.Text) And parameter.IsHidden = false Then
-            inductanceFound = true
+        If Regex.Test(Parameter.Text) And Parameter.IsHidden = false Then
+            InductanceFound = true
         End If
 
         ' Look for current
-        regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?[m]?A$"
+        Regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?[m]?A$"
 
-        If regex.Test(parameter.Text) And parameter.IsHidden = false Then
-            currentFound = true
+        If Regex.Test(Parameter.Text) And Parameter.IsHidden = false Then
+            CurrentFound = true
         End If
 
-        Set parameter = CompIterator.NextSchObject
+        Set Parameter = CompIterator.NextSchObject
     Loop ' Do While Not (parameter Is Nothing)
 
-    component.SchIterator_Destroy(compIterator)
+    Component.SchIterator_Destroy(CompIterator)
 
-    If(inductanceFound = False) Then
-        Call StdErr("ERROR: '" + component.Designator.Text + "' does not show it's inductance." + VbCr + VbLf)
+    If(InductanceFound = False) Then
+        Call StdErr(ModuleName, "'" + component.Designator.Text + "' does not show it's inductance.")
     End If
 
-    If(currentFound = False) Then
-        Call StdErr("ERROR: '" + component.Designator.Text + "' does not show it's current." + VbCr + VbLf)
+    If(CurrentFound = False) Then
+        Call StdErr(ModuleName, "'" + component.Designator.Text + "' does not show it's current.")
     End If
 
     ' Return

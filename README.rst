@@ -6,14 +6,14 @@ AltiumScriptCentral
 A collection of useful Altium scripts, written in VBScript.
 -----------------------------------------------------------
 
-.. image:: https://cloud.githubusercontent.com/assets/2396869/4988032/025f32f6-69c1-11e4-8062-de62da2fbb97.png
+.. image:: https://cloud.githubusercontent.com/assets/2396869/5656925/3679bc36-9749-11e4-93a7-aa8271eb1221.png
 	:height: 500px
 	:align: right
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2014-12-23
-- Version: v22.2.1.0
+- Last Modified: 2015-01-08
+- Version: v22.2.2.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -159,6 +159,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.2.2.0 2015-01-08 Added the 'Option Explicit' keyword to more script files. More script files now use the enhances 'StdErr()' sub that passes in the variable 'ModuleName'. Updated image in README with a newer screenshot, closes #137.
 v22.2.1.0 2014-12-23 Added a 'Find New Track' button to current calculator script, closes #169.
 v22.2.0.0 2014-12-22 Added user changeable temp rise to the current calculator module, closes #168.
 v22.1.1.0 2014-12-22 Fixed the formatting issues with the Current Calculator message box data (tabbing is incorrect), closes #154.

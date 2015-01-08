@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-12-22
+' @last-modified      2015-01-08
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -68,8 +68,9 @@ End Sub
 ' Called when the "Delete Schematic Parameters" button is clicked
 Sub ButDeleteSchParamsClick(Sender)
     FormMainScript.Hide
-    DeleteAllSchematicParameters(DummyVar)
     FormMainScript.Close
+    DeleteAllSchematicParameters(DummyVar)
+
 End Sub
 
 ' Called when the "Add Special Schematic Parameters" button is clicked

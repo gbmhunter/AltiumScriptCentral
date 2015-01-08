@@ -7,6 +7,12 @@
 ' @details
 '                     See README.rst in repo root dir for more info.
 
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "CheckComponentLinks.vbs"
+
 Sub CheckComponentLinks(DummyVar)
 
     Dim workspace           'As IWorkspace
@@ -30,8 +36,8 @@ Sub CheckComponentLinks(DummyVar)
     Set pcbProject = workspace.DM_FocusedProject
 
     IF pcbProject Is Nothing Then
-        StdErr("Current Project is not a PCB Project." + VbCr + VbLf)
-        StdOut(" Component links check complete." + vbCr + vbLf)      
+        Call StdErr(ModuleName, "Current project is not a PCB project.")
+        Call StdOut(" Component links check complete." + vbCr + vbLf)
         Exit Sub
     End If
 
@@ -48,8 +54,8 @@ Sub CheckComponentLinks(DummyVar)
     Next
 
     If pcbBoard Is Nothing Then
-        StdErr("ERROR: No PCB document found. Path used = " + document.DM_FullPath + "." + vbCr + vbLf)
-        StdOut(" Component links check complete." + vbCr + vbLf)
+        Call StdErr(ModuleName, "No PCB document found. Path used = " + document.DM_FullPath + ".")
+        Call StdOut(" Component links check complete." + vbCr + vbLf)
         Exit Sub
     End If
 

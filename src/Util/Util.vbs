@@ -32,6 +32,26 @@ Option Explicit
       End If
 End Function
 
+' @brief    Function tests whether the input argument is "perfectly" numeric.
+' @details  This is a stricter test than the built-in IsNumeric. This test will return false
+'           for strings such as "2-", while IsNumeric will return true.
+Function IsPerfectlyNumeric(VarToTest)
+
+     If VarToTest = "" Then
+          IsPerfectlyNumeric = False
+          Exit Function
+     End If
+
+     If CStr(CDbl(VarToTest)) = VarToTest Then
+          IsPerfectlyNumeric = True
+          Exit Function
+     Else
+          IsPerfectlyNumeric = False
+          Exit Function
+     End If
+
+End Function
+
 ' @brief    Determines whether a layer is an internal or external layer.
 ' @returns  True if layer is an internal layer, otherwise False (external layer).
 Function IsInternalLayer(LayerId)

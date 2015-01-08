@@ -1,41 +1,59 @@
-Function ValidateResistor(component)
-    Dim resistanceFound    ' As Boolean
+'
+' @file               ValidateResistor.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2015-01-08
+' @brief              Validates a resistor component that is on a schematic.
+' @details
+'                     See README.rst in repo root dir for more info.
+
+' Forces us to explicitly define all variables before using them
+Option Explicit
+
+Private ModuleName
+ModuleName = "ValidateResistor.vbs"
+
+Function ValidateResistor(Component)
+    Dim ResistanceFound    ' As Boolean
 
     ' Create component iterator, masking only parameters
-    compIterator = component.SchIterator_Create
-    compIterator.AddFilter_ObjectSet(MkSet(eParameter))
+    Dim CompIterator
+    CompIterator = Component.SchIterator_Create
+    CompIterator.AddFilter_ObjectSet(MkSet(eParameter))
 
-    Set parameter = compIterator.FirstSchObject
+    Dim Parameter
+    Set Parameter = CompIterator.FirstSchObject
 
     ' Reset flags
-    resistanceFound = false
+    ResistanceFound = false
 
     ' Loop through all parameters in object
-    Do While Not (parameter Is Nothing)
+    Do While Not (Parameter Is Nothing)
         ' Check for supplier part number parameter thats visible on sheet
 
         ' Project and version regex
-        Set regex = New RegExp
-        regex.IgnoreCase = False
-        regex.Global = True
+        Dim Regex
+        Set Regex = New RegExp
+        Regex.IgnoreCase = False
+        Regex.Global = True
         ' Look for date in pattern yyyy/mm/dd
-        regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?[mRkM]$"
+        Regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?[mRkM]$"
 
-        If regex.Test(parameter.Text) And parameter.IsHidden = false Then
+        If Regex.Test(Parameter.Text) And Parameter.IsHidden = false Then
             'StdOut("Resistance found!")
-            resistanceFound = true
+            ResistanceFound = true
         End If
 
-        Set parameter = CompIterator.NextSchObject
+        Set Parameter = CompIterator.NextSchObject
     Loop ' Do While Not (parameter Is Nothing)
 
-    component.SchIterator_Destroy(compIterator)
+    Component.SchIterator_Destroy(CompIterator)
 
-    If(resistanceFound = false) Then
-        Call StdErr("ERROR: '" + component.Designator.Text + "' does not show it's resistance." + VbCr + VbLf)
+    If(ResistanceFound = false) Then
+        Call StdErr(ModuleName, "'" + component.Designator.Text + "' does not show it's resistance.")
     End If
 
-    If resistanceFound = false Then
+    If ResistanceFound = false Then
         ValidateResistor = false
     Else
         ValidateResistor = true
