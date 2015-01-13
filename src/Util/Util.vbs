@@ -42,6 +42,11 @@ Function IsPerfectlyNumeric(VarToTest)
           Exit Function
      End If
 
+     If Not IsNumeric(VarToTest) Then
+          IsPerfectlyNumeric = False
+          Exit Function
+     End If
+
      If CStr(CDbl(VarToTest)) = VarToTest Then
           IsPerfectlyNumeric = True
           Exit Function

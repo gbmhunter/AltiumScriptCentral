@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-01-13
-- Version: v22.2.3.0
+- Version: v22.3.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -159,6 +159,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.3.0.0 2015-01-13 Added input checks to 'Resize Designators' script, closes #170.
 v22.2.3.0 2015-01-13 Fixed bug which stopped script central from running. Added 'Option Epxlicit' to even more scripts.
 v22.2.2.0 2015-01-08 Added the 'Option Explicit' keyword to more script files. More script files now use the enhances 'StdErr()' sub that passes in the variable 'ModuleName'. Updated image in README with a newer screenshot, closes #137.
 v22.2.1.0 2014-12-23 Added a 'Find New Track' button to current calculator script, closes #169.

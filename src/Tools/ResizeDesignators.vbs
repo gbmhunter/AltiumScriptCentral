@@ -31,6 +31,20 @@ Sub ButtonOkClick(Sender)
         Exit Sub
     End If
 
+    '========== VALIDATE INPUTS =========='
+
+    If Not IsPerfectlyNumeric(EditHeightMm.Text) Then
+        ShowMessage("ERROR: 'Height' input must be a valid number.")
+        Exit Sub
+    End If
+
+    If Not IsPerfectlyNumeric(EditWidthMm.Text) Then
+        ShowMessage("ERROR: 'Width' input must be a valid number.")
+        Exit Sub
+    End If
+
+
+
     Dim NumDesignatorsModified
     NumDesignatorsModified = 0
 
@@ -68,6 +82,7 @@ Sub ButtonOkClick(Sender)
     Board.BoardIterator_Destroy(Iterator)
 
     Pcbserver.PostProcess
+    'Pcbserver.PostProcess
     Call AddStringParameter("Action", "Redraw")
     'Call RunProcess("PCB:Zoom")
 
