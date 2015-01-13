@@ -1,4 +1,11 @@
-' Cal this to load the associated form
+'
+' @file               AddSpecialSchParams.vbs
+' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
+' @created            2013-08-08
+' @last-modified      2015-01-13
+' @brief              Adds special schematic parameters.
+' @details
+'                     See README.rst in repo root dir for more info.
 
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub AddSpecialSchParams(DummyVar)
