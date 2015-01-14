@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-01-13
-- Version: v22.3.0.0
+- Last Modified: 2015-01-14
+- Version: v22.3.1.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -159,6 +159,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.3.1.0 2015-01-14 Moved some declarations ('Dim') of variables from top of functions to just before where they are first used. Stopped the 'NumberSchematics.vbs' and 'PushProjectParametersToSchematics.vbs' script from locking up Altium if the script threw an exception. Added 'Option Explicit' to the 'PushProjectParametersToSchematics.vbs' script.
 v22.3.0.0 2015-01-13 Added input checks to 'Resize Designators' script, closes #170.
 v22.2.3.0 2015-01-13 Fixed bug which stopped script central from running. Added 'Option Epxlicit' to even more scripts.
 v22.2.2.0 2015-01-08 Added the 'Option Explicit' keyword to more script files. More script files now use the enhances 'StdErr()' sub that passes in the variable 'ModuleName'. Updated image in README with a newer screenshot, closes #137.

@@ -2,7 +2,7 @@
 ' @file               CurrentCalculator.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-24
-' @last-modified      2014-12-23
+' @last-modified      2015-01-14
 ' @brief              Script allows user to determine the maximum allowed current
 '                     of a particular track for a given temperature rise.
 ' @details
@@ -108,6 +108,8 @@ Sub CurrentCalculator(DummyVar)
 
 End Sub
 
+' @brief     Calculates the maximum current given an allowed temp rise and cross-sectional area.
+' @details   Gets other values from the fields on the form.
 Function CalcMaxCurrentA(AllowedTempRise, CrossSectionalAreaMm2)
 
      If(IsNumeric(AllowedTempRise) = False) Then

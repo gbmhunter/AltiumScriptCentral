@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-08
+' @last-modified      2015-01-14
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -29,8 +29,8 @@ End Sub
 
 Sub MainPushProjectParametersToSchematics(Sender)
     FormMainScript.Hide
-    PushProjectParametersToSchematics(DummyVar)
     FormMainScript.Close
+    PushProjectParametersToSchematics(DummyVar)
 End Sub
 
 Sub MainRenumberPads(Sender)
@@ -53,9 +53,11 @@ Sub MainResizeDesignators(Sender)
 End Sub
 
 Sub ButNumberSchematics_Click(Sender)
+    ' Close the main form before running number schematics script so we don't lock up Altium
+    ' if NumberSchematics() throws an exception
     FormMainScript.Hide
-    NumberSchematics(dummyVar)
     FormMainScript.Close
+    NumberSchematics(dummyVar)
 End Sub
 
 ' Called when the "Rotate Designators" button is clicked

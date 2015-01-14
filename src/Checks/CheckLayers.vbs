@@ -2,7 +2,7 @@
 ' @file               CheckLayers.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-12-22
+' @last-modified      2015-01-14
 ' @brief              Script functions which check the PCB layers for violating objects.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -14,17 +14,9 @@ Option Explicit
 Private ModuleName
 ModuleName = "CheckLayers.vbs"
 
+' @brief     Checks PCB layers have the correct primitives on them.
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Function CheckLayers(DummyVar)
-    Dim Workspace       ' As IWorkspace
-    Dim PcbProject      ' As IProject
-    Dim Document        ' As IDocument
-    Dim ViolationCnt    ' As Integer
-
-    Dim PcbObject       ' As IPCB_Primitive
-    Dim DocNum          ' As Integer
-
-    ViolationCnt = 0
 
     ' Obtain the PCB server interface.
     If PCBServer Is Nothing Then
@@ -33,18 +25,23 @@ Function CheckLayers(DummyVar)
     End If
 
     ' Get pcb project interface
+    Dim Workspace       ' As IWorkspace
     Set Workspace = GetWorkspace
+
+    Dim PcbProject      ' As IProject
     Set PcbProject = workspace.DM_FocusedProject
 
     If PcbProject Is Nothing Then
-        Call StdErr(ModuleName, "Current Project is not a PCB Project.")
+        Call StdErr(ModuleName, "Current project is not a PCB project.")
         Exit Function
     End If
 
     Dim PcbBoard
 
     ' Loop through all project documents
+    Dim DocNum          ' As Integer
     For DocNum = 0 To PcbProject.DM_LogicalDocumentCount - 1
+        Dim Document        ' As IDocument
         Set Document = PcbProject.DM_LogicalDocuments(DocNum)
         ' ShowMessage(document.DM_DocumentKind)
         ' If this is PCB document
@@ -81,18 +78,18 @@ Sub CheckBoardOutlineLayer(PcbBoard)
     StdOut("Checking board outline layer...")
 
     ' Init violation count
-    ViolationCnt = 0
+    violationCnt = 0
 
     ' Get iterator, limiting search to mech 1 layer
-    Set PcbIterator = PcbBoard.BoardIterator_Create
-    If PcbIterator Is Nothing Then
+    Set pcbIterator = PcbBoard.BoardIterator_Create
+    If pcbIterator Is Nothing Then
         Call StdErr(ModuleName, "PCB iterator could not be created.")
         Exit Sub
     End If
 
-    PcbIterator.AddFilter_ObjectSet(AllObjects)
-    PcbIterator.AddFilter_LayerSet(MkSet(BOARD_OUTLINE_LAYER))
-    PcbIterator.AddFilter_Method(eProcessAll)
+    pcbIterator.AddFilter_ObjectSet(AllObjects)
+    pcbIterator.AddFilter_LayerSet(MkSet(BOARD_OUTLINE_LAYER))
+    pcbIterator.AddFilter_Method(eProcessAll)
 
     ' Search  and  count  pads
     Set pcbObject =  pcbIterator.FirstPCBObject
@@ -110,7 +107,7 @@ Sub CheckBoardOutlineLayer(PcbBoard)
     StdOut(" Board outline layer check complete." + vbCr + vbLf)
 
     If(violationCnt <> 0) Then
-        Call StdErr(ModuleName, "Board outline layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + ".")
+        Call StdErr(moduleName, "Board outline layer violation(s) found. Number of violations = " + IntToStr(violationCnt) + ".")
     End If
 End Sub
 

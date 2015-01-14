@@ -2,7 +2,7 @@
 ' @file               CheckPcbTextHasCorrectOrientation.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-12-22
+' @last-modified      2015-01-14
 ' @brief              Checks that PCB text has the correct orientation (top-layer text not mirrored,
 '                     bottom layer text mirrored).
 ' @details
@@ -19,16 +19,9 @@ ModuleName = "CheckPcbTextHasCorrectOrientation.vbs"
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub CheckPcbTextHasCorrectOrientation(DummyVar)
 
-    Dim workspace           'As IWorkspace
-    Dim pcbProject          'As IProject
-    Dim document            'As IDocument
-    Dim pcbBoard            'As IPCB_Board
-    Dim pcbObject           'As IPCB_Primitive;
-    Dim docNum              'As Integer
-    Dim violationCount      'As Integer
-
     StdOut("Checking PCB text has correct orientation...")
 
+    Dim violationCount      'As Integer
     ViolationCount = 0
 
     ' Obtain the PCB server interface.
@@ -39,17 +32,23 @@ Sub CheckPcbTextHasCorrectOrientation(DummyVar)
     End If
 
     ' Get pcb project interface
+    Dim workspace           'As IWorkspace
     Set workspace = GetWorkspace
+
+    Dim pcbProject          'As IProject
     Set pcbProject = workspace.DM_FocusedProject
 
-    IF pcbProject Is Nothing Then
-        Call StdErr(ModuleName, "Current Project is not a PCB Project.")
+    If pcbProject Is Nothing Then
+        Call StdErr(ModuleName, "Current project is not a PCB project.")
         StdOut("PCB text orientation check complete." + vbCr + vbLf)
         Exit Sub
     End If
 
     ' Loop through all project documents
+    Dim docNum              'As Integer
+    Dim pcbBoard            'As IPCB_Board
     For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
+        Dim document            'As IDocument
         Set document = pcbProject.DM_LogicalDocuments(docNum)
         ' ShowMessage(document.DM_DocumentKind)
         ' If this is PCB document
@@ -82,6 +81,7 @@ Sub CheckPcbTextHasCorrectOrientation(DummyVar)
     pcbIterator.AddFilter_Method(eProcessAll)
 
     ' Iterate through all found strings
+    Dim pcbObject           'As IPCB_Primitive;
     Set pcbObject =  pcbIterator.FirstPCBObject
     While Not(pcbObject Is Nothing)
         ' Make sure that only tracks/arcs are present on this layer
