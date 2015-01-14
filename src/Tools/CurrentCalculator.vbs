@@ -18,18 +18,60 @@ c = 0.725
 
 Private k
 
+' @brief    Calcuates the maximum allowed current for a given temperature rise. Call this from Main.vbs.
+' @param    DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+Sub CurrentCalculator(DummyVar)
+
+    Dim status
+
+    Dim foundTrack
+    foundTrack = False
+
+    Do While Not foundTrack
+        status = GetTrackAndUpdateVals(DummyVar)
+
+        If status = GENERAL_ERROR Or status = ESC_PRESSED Then
+             Exit Sub
+        ElseIf status = NO_TRACK_SELECTED Then
+             foundTrack = False
+        ElseIf status = TRACK_SELECTED Then
+             foundTrack = True
+        End If
+
+    Loop
+    'FormMainScript.Visible = True
+
+    ' Now lets show the form
+    FormCurrentCalculator.ShowModal
+
+End Sub
+
+' Returns codes for GetTrackAndUpdateVals()
+Private Const GENERAL_ERROR = 0
+Private Const ESC_PRESSED = 1
+Private Const NO_TRACK_SELECTED = 2
+Private Const TRACK_SELECTED = 3
+
 ' @brief       Asks user to select a track and then updates associated form values.
-Sub GetTrackAndUpdateVals(DummyVar)
+' @returns     One of the returns codes listed directly above.
+Function GetTrackAndUpdateVals(DummyVar)
+
+    ' Set return value to false, unless we make it all the way to the end of this function
+    GetTrackAndUpdateVals = False
+
     ' Load current board
     If PCBServer Is Nothing Then
         ShowMessage("ERROR: Could not load the PCB server.")
+        GetTrackAndUpdateVals = GENERAL_ERROR
+        Exit Function
     End If
 
     Dim Board
     Set Board = PCBServer.GetCurrentPCBBoard
     If Board Is Nothing Then
         ShowMessage("ERROR: Could not load a PCB or footprint library. Please make sure one of these has focus.")
-        Exit Sub
+        GetTrackAndUpdateVals = GENERAL_ERROR
+        Exit Function
     End If
 
     ' Get the layer stack for the board, this will be used later
@@ -39,14 +81,21 @@ Sub GetTrackAndUpdateVals(DummyVar)
 
     ' Ask user to select first pad object
     Dim x, y
-    Board.ChooseLocation x, y, "Choose a track for current calculations."
+    Dim escNotPressed
+    If Not Board.ChooseLocation(x, y, "Choose a track for current calculations.") Then
+        GetTrackAndUpdateVals = ESC_PRESSED
+        Exit Function
+    End If
+
+
     Dim ExisTrack
     Set ExisTrack = Board.GetObjectAtXYAskUserIfAmbiguous(x, y, MkSet(eTrackObject), AllLayers, eEditAction_Select)
 
     ' Make sure via was valid
     If ExisTrack Is Nothing Then
        ShowMessage("ERROR: A track was not selected.")
-       Exit Sub
+       GetTrackAndUpdateVals = NO_TRACK_SELECTED
+       Exit Function
     End If
 
     ' If here, we must have a valid track
@@ -93,20 +142,11 @@ Sub GetTrackAndUpdateVals(DummyVar)
     'LabelMaxCurrentA.Caption = SfFormat(MaxCurrentA, 3)
 
      Call CalcMaxCurrentA(StrToFloat(EditAllowedTempRise.Text), StrToFloat(LabelTrackCrosssectionalAreaMm2.Caption))
-End Sub
 
-' @brief    Calcuates the maximum allowed current for a given temperature rise.
-' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
-Sub CurrentCalculator(DummyVar)
+     GetTrackAndUpdateVals = TRACK_SELECTED
+End Function
 
 
-    GetTrackAndUpdateVals(DummyVar)
-    'FormMainScript.Visible = True
-
-    ' Now lets show the form
-    FormCurrentCalculator.ShowModal
-
-End Sub
 
 ' @brief     Calculates the maximum current given an allowed temp rise and cross-sectional area.
 ' @details   Gets other values from the fields on the form.
@@ -138,14 +178,32 @@ End Sub
 
 Sub ButtonFindAnotherTrackClick(Sender)
 
-     ' Hide the form so the user can easily select a new track
-     FormCurrentCalculator.Hide
+    ' Hide the form so the user can easily select a new track
+    FormCurrentCalculator.Hide
 
-     ' Call subroutine which asks user for a track and updates
-     ' form values
-     Dim DummyVar
-     Call GetTrackAndUpdateVals(DummyVar)
+    ' Call subroutine which asks user for a track and updates
+    ' form values
+    Dim DummyVar
 
-     ' Now show the form again
-     FormCurrentCalculator.Show
+    Dim status
+
+    Dim foundTrack
+    foundTrack = False
+
+    Do While Not foundTrack
+        status = GetTrackAndUpdateVals(DummyVar)
+
+        If status = GENERAL_ERROR Or status = ESC_PRESSED Then
+           FormCurrentCalculator.Close
+           Exit Sub
+        ElseIf status = NO_TRACK_SELECTED Then
+           foundTrack = False
+        ElseIf status = TRACK_SELECTED Then
+           foundTrack = True
+        End If
+
+    Loop
+
+    ' Now show the form again
+    FormCurrentCalculator.Show
 End Sub
