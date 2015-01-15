@@ -2,7 +2,7 @@
 ' @file               CheckProjectCompiles.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-12-22
+' @last-modified      2015-01-15
 ' @brief              Script that checks to make sure the current project compiles successfully.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -10,45 +10,45 @@
 ' Forces us to explicitly define all variables before using them
 Option Explicit
 
-Private ModuleName
-ModuleName = "CheckProjectCompiles.vbs"
+Private moduleName
+moduleName = "CheckProjectCompiles.vbs"
 
 ' @brief    This makes sure the project is compiled.
 ' @details  Note that this does not check to see whether the project compiles without errors, this
 '           will still return True if it compiles with errors.
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Function CheckProjectCompiles(DummyVar)
-    Dim workspace           ' As IWorkspace
-    Dim pcbProject          ' As IProject
-    Dim document            ' As IDocument
-    Dim flatHierarchy       ' As IDocument
 
     StdOut("Checking project compiles...")
 
-    Dim ViolationFnd
-    ViolationFnd = false
+    Dim violationFnd
+    violationFnd = false
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
        ' Maybe we could use this in the future...
         ' Client.StartServer("SCH")
 
-        StdErr("ERROR: Schematic server not online." + VbLf + VbCr)
+        Call StdErr(moduleName, "Schematic server not online.")
         CheckProjectCompiles = False
         Exit Function
     End If
 
     ' Get pcb project interface
+    Dim workspace           ' As IWorkspace
     Set workspace = GetWorkspace
+
+    Dim pcbProject          ' As IProject
     Set pcbProject = workspace.DM_FocusedProject
 
     If pcbProject Is Nothing Then
-        StdErr("ERROR: Current project is not a PCB project." + VbCr + VbLf)
+        Call StdErr(moduleName, "Current project is not a PCB project.")
         CheckProjectCompiles = False
         Exit Function
     End If
 
    ' Compile project
+   Dim flatHierarchy       ' As IDocument
    Set flatHierarchy = PCBProject.DM_DocumentFlattened
 
    ' If we couldn't get the flattened sheet, then most likely the project has
@@ -63,7 +63,7 @@ Function CheckProjectCompiles(DummyVar)
         ' Try Again to open the flattened document
         Set flatHierarchy = PCBProject.DM_DocumentFlattened
         If flatHierarchy Is Nothing Then
-           StdErr("ERROR: Could not compile project." + VbCr + VbLf)
+           Call StdErr(moduleName, "Could not compile project.")
            CheckProjectCompiles = False
            Exit Function
         End If
