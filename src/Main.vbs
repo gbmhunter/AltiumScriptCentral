@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-14
+' @last-modified      2015-01-16
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -15,7 +15,9 @@ ModuleName = "Main.vbs"
 
 Private DummyVar
 
-Sub RunMainScript
+' @brief        This sub should be visible in DXP->Run Script, and when clicked
+'               will run AltiumScript Central.
+Sub RunAltiumScriptCentral
     FormMainScript.ShowModal
     'FormMainScript.Show
 End Sub

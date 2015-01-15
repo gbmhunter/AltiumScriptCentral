@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-01-15
-- Version: v22.3.3.0
+- Last Modified: 2015-01-16
+- Version: v22.3.4.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -141,7 +141,7 @@ ValidateResistor.vbs                     Makes sure that all the inductors on th
 Statistics
 ----------
 
-PCB statistics can be displayed by clicking the "Display PCB Stats" button from the main script window. All code for this is located in :code:`src/Stats`
+PCB statistics can be displayed by clicking the "Display PCB Stats" button from the main script window. All code for this is located in :code:`src/Stats`.
 
 Issues
 ======
@@ -151,7 +151,9 @@ See GitHub Issues.
 Usage
 =====
 
-Add the scripts to your current project, and then run the scripts from Altium by holding Alt and pressing X, S.
+1. Add the AltiumScriptCentral project (:code:`AltiumScriptCentral.PrjScr`) to your current Altium workspace.
+2. Open the "DXP->Run Script" window by holding Alt, and then pressing X, S.
+3. Run AltiumScriptCentral by selecting "AltiumScriptCentral.PrjScr->Main.vbs->RunAltiumScriptCentral" from the "Select script to run" window.
 	
 Changelog
 =========
@@ -159,6 +161,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.3.4.0 2015-01-16 Fixed up the Usage section in README. Renamed the main sub to start AltiumScriptCentral to 'RunAltiumScriptCentral'.
 v22.3.3.0 2015-01-15 Fixed bug in 'CheckProjectCompiles.vbs' which prevented AltiumScriptCentral from starting.
 v22.3.2.0 2015-01-14 Made 'CurrentCalculator' script ask user for another location if track was not selected, until ESC is pressed, closes #172.
 v22.3.1.0 2015-01-14 Moved some declarations ('Dim') of variables from top of functions to just before where they are first used. Stopped the 'NumberSchematics.vbs' and 'PushProjectParametersToSchematics.vbs' script from locking up Altium if the script threw an exception. Added 'Option Explicit' to the 'PushProjectParametersToSchematics.vbs' script.
