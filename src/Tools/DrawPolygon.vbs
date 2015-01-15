@@ -37,7 +37,9 @@ End Sub
 
 Sub ButtonDrawOnPcbClick(Sender)
 
-     '========== RETRIEVE AND VALIDATE USER INPUT ==========
+     '======================================================'
+     '========== RETRIEVE AND VALIDATE USER INPUT =========='
+     '======================================================'
 
      Dim NumEdges
      NumEdges = EditNumEdges.Text
@@ -53,39 +55,68 @@ Sub ButtonDrawOnPcbClick(Sender)
      End If
 
      Dim VertexRadiusSelected, EdgeRadiusSelected, EdgeLengthSelected
+
+     ' Get values of radio buttons, only one of these should be checked
      VertexRadiusSelected = RadioButtonVertexRadiusMm.Checked
      EdgeRadiusSelected = RadioButtonEdgeRadiusMm.Checked
      EdgeLengthSelected = RadioButtonEdgeLengthMm.Checked
 
      If VertexRadiusSelected Then
         If Not IsPerfectlyNumeric(EditVertexRadiusMm.Text) Then
-            ShowMessage("ERROR: 'Vertex Radius' input must be a valid number.")
+            ShowMessage("ERROR: 'Vertex Radius (mm)' input must be a valid number.")
+            Exit Sub
+        End If
+        If CDbl(EditVertexRadiusMm.Text) <= 0 Then
+            ShowMessage("ERROR: 'Vertex Radius (mm)' input must be greater than 0.")
             Exit Sub
         End If
      ElseIf EdgeRadiusSelected Then
         If Not IsPerfectlyNumeric(EditEdgeRadiusMm.Text) Then
-            ShowMessage("ERROR: 'Edge Radius' input must be a valid number.")
+            ShowMessage("ERROR: 'Edge Radius (mm)' input must be a valid number.")
+            Exit Sub
+        End If
+        If CDbl(EditEdgeRadiusMm.Text) <= 0 Then
+            ShowMessage("ERROR: 'Edge Radius (mm)' input must be greater than 0.")
             Exit Sub
         End If
      ElseIf EdgeLengthSelected Then
         If Not IsPerfectlyNumeric(EditEdgeLengthMm.Text) Then
-            ShowMessage("ERROR: 'Edge Length' input must be a valid number.")
+            ShowMessage("ERROR: 'Edge Length (mm)' input must be a valid number.")
+            Exit Sub
+        End If
+        If CDbl(EditEdgeLengthMm.Text) <= 0 Then
+            ShowMessage("ERROR: 'Edge Length (mm)' input must be greater than 0.")
             Exit Sub
         End If
      End If
 
+     ' Rotation
+     If Not IsPerfectlyNumeric(EditRotationDeg.Text) Then
+         ShowMessage("ERROR: 'Rotation' input must be a valid number.")
+         Exit Sub
+     End If
      Dim RotationDeg
      RotationDeg = StrToFloat(EditRotationDeg.Text)
 
+     ' Line thickness
+     If Not IsPerfectlyNumeric(EditLineThicknessMm.Text) Then
+         ShowMessage("ERROR: 'Line Thickness (mm)' input must be a valid number.")
+         Exit Sub
+     End If
      Dim LineThicknessMm
      LineThicknessMm = StrToFloat(EditLineThicknessMm.Text)
+     If LineThicknessMm < 0 Then
+         ShowMessage("ERROR: 'Line Thickness (mm)' input must be greater than 0.")
+         Exit Sub
+     End If
 
      Dim Layer
+     ' Convert the string to a valid Altium layer
      Layer = String2Layer(EditDrawLayer.Text)
      If Layer = 0 Then
           ' Show error msg, close "DrawPolygon" form and exit
-          ShowMessage("ERROR: Test in 'Draw Layer' box was not a valid layer!")
-          FormDrawPolygon.Close
+          ShowMessage("ERROR: '" + EditDrawLayer.Text + "' in 'Draw Layer' box is not a valid layer!")
+          'FormDrawPolygon.Close
           Exit Sub
      End If
      'ShowMessage("Layer = " + CStr(Layer))
@@ -109,7 +140,8 @@ Sub ButtonDrawOnPcbClick(Sender)
 
      ' Get first points, this depends on the method choosen to define the
      ' polygon's size
-     Dim VertexRadiusMm, x1, y1, x2, y2
+     Dim VertexRadiusMm, EdgeRadiusMm, EdgeLengthMm
+     Dim x1, y1, x2, y2
      If VertexRadiusSelected Then
         VertexRadiusMm = CDbl(EditVertexRadiusMm.Text)
         x1 = -VertexRadiusMm * sin((SectorAngle/2)*Pi/180)

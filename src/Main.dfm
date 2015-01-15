@@ -179,8 +179,8 @@ object FormMainScript: TFormMainScript
     OnClick = ButtonCurrentCalculatorClick
   end
   object ButtonRunPreReleaseChecks: TButton
-    Left = 66
-    Top = 80
+    Left = 74
+    Top = 112
     Width = 206
     Height = 24
     Caption = 'Run Pre-release Checks'
@@ -195,5 +195,14 @@ object FormMainScript: TFormMainScript
     Caption = 'Swap Components'
     TabOrder = 15
     OnClick = ButtonSwapComponentsClick
+  end
+  object ButtonExitActiveCommand: TButton
+    Left = 74
+    Top = 80
+    Width = 206
+    Height = 24
+    Caption = 'Exit Active Command'
+    TabOrder = 16
+    OnClick = ButtonExitActiveCommandClick
   end
 end

@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-01-16
-- Version: v22.3.4.0
+- Version: v22.4.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -39,6 +39,16 @@ Main.dfm                                 Form information for the main script (t
 Main.vbs                                 This is the main script which when run will load up a form that can run all of the other scripts.
 ======================================== ==================================================================
 
+
+Project Tools
+=============
+
+Exit Active Command
+-------------------
+
+File: src/Tools/ExitActiveCommand.vbs
+
+Allows you to save a project if you ever get stuck with the error message "Command is currently active" when trying to save. Just run this script once and you should be able to save again (and not lose your work!). Error is normally the result of a buggy script or a script which crashed before it could call :code:`PCBServer.PostProcess`.
 
 Schematic Tools
 ===============
@@ -161,6 +171,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.4.0.0 2015-01-16 Added script that exits any current command (just calls 'PCBServer.PostProcess'), closes #171. Added checks to all the user inputs in the 'DrawPolygon' script, closes #145.
 v22.3.4.0 2015-01-16 Fixed up the Usage section in README. Renamed the main sub to start AltiumScriptCentral to 'RunAltiumScriptCentral'.
 v22.3.3.0 2015-01-15 Fixed bug in 'CheckProjectCompiles.vbs' which prevented AltiumScriptCentral from starting.
 v22.3.2.0 2015-01-14 Made 'CurrentCalculator' script ask user for another location if track was not selected, until ESC is pressed, closes #172.

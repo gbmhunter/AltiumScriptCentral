@@ -156,3 +156,11 @@ Sub ButtonSwapComponentsClick(Sender)
     FormMainScript.Close
 
 End Sub
+
+Sub ButtonExitActiveCommandClick(Sender)
+
+    Call ExitActiveCommand(DummyVar)
+
+    ' Close main form
+    FormMainScript.Close
+End Sub
