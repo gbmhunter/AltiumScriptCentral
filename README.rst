@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-01-22
-- Version: v22.4.3.3
+- Version: v22.4.3.4
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -77,7 +77,7 @@ ValidateResistor.vbs                     Makes sure that all the inductors on th
 Exit Active Command
 -------------------
 
-File: src/Tools/ExitActiveCommand.vbs
+File: :code:`src/Tools/ExitActiveCommand.vbs`
 
 Allows you to save a project if you ever get stuck with the error message "Command is currently active" when trying to save. Just run this script once and you should be able to save again (and not lose your work!). Error is normally the result of a buggy script or a script which crashed before it could call :code:`PCBServer.PostProcess`.
 
@@ -91,21 +91,21 @@ Schematic Tools
 Add Special Schematic Parameters
 --------------------------------
 
-File: src/Tools/AddSpecialSchParam.vbs
+File: :code:`src/Tools/AddSpecialSchParam.vbs`
 
 Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
 
 Delete All Schematic Parameters
 -------------------------------
 
-File: src/Tools/DeleteAllSchematicParameters.vbs
+File: :code:`src/Tools/DeleteAllSchematicParameters.vbs`
 
 Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
 
 Push Project Parameters To Schematics
 -------------------------------------
 
-File: src/Tools/PushProjectParametersToSchematics.vbs
+File: :code:`src/Tools/PushProjectParametersToSchematics.vbs`
 
 Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
 
@@ -117,7 +117,7 @@ PCB Tools
 Current Calculator
 ------------------
 
-File: src/Tools/CurrentCalculator.vbs
+File: :code:`src/Tools/CurrentCalculator.vbs`
 
 Allows the user to calculate the the maximum allowed current of a particular track on a PCB for a given temperature rise. Calculated in accordance with the equations in IPC-2221A Section 6.2 (formerly IPC-D-275).
 
@@ -127,7 +127,7 @@ Based on the calculator found at `http://www.mbedded.ninja/online-calculators/pc
 Draw Polygon
 ------------
 
-File: src/Tools/DrawPolygon.vbs
+File: :code:`src/Tools/DrawPolygon.vbs`
 
 Allows you to easily draw a polygon on a PCB. You can specify the number of sides, the size (using either the vertex radius, the edge radius, or the edge length as a metric), the track width, the rotation, and more.
 
@@ -138,21 +138,21 @@ Allows you to easily draw a polygon on a PCB. You can specify the number of side
 Resize Designators
 ------------------
 
-File: src/Tools/ResizeDesignators.vbs
+File: :code:`src/Tools/ResizeDesignators.vbs`
 
 Changes the font size (width and height) of all component designators on the PCB.
 
 Rotate Designators
 ------------------
 
-File: src/Tools/RotateDesignators.vbs
+File: :code:`src/Tools/RotateDesignators.vbs`
 
 Rotates all PCB component designators so that they are rotated to only 1 of 2 positions.
 
 Statistics
 ----------
 
-File: src/Stats/Stats.vbs
+File: :code:`src/Stats/Stats.vbs`
 
 PCB statistics can be displayed by clicking the "Display PCB Stats" button from the main script window. This displays useful PCB information such as: number of vias, num. pads with plated holes, num. pads with unplated holes, total num. holes, smallest and largest hole sizes, number of different hole sizes, smallest annular ring, minimum track width, number of copper layers, board width, board height, and board area. 
 
@@ -168,7 +168,7 @@ All code for this is located in :code:`src/Stats`.
 Via Stamper
 -----------
 
-File: src/Tools/ViaStamper.vbs
+File: :code:`src/Tools/ViaStamper.vbs`
 
 Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless you do a special paste).
 
@@ -191,6 +191,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.4.3.4 2014-01-22 Turned all file paths in README into 'code' formatted blocks, closes #175.
 v22.4.3.3 2015-01-22 Added image for the 'Exit Active Command' script, closes #174.
 v22.4.3.2 2015-01-22 Added images from the 'DrawPolygon' script to the README, closes #146.
 v22.4.3.1 2015-01-22 Made note that pushing project parameters is redundant with an AD13 update, closes #99. Moved 'Checks' section into 'Project' section in README. Added info to the statistics section of the README. Added image of 'PCB Stats' script in action to the README.
