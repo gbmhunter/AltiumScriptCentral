@@ -2,7 +2,7 @@
 ' @file               NumberSchematics.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-14
+' @last-modified      2015-01-22
 ' @brief              Numbers all schematic sheets for the current project. Designed to work
 '                     with a schematic template which displays the sheet number and total sheets
 '                     on the schematic.
@@ -20,17 +20,6 @@ moduleName = "NumberSchematics.vbs"
 ' @param     DummyVar    Dummy variable so that this sub does not show up to the user when
 '                        they click "Run Script".
 Sub NumberSchematics(dummyVar)
-
-
-
-
-    'Dim compIterator        ' As ISch_Iterator
-    'Dim component           ' As IComponent
-    'Dim projParameter       ' As IParameter
-
-
-
-
 
     'StdOut("Numbering schematics...")
 
@@ -97,7 +86,9 @@ Sub NumberSchematics(dummyVar)
     Dim schematicSheetCount ' As Integer
     schematicSheetCount = 0
 
-     ' Now loop through all project documents again to number sheets
+    ' Now loop through all project documents again to number sheets
+    ' Note that if we use the default ordering, they are guaranteed to be numbered
+    ' as laid out in the "Projects" window. This is confusing.
     For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
         Set document = pcbProject.DM_LogicalDocuments(docNum)
 
@@ -116,7 +107,7 @@ Sub NumberSchematics(dummyVar)
             ' Start of undo block
             Call SchServer.ProcessControl.PreProcess(sheet, "")
 
-            ' REMOVE EXISTING PARAMETERS IF THEY EXIST
+            '===== REMOVE EXISTING PARAMETERS IF THEY EXIST ====='
 
             ' Set up iterator to look for parameter objects only
             Dim paramIterator
@@ -134,16 +125,19 @@ Sub NumberSchematics(dummyVar)
 
             ' Iterate through exising parameters
             Do While Not (schParameters Is Nothing)
+                 ' Look for sheet count or total count parameters
                  If schParameters.Name = SCHEMATIC_SHEET_COUNT_PARAM_NAME Or schParameters.Name = TOTAL_SHEET_PARAM_NAME Then
                        ' Remove parameter before adding again
                        sheet.RemoveSchObject(schParameters)
-                       'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
+                       Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameters.I_ObjectAddress)
                  End If
 
                 Set schParameters = paramIterator.NextSchObject
             Loop
 
             sheet.SchIterator_Destroy(paramIterator)
+
+            '===== ADDING NEW PARAMETERS ====='
 
             ' Add schematic sheet number and total count as parameters
 
@@ -154,7 +148,7 @@ Sub NumberSchematics(dummyVar)
             sheet.AddSchObject(sheetCountParam)
 
             ' Tell server about change
-            'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, sheetCountParam.I_ObjectAddress)
+            Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, sheetCountParam.I_ObjectAddress)
 
             Dim totalSheetsParam
             totalSheetsParam = SchServer.SchObjectFactory(eParameter, eCreate_Default)
@@ -163,7 +157,7 @@ Sub NumberSchematics(dummyVar)
             sheet.AddSchObject(totalSheetsParam)
 
             ' Tell server about change
-            'Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, totalSheetsParam.I_ObjectAddress)
+            Call SchServer.RobotManager.SendMessage(sheet.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, totalSheetsParam.I_ObjectAddress)
 
             ' End of undo block
             Call SchServer.ProcessControl.PostProcess(sheet, "")
