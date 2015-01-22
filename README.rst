@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-01-22
-- Version: v22.4.3.1
+- Version: v22.4.3.2
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -43,13 +43,6 @@ Main.vbs                                 This is the main script which when run 
 Project Tools
 =============
 
-Exit Active Command
--------------------
-
-File: src/Tools/ExitActiveCommand.vbs
-
-Allows you to save a project if you ever get stuck with the error message "Command is currently active" when trying to save. Just run this script once and you should be able to save again (and not lose your work!). Error is normally the result of a buggy script or a script which crashed before it could call :code:`PCBServer.PostProcess`.
-
 Checks
 ------
 
@@ -68,9 +61,7 @@ CheckTentedVias.vbs                      Checks that a certain proportion of the
 PowerPortChecker.vbs                     Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
 ======================================== ==================================================================
 
-
-Component Validators
---------------------
+The following component validators are run as part of the pre-release checks.
 
 The component validator checks makes sure that all the schematic components have recognised designators and are showing the correct parameters (which is dependant on the component type, as given by the designator). All component validator scripts are located in :code:`src/Checks/ComponentValidators`.
 
@@ -82,6 +73,14 @@ ValidateCapacitor.vbs                    Makes sure that all the capacitors on t
 ValidateInductor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
 ValidateResistor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
 ======================================== ==================================================================
+
+Exit Active Command
+-------------------
+
+File: src/Tools/ExitActiveCommand.vbs
+
+Allows you to save a project if you ever get stuck with the error message "Command is currently active" when trying to save. Just run this script once and you should be able to save again (and not lose your work!). Error is normally the result of a buggy script or a script which crashed before it could call :code:`PCBServer.PostProcess`.
+
 
 Schematic Tools
 ===============
@@ -127,7 +126,13 @@ Draw Polygon
 
 File: src/Tools/DrawPolygon.vbs
 
-Allows you to easily draw a polygon on a PCB. You can specify the number of sides, the track width, the rotation, and more.
+Allows you to easily draw a polygon on a PCB. You can specify the number of sides, the size (using either the vertex radius, the edge radius, or the edge length as a metric), the track width, the rotation, and more.
+
+.. image:: https://cloud.githubusercontent.com/assets/2396869/5852673/712546a2-a27f-11e4-9a8f-b2991c9b666b.png
+	:height: 500px
+	:align: right
+
+
 
 Resize Designators
 ------------------
@@ -142,13 +147,6 @@ Rotate Designators
 File: src/Tools/RotateDesignators.vbs
 
 Rotates all PCB component designators so that they are rotated to only 1 of 2 positions.
-
-Via Stamper
------------
-
-File: src/Tools/ViaStamper.vbs
-
-Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless you do a special paste).
 
 Statistics
 ----------
@@ -165,6 +163,14 @@ PCB statistics can be displayed by clicking the "Display PCB Stats" button from 
 This information can be useful to both the PCB designer and the PCB manufacturer.
 
 All code for this is located in :code:`src/Stats`.
+
+Via Stamper
+-----------
+
+File: src/Tools/ViaStamper.vbs
+
+Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless you do a special paste).
+
 
 Issues
 ======
@@ -184,6 +190,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.4.3.2 2015-01-22 Added images from the 'DrawPolygon' script to the README, closes #146.
 v22.4.3.1 2015-01-22 Made note that pushing project parameters is redundant with an AD13 update, closes #99. Moved 'Checks' section into 'Project' section in README. Added info to the statistics section of the README. Added image of 'PCB Stats' script in action to the README.
 v22.4.3.0 2015-01-22 Added exit button to main script, closes #15.
 v22.4.2.0 2015-01-22 Changed all event handlers names from forms to the standard format 'ObjectCaller_EventName', closes #89.
