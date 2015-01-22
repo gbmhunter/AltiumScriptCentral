@@ -87,7 +87,7 @@ object FormMainScript: TFormMainScript
     Height = 24
     Caption = 'Push Project Parameters To Schematics'
     TabOrder = 0
-    OnClick = MainPushProjectParametersToSchematics
+    OnClick = ButtonPushProjectParametersToSchematics_Click
   end
   object ButRenumberPads: TButton
     Left = 706
@@ -96,7 +96,7 @@ object FormMainScript: TFormMainScript
     Height = 24
     Caption = 'Renumber Pads'
     TabOrder = 1
-    OnClick = MainRenumberPads
+    OnClick = ButtonRenumberPads_Click
   end
   object Button2: TButton
     Left = 708
@@ -105,7 +105,7 @@ object FormMainScript: TFormMainScript
     Height = 25
     Caption = 'Resize Designators'
     TabOrder = 2
-    OnClick = MainResizeDesignators
+    OnClick = ButtonResizeDesignators_Click
   end
   object ButNumberSchematics: TButton
     Left = 388
@@ -123,7 +123,7 @@ object FormMainScript: TFormMainScript
     Height = 25
     Caption = 'Rotate Designators'
     TabOrder = 4
-    OnClick = ButRotateDesignatorsClick
+    OnClick = ButtonRotateDesignators_Click
   end
   object ButDeleteSchParams: TButton
     Left = 388
@@ -132,7 +132,7 @@ object FormMainScript: TFormMainScript
     Height = 26
     Caption = 'Delete Schematic Parameters'
     TabOrder = 5
-    OnClick = ButDeleteSchParamsClick
+    OnClick = ButDeleteSchParams_Click
   end
   object ButAddSpecialSchematicParameters: TButton
     Left = 388
@@ -141,7 +141,7 @@ object FormMainScript: TFormMainScript
     Height = 25
     Caption = 'Add Special Schematic Parameters'
     TabOrder = 6
-    OnClick = ButAddSpecialSchematicParametersClick
+    OnClick = ButAddSpecialSchematicParameters_Click
   end
   object ButtonDisplayPcbStats: TButton
     Left = 708
@@ -150,7 +150,7 @@ object FormMainScript: TFormMainScript
     Height = 25
     Caption = 'Display PCB Stats'
     TabOrder = 7
-    OnClick = ButtonDisplayPcbStatsClick
+    OnClick = ButtonDisplayPcbStats_Click
   end
   object ButtonViaStamper: TButton
     Left = 708
@@ -159,6 +159,7 @@ object FormMainScript: TFormMainScript
     Height = 26
     Caption = 'Via Stamper'
     TabOrder = 8
+    OnClick = ButtonViaStamper_Click
   end
   object ButtonDrawPolygon: TButton
     Left = 708
@@ -167,7 +168,7 @@ object FormMainScript: TFormMainScript
     Height = 25
     Caption = 'Draw Polygon'
     TabOrder = 9
-    OnClick = ButtonDrawPolygonClick
+    OnClick = ButtonDrawPolygon_Click
   end
   object ButtonCurrentCalculator: TButton
     Left = 708
@@ -176,7 +177,7 @@ object FormMainScript: TFormMainScript
     Height = 26
     Caption = 'Current Calculator'
     TabOrder = 10
-    OnClick = ButtonCurrentCalculatorClick
+    OnClick = ButtonCurrentCalculator_Click
   end
   object ButtonRunPreReleaseChecks: TButton
     Left = 74
@@ -185,7 +186,7 @@ object FormMainScript: TFormMainScript
     Height = 24
     Caption = 'Run Pre-release Checks'
     TabOrder = 11
-    OnClick = ButtonRunPreReleaseChecksClick
+    OnClick = ButtonRunPreReleaseChecks_Click
   end
   object ButtonSwapComponents: TButton
     Left = 708
@@ -194,7 +195,7 @@ object FormMainScript: TFormMainScript
     Height = 26
     Caption = 'Swap Components'
     TabOrder = 15
-    OnClick = ButtonSwapComponentsClick
+    OnClick = ButtonSwapComponents_Click
   end
   object ButtonExitActiveCommand: TButton
     Left = 74
@@ -203,6 +204,6 @@ object FormMainScript: TFormMainScript
     Height = 24
     Caption = 'Exit Active Command'
     TabOrder = 16
-    OnClick = ButtonExitActiveCommandClick
+    OnClick = ButtonExitActiveCommand_Click
   end
 end

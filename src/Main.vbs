@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-16
+' @last-modified      2015-01-22
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -29,13 +29,13 @@ Sub FormMain_Create(Sender)
 End Sub
 
 
-Sub MainPushProjectParametersToSchematics(Sender)
+Sub ButtonPushProjectParametersToSchematics_Click(Sender)
     FormMainScript.Hide
     FormMainScript.Close
     PushProjectParametersToSchematics(DummyVar)
 End Sub
 
-Sub MainRenumberPads(Sender)
+Sub ButtonRenumberPads_Click(Sender)
     'FormMainScript.Visible = 0
 
     ' Close closes the form for good
@@ -46,7 +46,7 @@ Sub MainRenumberPads(Sender)
 
 End Sub
 
-Sub MainResizeDesignators(Sender)
+Sub ButtonResizeDesignators_Click(Sender)
     ' Call script
     ResizeDesignators(dummyVar)
 
@@ -63,14 +63,14 @@ Sub ButNumberSchematics_Click(Sender)
 End Sub
 
 ' Called when the "Rotate Designators" button is clicked
-Sub ButRotateDesignatorsClick(Sender)
+Sub ButtonRotateDesignators_Click(Sender)
     FormMainScript.Hide
     RotateDesignators(dummyVar)
     FormMainScript.Close
 End Sub
 
 ' Called when the "Delete Schematic Parameters" button is clicked
-Sub ButDeleteSchParamsClick(Sender)
+Sub ButDeleteSchParams_Click(Sender)
     FormMainScript.Hide
     FormMainScript.Close
     DeleteAllSchematicParameters(DummyVar)
@@ -78,12 +78,12 @@ Sub ButDeleteSchParamsClick(Sender)
 End Sub
 
 ' Called when the "Add Special Schematic Parameters" button is clicked
-Sub ButAddSpecialSchematicParametersClick(Sender)
+Sub ButAddSpecialSchematicParameters_Click(Sender)
     AddSpecialSchParams(dummyVar)
 End Sub
 
 ' Called when the "Display PCB Stats" button is clicked
-Sub ButtonDisplayPcbStatsClick(Sender)
+Sub ButtonDisplayPcbStats_Click(Sender)
     FormMainScript.Hide
 
     FormMainScript.Close
@@ -96,19 +96,7 @@ Sub ButtonDisplayPcbStatsClick(Sender)
 
 End Sub
 
-Sub ButtonViaStamperClick(Sender)
-
-    ' Close main form for good
-    FormMainScript.Hide
-
-    ' Call via stamper script
-    ViaStamper(DummyVar)
-
-    FormMainScript.Close
-End Sub
-
-
-Sub ButtonDrawPolygonClick(Sender)
+Sub ButtonDrawPolygon_Click(Sender)
     ' Close main form
     FormMainScript.Close
 
@@ -116,7 +104,7 @@ Sub ButtonDrawPolygonClick(Sender)
     DrawPolygon(DummyVar)
 End Sub
 
-Sub ButtonCurrentCalculatorClick(Sender)
+Sub ButtonCurrentCalculator_Click(Sender)
 
     ' Hide main form
     'FormMainScript.Hide
@@ -133,7 +121,7 @@ Sub ButtonCurrentCalculatorClick(Sender)
     FormMainScript.Close
 End Sub
 
-Sub ButtonRunPreReleaseChecksClick(Sender)
+Sub ButtonRunPreReleaseChecks_Click(Sender)
 
      ' Hide main form
     FormMainScript.Hide
@@ -145,7 +133,7 @@ Sub ButtonRunPreReleaseChecksClick(Sender)
     FormMainScript.Close
 End Sub
 
-Sub ButtonSwapComponentsClick(Sender)
+Sub ButtonSwapComponents_Click(Sender)
 
     ' Hide main form
     FormMainScript.Hide
@@ -157,10 +145,21 @@ Sub ButtonSwapComponentsClick(Sender)
 
 End Sub
 
-Sub ButtonExitActiveCommandClick(Sender)
+Sub ButtonExitActiveCommand_Click(Sender)
 
     Call ExitActiveCommand(DummyVar)
 
     ' Close main form
+    FormMainScript.Close
+End Sub
+
+Sub ButtonViaStamper_Click(Sender)
+    ' Close main form for good
+    FormMainScript.Hide
+
+
+    ' Call via stamper script
+    ViaStamper(DummyVar)
+
     FormMainScript.Close
 End Sub
