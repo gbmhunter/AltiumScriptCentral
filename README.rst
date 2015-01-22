@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-01-22
-- Version: v22.4.2.0
+- Version: v22.4.3.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -171,6 +171,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.4.3.0 2015-01-22 Added exit button to main script, closes #15.
 v22.4.2.0 2015-01-22 Changed all event handlers names from forms to the standard format 'ObjectCaller_EventName', closes #89.
 v22.4.1.0 2015-01-22 Numbering schematics now notifies Altium that schematics need saving, closes #94.
 v22.4.0.0 2015-01-16 Added script that exits any current command (just calls 'PCBServer.PostProcess'), closes #171. Added checks to all the user inputs in the 'DrawPolygon' script, closes #145.

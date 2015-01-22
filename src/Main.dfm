@@ -2,7 +2,7 @@ object FormMainScript: TFormMainScript
   Left = 0
   Top = 0
   Caption = 'Altium Script Central'
-  ClientHeight = 412
+  ClientHeight = 457
   ClientWidth = 973
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -205,5 +205,14 @@ object FormMainScript: TFormMainScript
     Caption = 'Exit Active Command'
     TabOrder = 16
     OnClick = ButtonExitActiveCommand_Click
+  end
+  object ButtonExit: TButton
+    Left = 785
+    Top = 408
+    Width = 127
+    Height = 25
+    Caption = 'Exit'
+    TabOrder = 17
+    OnClick = ButtonExit_Click
   end
 end

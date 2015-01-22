@@ -163,3 +163,8 @@ Sub ButtonViaStamper_Click(Sender)
 
     FormMainScript.Close
 End Sub
+
+Sub ButtonExit_Click(Sender)
+    ' Just close the main form
+    FormMainScript.Close
+End Sub
