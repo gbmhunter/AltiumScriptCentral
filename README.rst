@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-01-22
-- Version: v22.4.3.4
+- Version: v22.4.4.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -154,7 +154,7 @@ Statistics
 
 File: :code:`src/Stats/Stats.vbs`
 
-PCB statistics can be displayed by clicking the "Display PCB Stats" button from the main script window. This displays useful PCB information such as: number of vias, num. pads with plated holes, num. pads with unplated holes, total num. holes, smallest and largest hole sizes, number of different hole sizes, smallest annular ring, minimum track width, number of copper layers, board width, board height, and board area. 
+PCB statistics can be displayed by clicking the "Display PCB Stats" button from the main script window. This displays useful PCB information such as: number of vias (normal, blind, buried and total), num. pads with plated holes, num. pads with unplated holes, total num. holes, smallest and largest hole sizes, number of different hole sizes, smallest annular ring, minimum track width, number of copper layers, board width, board height, and board area. 
 
 .. image:: https://cloud.githubusercontent.com/assets/2396869/5850288/6e920948-a257-11e4-856d-1e342a88229e.png
 	:height: 500px
@@ -191,7 +191,8 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
-v22.4.3.4 2014-01-22 Turned all file paths in README into 'code' formatted blocks, closes #175.
+v22.4.4.0 2015-01-23 Added 'Num. Blind Vias' and 'Num. Buried Vias' statistics to the PCB stats window, closes #122.
+v22.4.3.4 2015-01-22 Turned all file paths in README into 'code' formatted blocks, closes #175.
 v22.4.3.3 2015-01-22 Added image for the 'Exit Active Command' script, closes #174.
 v22.4.3.2 2015-01-22 Added images from the 'DrawPolygon' script to the README, closes #146.
 v22.4.3.1 2015-01-22 Made note that pushing project parameters is redundant with an AD13 update, closes #99. Moved 'Checks' section into 'Project' section in README. Added info to the statistics section of the README. Added image of 'PCB Stats' script in action to the README.

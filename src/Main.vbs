@@ -18,8 +18,10 @@ Private DummyVar
 ' @brief        This sub should be visible in DXP->Run Script, and when clicked
 '               will run AltiumScript Central.
 Sub RunAltiumScriptCentral
+
     FormMainScript.ShowModal
     'FormMainScript.Show
+    'ShowMessage("ShowModal returned!")
 End Sub
 
 ' Called when FormMain is created
@@ -84,15 +86,23 @@ End Sub
 
 ' Called when the "Display PCB Stats" button is clicked
 Sub ButtonDisplayPcbStats_Click(Sender)
-    FormMainScript.Hide
 
-    FormMainScript.Close
+    'FormMainScript.Hide
+    'Dim oShell
+    'Set oShell = CreateObject("WScript.Shell")
+    'oShell.SendKeys "(% )N"
+    'FormMainScript.Test = 2
+    'FormMainScript.Close
+    'oShell.sleep 500
+
+    FormMainScript.Height = 50
+    FormMainScript.Width = 50
 
     ' Show PCB stats form
     Call GetStats(DummyVar)
     FormStats.ShowModal
 
-    'FormMainScript.Close
+    FormMainScript.Close
 
 End Sub
 

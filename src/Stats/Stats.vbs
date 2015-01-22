@@ -2,7 +2,7 @@
 ' @file               Stats.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-03
-' @last-modified      2014-12-22
+' @last-modified      2014-12-23
 ' @brief              Code for showing PCB statistics.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -22,11 +22,17 @@ Sub GetStats(DummyVar)
         Exit Sub
     End If
 
-    ' Count the number of holes on PCB
-    LabelNumOfVias.Caption = CountVias(Board)
+    '===== GET VIA STATS ====='
+    Dim viaStatsA
+    viaStatsA = CountVias(Board)
+    LabelNumNormalVias.Caption = viaStatsA(NUM_NORMAL_VIAS)
+    LabelNumBlindVias.Caption = viaStatsA(NUM_BLIND_VIAS)
+    LabelNumBuriedVias.Caption = viaStatsA(NUM_BURIED_VIAS)
+    LabelTotalNumOfVias.Caption = viaStatsA(TOTAL_NUM_VIAS)
+
     LabelNumOfPadsWithPlatedHoles.Caption = CountNumPadsWithPlatedHoles(Board)
     LabelNumOfPadsWithUnplatedHoles.Caption = CountNumPadsWithUnplatedHoles(Board)
-    LabelTotalNumOfHoles.Caption = CInt(LabelNumOfVias.Caption) + CInt(LabelNumOfPadsWithPlatedHoles.Caption) + CInt(LabelNumOfPadsWithUnplatedHoles.Caption)
+    LabelTotalNumOfHoles.Caption = CInt(LabelTotalNumOfVias.Caption) + CInt(LabelNumOfPadsWithPlatedHoles.Caption) + CInt(LabelNumOfPadsWithUnplatedHoles.Caption)
 
     ' Get the smallest, largest and number of different hole sizes
     Dim HoleStatA
@@ -55,30 +61,63 @@ Sub GetStats(DummyVar)
     'StdOut("Finished displaying PCB stats." + VbCr + VbLf)
 End Sub
 
+Const NUM_NORMAL_VIAS = 0
+Const NUM_BLIND_VIAS = 1
+Const NUM_BURIED_VIAS = 2
+Const TOTAL_NUM_VIAS = 3
+
 Function CountVias(Board)
-    Dim Count                ' As Integer
+    'Dim Count                ' As Integer
 
-    Dim Iterator
-    Set Iterator = board.BoardIterator_Create
-    Iterator.AddFilter_ObjectSet(MkSet(eViaObject))
-    Iterator.AddFilter_LayerSet(AllLayers)
-    Iterator.AddFilter_Method(eProcessAll)
+    ' (0): num. of normal vias
+    ' (1): num. of blind vias
+    ' (2): num. of buried vias
+    ' (3): total num. of vias
+    Dim viaStatA(4)
 
-    Dim CompDes
-    Set CompDes = Iterator.FirstPCBObject
+    Dim iterator
+    Set iterator = board.BoardIterator_Create
+    iterator.AddFilter_ObjectSet(MkSet(eViaObject))
+    iterator.AddFilter_LayerSet(AllLayers)
+    iterator.AddFilter_Method(eProcessAll)
 
-    Count = 0
+    Dim via
+    Set via = Iterator.FirstPCBObject
+
+    viaStatA(NUM_NORMAL_VIAS) = 0
+    viaStatA(NUM_BLIND_VIAS) = 0
+    viaStatA(NUM_BURIED_VIAS) = 0
+    viaStatA(TOTAL_NUM_VIAS) = 0
 
     ' Iterate through all objects
-    Do While Not (CompDes Is Nothing)
-        Count = Count + 1
+    Do While Not (via Is Nothing)
+        'Count = Count + 1
+        'If viaStatA(TOTAL_NUM_VIAS) = 0 Then
+        '   ShowMessage("via.HighLayer = '" + Layer2String(via.HighLayer) + "', via.LowLayer = '" + Layer2String(via.LowLayer) + "'.")
+        'End If
 
-        Set CompDes = Iterator.NextPCBObject
+        If (via.HighLayer = eTopLayer And via.LowLayer = eBottomLayer) Or (via.HighLayer = eBottomLayer And via.LowLayer = eTopLayer) Then
+           ' Must be a normal via
+           viaStatA(NUM_NORMAL_VIAS) = viaStatA(NUM_NORMAL_VIAS) + 1
+        ElseIf via.HighLayer = eTopLayer Or via.HighLayer = eBottomLayer Or via.LowLayer = eTopLayer Or via.LowLayer = eBottomLayer Then
+           ' If not a normal via but one of the end-points is still on the top or bottom layers,
+           ' then must be a blind via
+           viaStatA(NUM_BLIND_VIAS) = viaStatA(NUM_BLIND_VIAS) + 1
+        Else
+           ' If not a normal or buried via, Must be a buried via
+           viaStatA(NUM_BURIED_VIAS) = viaStatA(NUM_BURIED_VIAS) + 1
+        End If
+
+        ' Increment total count no matter what type of via it is
+        viaStatA(TOTAL_NUM_VIAS) = viaStatA(TOTAL_NUM_VIAS) + 1
+
+        Set via = Iterator.NextPCBObject
     Loop
 
-    Board.BoardIterator_Destroy(Iterator)
+    board.BoardIterator_Destroy(iterator)
 
-    CountVias = Count
+    ' Return via stats array
+    CountVias = viaStatA
 
 End Function
 
