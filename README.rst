@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-01-22
-- Version: v22.4.3.2
+- Version: v22.4.3.3
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -81,6 +81,9 @@ File: src/Tools/ExitActiveCommand.vbs
 
 Allows you to save a project if you ever get stuck with the error message "Command is currently active" when trying to save. Just run this script once and you should be able to save again (and not lose your work!). Error is normally the result of a buggy script or a script which crashed before it could call :code:`PCBServer.PostProcess`.
 
+.. image:: https://cloud.githubusercontent.com/assets/2396869/5852796/4172ab46-a281-11e4-9ce7-e3186fffa5b9.png
+	:height: 500px
+	:align: right
 
 Schematic Tools
 ===============
@@ -131,8 +134,6 @@ Allows you to easily draw a polygon on a PCB. You can specify the number of side
 .. image:: https://cloud.githubusercontent.com/assets/2396869/5852673/712546a2-a27f-11e4-9a8f-b2991c9b666b.png
 	:height: 500px
 	:align: right
-
-
 
 Resize Designators
 ------------------
@@ -190,6 +191,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.4.3.3 2015-01-22 Added image for the 'Exit Active Command' script, closes #174.
 v22.4.3.2 2015-01-22 Added images from the 'DrawPolygon' script to the README, closes #146.
 v22.4.3.1 2015-01-22 Made note that pushing project parameters is redundant with an AD13 update, closes #99. Moved 'Checks' section into 'Project' section in README. Added info to the statistics section of the README. Added image of 'PCB Stats' script in action to the README.
 v22.4.3.0 2015-01-22 Added exit button to main script, closes #15.
