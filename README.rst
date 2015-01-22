@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-01-22
-- Version: v22.4.3.0
+- Version: v22.4.3.1
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -50,6 +50,39 @@ File: src/Tools/ExitActiveCommand.vbs
 
 Allows you to save a project if you ever get stuck with the error message "Command is currently active" when trying to save. Just run this script once and you should be able to save again (and not lose your work!). Error is normally the result of a buggy script or a script which crashed before it could call :code:`PCBServer.PostProcess`.
 
+Checks
+------
+
+Checks are scripts designed to be run before the board is released to the manufacturer. All are located in :code:`src/Checks/`. 
+
+======================================== ==================================================================
+Filename                                 Description
+======================================== ==================================================================
+CheckComponentLinks.vbs                  Loads up the "Edit Component Links" window so that you can make sure there are no missing component links. 
+CheckLayers.vbs                          Checks that the mechanical layers of the PCB have the correct objects on them.
+CheckNameVersionDate.vbs                 Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
+CheckNoSupplierPartNumShown.vbs          Checks that no supplier part numbers are shown on the schematics.
+CheckPcbTextHasCorrectOrientation.vbs    Checks that PCB text has the correct orientation (so it is readable), that is text on the top overlay IS NOT mirrored, and text on the bottom layer IS mirrored.
+CheckProjectCompiles.vbs                 Makes sure that the project compiles successfully.
+CheckTentedVias.vbs                      Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
+PowerPortChecker.vbs                     Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
+======================================== ==================================================================
+
+
+Component Validators
+--------------------
+
+The component validator checks makes sure that all the schematic components have recognised designators and are showing the correct parameters (which is dependant on the component type, as given by the designator). All component validator scripts are located in :code:`src/Checks/ComponentValidators`.
+
+======================================== ==================================================================
+Filename                                 Description
+======================================== ==================================================================
+ComponentValidator.vbs                   This is essentially the "main" file for the component validators. It is called by Main.vbs and in turn calls the individual component validator files, once it recognises a valid designator (the valid designators are contained in Config.vbs).
+ValidateCapacitor.vbs                    Makes sure that all the capacitors on the schematic are showing the correct parameters.
+ValidateInductor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
+ValidateResistor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
+======================================== ==================================================================
+
 Schematic Tools
 ===============
 
@@ -73,6 +106,8 @@ Push Project Parameters To Schematics
 File: src/Tools/PushProjectParametersToSchematics.vbs
 
 Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
+
+NOTE: This tool has been made somewhat redudant with the update to Altium Designer 13, which makes schematic sheets automatically inherit project parameters if there is no local sheet parameter with the same name.
 
 PCB Tools
 =========
@@ -115,43 +150,21 @@ File: src/Tools/ViaStamper.vbs
 
 Allows you to copy a via and then place many copies, preserving the original connected net (Altium does not do this, unless you do a special paste).
 
-Checks
-======
-
-Checks are scripts designed to be run before the board is released to the manufacturer. All are located in :code:`src/Checks/`. 
-
-======================================== ==================================================================
-Filename                                 Description
-======================================== ==================================================================
-CheckComponentLinks.vbs                  Loads up the "Edit Component Links" window so that you can make sure there are no missing component links. 
-CheckLayers.vbs                          Checks that the mechanical layers of the PCB have the correct objects on them.
-CheckNameVersionDate.vbs                 Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
-CheckNoSupplierPartNumShown.vbs          Checks that no supplier part numbers are shown on the schematics.
-CheckPcbTextHasCorrectOrientation.vbs    Checks that PCB text has the correct orientation (so it is readable), that is text on the top overlay IS NOT mirrored, and text on the bottom layer IS mirrored.
-CheckProjectCompiles.vbs                 Makes sure that the project compiles successfully.
-CheckTentedVias.vbs                      Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
-PowerPortChecker.vbs                     Checks that power ports are orientated in the correct way. Ground pins are meant to face downwards and the bar symbol upwards.
-======================================== ==================================================================
-
-
-Component Validators
---------------------
-
-The component validator checks makes sure that all the schematic components have recognised designators and are showing the correct parameters (which is dependant on the component type, as given by the designator). All component validator scripts are located in :code:`src/Checks/ComponentValidators`.
-
-======================================== ==================================================================
-Filename                                 Description
-======================================== ==================================================================
-ComponentValidator.vbs                   This is essentially the "main" file for the component validators. It is called by Main.vbs and in turn calls the individual component validator files, once it recognises a valid designator (the valid designators are contained in Config.vbs).
-ValidateCapacitor.vbs                    Makes sure that all the capacitors on the schematic are showing the correct parameters.
-ValidateInductor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
-ValidateResistor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
-======================================== ==================================================================
-
 Statistics
 ----------
 
-PCB statistics can be displayed by clicking the "Display PCB Stats" button from the main script window. All code for this is located in :code:`src/Stats`.
+File: src/Stats/Stats.vbs
+
+PCB statistics can be displayed by clicking the "Display PCB Stats" button from the main script window. This displays useful PCB information such as: number of vias, num. pads with plated holes, num. pads with unplated holes, total num. holes, smallest and largest hole sizes, number of different hole sizes, smallest annular ring, minimum track width, number of copper layers, board width, board height, and board area. 
+
+.. image:: https://cloud.githubusercontent.com/assets/2396869/5850288/6e920948-a257-11e4-856d-1e342a88229e.png
+	:height: 500px
+	:align: right
+
+
+This information can be useful to both the PCB designer and the PCB manufacturer.
+
+All code for this is located in :code:`src/Stats`.
 
 Issues
 ======
@@ -171,6 +184,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.4.3.1 2015-01-22 Made note that pushing project parameters is redundant with an AD13 update, closes #99. Moved 'Checks' section into 'Project' section in README. Added info to the statistics section of the README. Added image of 'PCB Stats' script in action to the README.
 v22.4.3.0 2015-01-22 Added exit button to main script, closes #15.
 v22.4.2.0 2015-01-22 Changed all event handlers names from forms to the standard format 'ObjectCaller_EventName', closes #89.
 v22.4.1.0 2015-01-22 Numbering schematics now notifies Altium that schematics need saving, closes #94.
