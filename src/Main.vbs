@@ -165,8 +165,10 @@ End Sub
 
 Sub ButtonViaStamper_Click(Sender)
     ' Close main form for good
-    FormMainScript.Hide
+    'FormMainScript.Hide
 
+    FormMainScript.Height = 1
+    FormMainScript.Width = 1
 
     ' Call via stamper script
     ViaStamper(DummyVar)

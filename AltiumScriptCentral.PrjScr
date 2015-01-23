@@ -551,6 +551,10 @@ StartProcName=src\Main.vbs>RunMainScript
 
 [Generic_Watches]
 2=holeSizeList.Contains()
+0=via.HighLayer
+1=exisViaCache.SolderMaskExpansion
+3=newVia.IsTentedTop
+4=exisViaCache.IsTented
 
 [OutputGroup1]
 Name=Netlist Outputs

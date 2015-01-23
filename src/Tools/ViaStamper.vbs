@@ -2,61 +2,75 @@
 ' @file               ViaStamper.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2014-11-25
+' @last-modified      2015-01-23
 ' @brief              Script allows user to quickly 'stamp' many copies of a via onto a PCB.
 '                     Useful when placing GND vias.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
-Dim Board       ' As IPCB_Board
+' Forces us to explicitly define all variables before using them
+Option Explicit
 
-' @brief     Call this from AltiumScriptCentral
+' @brief     Stamps (copies) vias to user-selected locations.
+' @details   Call this from AltiumScriptCentral.
 Sub ViaStamper(DummyVar)
 
     ' Load current board
     If PCBServer Is Nothing Then
-        ShowMessage("Not a PCB or Footprint editor activated.")
+        ShowMessage("No PCB or footprint editor activated.")
     End If
 
-    Set Board = PCBServer.GetCurrentPCBBoard
-    If Board Is Nothing Then
-        ShowMessage("Not a PCB or Footprint loaded.")
+    Dim board
+    Set board = PCBServer.GetCurrentPCBBoard
+    If board Is Nothing Then
+        ShowMessage("No PCB or footprint loaded.")
         Exit Sub
     End If
 
     'ShowMessage("First select via you wish to copy and then click repeatidly to 'stamp'.")
 
     ' Ask user to select first pad object
-    Board.ChooseLocation x, y, "Choose a via to copy."
-    Set ExisVia = Board.GetObjectAtXYAskUserIfAmbiguous(x, y, MkSet(eViaObject), AllLayers, eEditAction_Select)
+    Dim x, y
+    board.ChooseLocation x, y, "Choose a via to copy."
+    Dim exisVia
+    Set exisVia = Board.GetObjectAtXYAskUserIfAmbiguous(x, y, MkSet(eViaObject), AllLayers, eEditAction_Select)
 
     ' Make sure via was valid
-    If ExisVia Is Nothing Then
+    If exisVia Is Nothing Then
        ShowMessage("ERROR: A via was not selected.")
        Exit Sub
     End If
 
-    Do While (Board.ChooseLocation(xm, ym, "Click to stamp via.") = true)
+    Dim xm, ym
+    Do While (board.ChooseLocation(xm, ym, "Click to stamp via.") = true)
 
         ' Initialise systems
         Call PCBServer.PreProcess
 
         ' Create a new via object
-        NewVia = PCBServer.PCBObjectFactory(eViaObject, eNoDimension, eCreate_Default)
+        Dim newVia
+        newVia = PCBServer.PCBObjectFactory(eViaObject, eNoDimension, eCreate_Default)
 
-        NewVia.Size = exisVia.Size
-        NewVia.HoleSize = exisVia.HoleSize
-        NewVia.LowLayer = exisVia.LowLayer
-        NewVia.HighLayer = exisVia.HighLayer
+        newVia.Size = exisVia.Size
+        newVia.HoleSize = exisVia.HoleSize
+        newVia.LowLayer = exisVia.LowLayer
+        newVia.HighLayer = exisVia.HighLayer
+
+        ' Copy across "cache" data (testpoint and soldermask settings)
+        newVia.Cache = exisVia.Cache
+
+        ' Copy across "tenting" data
+        newVia.IsTenting_Top = exisVia.IsTenting_Top
+        newVia.IsTenting_Bottom = exisVia.IsTenting_Bottom
 
         ' Place at selected position
-        NewVia.X = xm
-        NewVia.Y = ym
+        newVia.X = xm
+        newVia.Y = ym
 
         ' Copy net name to new via
-        NewVia.Net = exisVia.Net
+        newVia.Net = exisVia.Net
 
-        Board.AddPCBObject(NewVia)
+        board.AddPCBObject(NewVia)
 
         ' Refresh the PCB screen
         Call Client.SendMessage("PCB:Zoom", "Action=Redraw" , 255, Client.CurrentView)
@@ -71,7 +85,7 @@ Sub ViaStamper(DummyVar)
     Loop
 
      ' Full PCB system update
-     Board.ViewManager_FullUpdate
+     board.ViewManager_FullUpdate
      Call Client.SendMessage("PCB:Zoom", "Action=Redraw" , 255, Client.CurrentView) 
 
 End Sub

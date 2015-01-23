@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-01-22
-- Version: v22.4.4.0
+- Last Modified: 2015-01-23
+- Version: v22.4.5.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -191,6 +191,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.4.5.0 2015-01-23 Fixed bug where 'Via Stamper' script didn't copy testpoint and soldermask settings of via, closes #176.
 v22.4.4.0 2015-01-23 Added 'Num. Blind Vias' and 'Num. Buried Vias' statistics to the PCB stats window, closes #122.
 v22.4.3.4 2015-01-22 Turned all file paths in README into 'code' formatted blocks, closes #175.
 v22.4.3.3 2015-01-22 Added image for the 'Exit Active Command' script, closes #174.
