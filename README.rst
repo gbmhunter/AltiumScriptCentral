@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-01-23
-- Version: v22.4.5.0
+- Last Modified: 2015-01-24
+- Version: v22.5.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -95,12 +95,16 @@ File: :code:`src/Tools/AddSpecialSchParam.vbs`
 
 Provides you with the option of adding various special parameters to all the schematic documents in the currently active project.
 
-Delete All Schematic Parameters
+Delete Schematic Parameters
 -------------------------------
 
-File: :code:`src/Tools/DeleteAllSchematicParameters.vbs`
+File: :code:`src/Tools/DeleteSchematicParameters.vbs`
 
-Deletes all schematic parameters on all schematic sheets belonging to the currently active project. Added after found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
+Deletes a user-selectable range of schematic parameters from schematic sheets belonging to the currently active project. I wrote this after I found it was impossible to manually delete some schematic parameters that had been previously added with a script. Also useful for getting rid of all the default parameters Altium adds.
+
+.. image:: https://cloud.githubusercontent.com/assets/2396869/5885439/be78ef1e-a3d1-11e4-9c83-b85761e3bf58.png
+	:height: 500px
+	:align: right
 
 Push Project Parameters To Schematics
 -------------------------------------
@@ -191,6 +195,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.5.0.0 2015-01-24 Updated the 'DeleteAllSchematicParameters.vbs' script to 'DeleteSchematicParameters.vbs', which now allows you to choose what parameters to delete and what schematics to delete parameters from. Known bug where it incorrectly reports the number of parameters deleted to be much larger than it actually deletes, due to it iterating through all the component parameters on the schematic itself. Added screenshot of this script to the README.
 v22.4.5.0 2015-01-23 Fixed bug where 'Via Stamper' script didn't copy testpoint and soldermask settings of via, closes #176.
 v22.4.4.0 2015-01-23 Added 'Num. Blind Vias' and 'Num. Buried Vias' statistics to the PCB stats window, closes #122.
 v22.4.3.4 2015-01-22 Turned all file paths in README into 'code' formatted blocks, closes #175.

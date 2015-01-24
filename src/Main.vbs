@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-22
+' @last-modified      2015-01-23
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -71,12 +71,18 @@ Sub ButtonRotateDesignators_Click(Sender)
     FormMainScript.Close
 End Sub
 
-' Called when the "Delete Schematic Parameters" button is clicked
+' @brief    Called when the "Delete Schematic Parameters" button is clicked
 Sub ButDeleteSchParams_Click(Sender)
-    FormMainScript.Hide
-    FormMainScript.Close
-    DeleteAllSchematicParameters(DummyVar)
+    'FormMainScript.Hide
+    'FormMainScript.Close
+    'DeleteAllSchematicParameters(DummyVar)
 
+    FormMainScript.Height = 1
+    FormMainScript.Width = 1
+
+    DeleteSchematicParameters(DummyVar)
+
+    FormMainScript.Close
 End Sub
 
 ' Called when the "Add Special Schematic Parameters" button is clicked
