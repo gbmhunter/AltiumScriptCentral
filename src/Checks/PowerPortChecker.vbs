@@ -2,7 +2,7 @@
 ' @file               PowerPortChecker.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-08
+' @last-modified      2015-01-24
 ' @brief              Deletes all schematic parameters for the current project.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -31,7 +31,7 @@ Function PowerPortChecker(dummyVar)
 
     ' Obtain the schematic server interface.
     If SchServer Is Nothing Then
-       StdErr("ERROR: Schematic server is not online." + VbCr + VbLf)
+       Call StdErr(ModuleName, "ERROR: Schematic server is not online.")
        Exit Function
     End If
 
@@ -56,14 +56,14 @@ Function PowerPortChecker(dummyVar)
            SchDocument = Client.OpenDocument("SCH", document.DM_FullPath)
             Set sheet = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
             If sheet Is Nothing Then
-                StdErr("ERROR (" + Filename + "): Could not retrieve '" + document.DM_FullPath + "'. Please compile project." + VbCr + VbLf)
+                Call StdErr(ModuleName, "Could not retrieve '" + document.DM_FullPath + "'. Please compile project.")
                 Exit Function
             End If
 
             ' Set up iterator to look for popwer port objects only
             Set iterator = sheet.SchIterator_Create
             If iterator Is Nothing Then
-               StdErr("ERROR (" + Filename + "): Iterator creation failed." + VbCr + VbLf)
+               Call StdErr(ModuleName, "Iterator creation failed.")
                Exit Function
             End If
 
@@ -78,7 +78,7 @@ Function PowerPortChecker(dummyVar)
                     ' Make sure they are facing downwards
                     If Not(powerObj.Orientation = eRotate270) Then
                         violationCnt = violationCnt + 1
-                        Call StdErr(ModuleName, "Gound symbol '" + powerObj.Text + "' with incorrect orientation on sheet " + document.DM_FullPath + " found. ")
+                        Call StdErr(moduleName, "Gound symbol '" + powerObj.Text + "' with incorrect orientation on sheet " + document.DM_FullPath + " found. ")
                     End If
                 End If
                 If (powerObj.Style = ePowerBar) Then
@@ -86,7 +86,7 @@ Function PowerPortChecker(dummyVar)
                     ' Make sure they are facing upwards
                     If Not(powerObj.Orientation = eRotate90) Then
                         violationCnt = violationCnt + 1
-                        Call StdErr("ERROR: Power bar '" + powerObj.Text + "' with incorrect orientation on sheet " + document.DM_FullPath + " found." + VbCr + VbLf)
+                        Call StdErr(ModuleName, "Power bar '" + powerObj.Text + "' with incorrect orientation on sheet " + document.DM_FullPath + " found.")
                     End If
 
                     ' Check text

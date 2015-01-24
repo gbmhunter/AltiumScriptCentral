@@ -2,7 +2,7 @@
 ' @file               RunPreReleaseChecks.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-25
-' @last-modified      2015-01-08
+' @last-modified      2015-01-24
 ' @brief              Main entry point for the pre-release checks.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -15,20 +15,20 @@ ModuleName = "RunPreReleaseChecks.vbs"
 
 Private DummyVar
 
-Sub StdOut(msg)
+Function StdOut(msg)
     ' Output text
     MemoStdOut.Text = MemoStdOut.Text + msg
-End Sub
+End Function
 
 Sub StdOutNl(msg)
     ' Output text
     MemoStdOut.Text = MemoStdOut.Text + msg + VbCr + VbLf
 End Sub
 
-Sub StdErr(ModuleName, Msg)
+Function StdErr(ModuleName, Msg)
     ' Output text
     MemoStdErr.Text = MemoStdErr.Text + "ERROR (" + ModuleName + "): " + Msg + VbCr + VbLf
-End Sub
+End Function
 
 
 'Sub StdErrNl(msg)

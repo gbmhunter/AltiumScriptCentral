@@ -258,23 +258,6 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document14]
-DocumentPath=src\Tools\DeleteAllSchematicParameters.vbs
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document15]
 DocumentPath=src\Tools\DeleteSchematicParameters.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -291,7 +274,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document16]
+[Document15]
 DocumentPath=src\Tools\DrawPolygon.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -308,7 +291,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document17]
+[Document16]
 DocumentPath=src\Tools\ExitActiveCommand.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -325,7 +308,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document18]
+[Document17]
 DocumentPath=src\Tools\NumberSchematics.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -342,7 +325,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document19]
+[Document18]
 DocumentPath=src\Checks\PowerPortChecker.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -359,7 +342,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document20]
+[Document19]
 DocumentPath=src\Tools\PushProjectParametersToSchematics.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -376,7 +359,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document21]
+[Document20]
 DocumentPath=src\Tools\SwapComponents.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -393,7 +376,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document22]
+[Document21]
 DocumentPath=src\Tools\RenumberPads.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -410,7 +393,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document23]
+[Document22]
 DocumentPath=src\Tools\ResizeDesignators.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -427,7 +410,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document24]
+[Document23]
 DocumentPath=src\Tools\RotateDesignators.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -444,7 +427,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document25]
+[Document24]
 DocumentPath=src\Checks\RunPreReleaseChecks.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -461,7 +444,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document26]
+[Document25]
 DocumentPath=src\Stats\Stats.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -478,7 +461,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document27]
+[Document26]
 DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -495,7 +478,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document28]
+[Document27]
 DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -512,7 +495,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document29]
+[Document28]
 DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -529,7 +512,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document30]
+[Document29]
 DocumentPath=src\Tools\ViaStamper.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -546,7 +529,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document31]
+[Document30]
 DocumentPath=src\Util\Util.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
