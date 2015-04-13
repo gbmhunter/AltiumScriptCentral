@@ -2,7 +2,7 @@
 ' @file               ComponentValidator.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-08
+' @last-modified      2015-04-14
 ' @brief              Validates schematic components.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -10,10 +10,15 @@
 ' Forces us to explicitly define all variables before using them
 Option Explicit
 
+' @brief     Module name for error and message reporting
 Private ModuleName
 ModuleName = "ComponentValidator.vbs"
 
+' @brief     Validates schematic components.
+' @details   This includes checking that the designator is o.k., and that the correct values are shown on the schematic
+'            (for selected component types).
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
+' @note      Designator symbols are defined in Config.vbs.
 Sub ComponentValidator(DummyVar)
     Dim workspace           ' As IWorkspace
     Dim pcbProject          ' As IProject
@@ -91,7 +96,7 @@ Sub ComponentValidator(DummyVar)
                 Regex.Global = True
                 ' Look for a designator
                 ' Designators are one ore more capital letters followed by
-                ' one or more numerals, with nothing else before or afterwards (i.e. anchored)
+                ' one or more numerals, with nothing else before or afterwards (i.e. anchored using ^ and $)
                 Regex.Pattern = "^[A-Z][A-Z]*[0-9][0-9]*$"
 
                 ' Check for pattern match, using execute method.
@@ -100,11 +105,16 @@ Sub ComponentValidator(DummyVar)
 
                 ' Make sure only one match was found
                 If MatchColl.Count = 1 Then
-                     ' Extract letters from designator
+                    ' Extract letters from designator
                     Regex.Pattern = "^[A-Z][A-Z]*"
                     Set MatchColl = Regex.Execute(MatchColl.Item(0).Value)
 
                     ' Make sure the designator letter(s) is valid
+                    ' Certain components have more than just a designator validator, we
+                    ' also make sure they are displaying the correct values. These
+                    ' are separate functions which are called from this SELECT
+
+                    ' Designator symbols are defined in Config.vbs
                     Select Case MatchColl.Item(0).Value
                         Case DESIGNATOR_BATTERY
                         Case DESIGNATOR_CAPACITOR
@@ -121,6 +131,7 @@ Sub ComponentValidator(DummyVar)
                             If ValidateInductor(component) = False Then
                                  violationCount = violationCount + 1
                             End If
+                        Case DESIGNATOR_MECHANICAL_PART
                         Case DESIGNATOR_MOTOR
                         Case DESIGNATOR_CONNECTOR
                         Case DESIGNATOR_SOLAR_PANEL

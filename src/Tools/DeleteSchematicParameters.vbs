@@ -86,7 +86,7 @@ Sub ButtonDelete_Click(Sender)
       ' Get active schematic
       schematic = SCHServer.GetCurrentSchDocument()
       If schematic Is Nothing Then
-        ShowMessage("ERROR: There is no active schematic." + VbCr + VbLf)
+        ShowMessage("ERROR: There is no active schematic.")
         Exit Sub
       End If
 

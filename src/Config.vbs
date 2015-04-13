@@ -2,7 +2,7 @@
 ' @file               Config.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2014-12-22
+' @last-modified      2015-04-14
 ' @brief              Configuration settings and variables for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -34,6 +34,7 @@ Dim DESIGNATOR_FERRITE_BEAD         ' As String
 Dim DESIGNATOR_FIDUCIAL             ' As String
 Dim DESIGNATOR_JACK                 ' As String
 Dim DESIGNATOR_INDUCTOR             ' As String
+Dim DESIGNATOR_MECHANICAL_PART      ' As String
 Dim DESIGNATOR_MOTOR                ' As String
 Dim DESIGNATOR_CONNECTOR            ' As String
 Dim DESIGNATOR_SOLAR_PANEL          ' As String
@@ -51,6 +52,8 @@ Dim DESIGNATOR_FUSE_HOLDER          ' As String
 Dim TOTAL_SHEET_PARAM_NAME              ' As String
 Dim SCHEMATIC_SHEET_COUNT_PARAM_NAME    ' As String
 
+' @brief     Initialisation function which sets up environment for the rest of
+'            AltiumScriptCentral to work correctly.                               
 Sub ConfigInit(dummyVar)
     ' BOARD LAYERS
     BOARD_OUTLINE_LAYER     = eMechanical1
@@ -74,6 +77,7 @@ Sub ConfigInit(dummyVar)
     DESIGNATOR_FIDUCIAL             = "FD"
     DESIGNATOR_JACK                 = "J"
     DESIGNATOR_INDUCTOR             = "L"
+    DESIGNATOR_MECHANICAL_PART      = "MP"
     DESIGNATOR_MOTOR                = "M"
     DESIGNATOR_CONNECTOR            = "P"
     DESIGNATOR_SOLAR_PANEL          = "PV"
