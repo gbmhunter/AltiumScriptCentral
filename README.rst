@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-04-14
-- Version: v22.5.2.0
+- Version: v22.5.3.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -195,6 +195,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.5.3.0 2015-04-14 Added check to make sure manf. part number is visible if part is an IC (i.e. has a 'U?' designator), closes #179.
 v22.5.2.0 2015-04-14 Added 'MP?' as a valid designator for mechanical parts, closes #110.
 v22.5.1.0 2015-01-24 Fixed bug 'Wrong number of arguments or invalid property assignment: 'StdErr'' in the 'PowerPortChecker.vbs' script, closes #177.
 v22.5.0.0 2015-01-24 Updated the 'DeleteAllSchematicParameters.vbs' script to 'DeleteSchematicParameters.vbs', which now allows you to choose what parameters to delete and what schematics to delete parameters from. Known bug where it incorrectly reports the number of parameters deleted to be much larger than it actually deletes, due to it iterating through all the component parameters on the schematic itself. Added screenshot of this script to the README.

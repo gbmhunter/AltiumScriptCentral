@@ -142,6 +142,9 @@ Sub ComponentValidator(DummyVar)
                             End If
                         Case DESIGNATOR_SWITCH
                         Case DESIGNATOR_IC
+                            If ValidateIC(component) = False Then
+                                violationCount = violationCount + 1
+                            End If
                         Case DESIGNATOR_TRANSFORMER
                         Case DESIGNATOR_TEST_POINT
                         Case DESIGNATOR_VARIABLE_RESISTOR
