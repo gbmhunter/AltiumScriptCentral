@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-04-14
-- Version: v22.5.3.0
+- Version: v22.6.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -195,6 +195,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.6.0.0 2015-04-14 Added 'Num. of Plated Slots' and 'Num. of Unplated Slots' to PCB statistics, closes #121.
 v22.5.3.0 2015-04-14 Added check to make sure manf. part number is visible if part is an IC (i.e. has a 'U?' designator), closes #179.
 v22.5.2.0 2015-04-14 Added 'MP?' as a valid designator for mechanical parts, closes #110.
 v22.5.1.0 2015-01-24 Fixed bug 'Wrong number of arguments or invalid property assignment: 'StdErr'' in the 'PowerPortChecker.vbs' script, closes #177.

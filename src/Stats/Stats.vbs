@@ -2,7 +2,7 @@
 ' @file               Stats.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-03
-' @last-modified      2014-12-23
+' @last-modified      2015-04-14
 ' @brief              Code for showing PCB statistics.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -24,15 +24,26 @@ Sub GetStats(DummyVar)
 
     '===== GET VIA STATS ====='
     Dim viaStatsA
-    viaStatsA = CountVias(Board)
+    viaStatsA = CountVias(board)
     LabelNumNormalVias.Caption = viaStatsA(NUM_NORMAL_VIAS)
     LabelNumBlindVias.Caption = viaStatsA(NUM_BLIND_VIAS)
     LabelNumBuriedVias.Caption = viaStatsA(NUM_BURIED_VIAS)
     LabelTotalNumOfVias.Caption = viaStatsA(TOTAL_NUM_VIAS)
 
-    LabelNumOfPadsWithPlatedHoles.Caption = CountNumPadsWithPlatedHoles(Board)
-    LabelNumOfPadsWithUnplatedHoles.Caption = CountNumPadsWithUnplatedHoles(Board)
-    LabelTotalNumOfHoles.Caption = CInt(LabelTotalNumOfVias.Caption) + CInt(LabelNumOfPadsWithPlatedHoles.Caption) + CInt(LabelNumOfPadsWithUnplatedHoles.Caption)
+    '========= GET HOLE STATS ========='
+
+    ' Circular holes
+    LabelNumOfPadsWithCircularPlatedHoles.Caption = CountNumPadsWithCircularPlatedHoles(board)
+    LabelNumOfPadsWithCircularUnplatedHoles.Caption = CountNumPadsWithCircularUnplatedHoles(board)
+    LabelTotalNumOfCircularHoles.Caption = CInt(LabelNumOfPadsWithCircularPlatedHoles.Caption) + CInt(LabelNumOfPadsWithCircularUnplatedHoles.Caption)
+
+    ' Slotted holes
+    LabelNumOfPadsWithSlottedPlatedHoles.Caption = CountNumPadsWithSlottedPlatedHoles(board)
+    LabelNumOfPadsWithSlottedUnplatedHoles.Caption = CountNumPadsWithSlottedUnplatedHoles(board)
+    LabelTotalNumOfSlottedHoles.Caption = CInt(LabelNumOfPadsWithSlottedPlatedHoles.Caption) + CInt(LabelNumOfPadsWithSlottedUnplatedHoles.Caption)
+
+    ' TOTAL HOLES
+    LabelTotalNumOfHoles.Caption = CInt(LabelTotalNumOfVias.Caption) + CInt(LabelTotalNumOfCircularHoles.Caption) + CInt(LabelTotalNumOfSlottedHoles.Caption)
 
     ' Get the smallest, largest and number of different hole sizes
     Dim HoleStatA
@@ -121,7 +132,7 @@ Function CountVias(Board)
 
 End Function
 
-Function CountNumPadsWithPlatedHoles(Board)
+Function CountNumPadsWithCircularPlatedHoles(Board)
 
      Dim Iterator
      Set Iterator = Board.BoardIterator_Create
@@ -138,8 +149,8 @@ Function CountNumPadsWithPlatedHoles(Board)
     ' Iterate through all pads
     Do While Not (PadObj Is Nothing)
        ' Note that unlike vias, not all pads will have holes in them, we have to find this out now...
-       If PadObj.HoleSize > 0 And PadObj.Plated = True Then
-          ' We have found a pad with a plated hole in it!
+       If PadObj.HoleSize > 0 And PadObj.Plated = True And PadObj.HoleType = eRoundHole Then
+          ' We have found a pad with a circular plated hole in it!
           Count = Count + 1
        End If
 
@@ -148,11 +159,11 @@ Function CountNumPadsWithPlatedHoles(Board)
 
     Board.BoardIterator_Destroy(Iterator)
 
-    CountNumPadsWithPlatedHoles = Count
+    CountNumPadsWithCircularPlatedHoles = Count
 
 End Function
 
-Function CountNumPadsWithUnplatedHoles(Board)
+Function CountNumPadsWithCircularUnplatedHoles(Board)
 
      Dim Iterator
      Set Iterator = Board.BoardIterator_Create
@@ -169,8 +180,8 @@ Function CountNumPadsWithUnplatedHoles(Board)
      ' Iterate through all pads
      Do While Not (PadObj Is Nothing)
           ' Note that unlike vias, not all pads will have holes in them, we have to find this out now...
-          If PadObj.HoleSize > 0 And PadObj.Plated = False Then
-               ' We have found a pad with a unplated hole in it!
+          If PadObj.HoleSize > 0 And PadObj.Plated = False And PadObj.HoleType = eRoundHole Then
+               ' We have found a pad with a circular unplated hole in it!
                Count = Count + 1
           End If
 
@@ -179,7 +190,69 @@ Function CountNumPadsWithUnplatedHoles(Board)
 
      Board.BoardIterator_Destroy(Iterator)
 
-     CountNumPadsWithUnplatedHoles = Count
+     CountNumPadsWithCircularUnplatedHoles = Count
+
+End Function
+
+Function CountNumPadsWithSlottedPlatedHoles(board)
+
+     Dim iterator
+     Set iterator = board.BoardIterator_Create
+     iterator.AddFilter_ObjectSet(MkSet(ePadObject))
+     iterator.AddFilter_LayerSet(AllLayers)
+     iterator.AddFilter_Method(eProcessAll)
+
+     Dim padObj
+     Set padObj = Iterator.FirstPCBObject
+
+     Dim count
+     count = 0
+
+    ' Iterate through all pads
+    Do While Not (padObj Is Nothing)
+       ' Note that unlike vias, not all pads will have holes in them, we have to find this out now...
+       If padObj.HoleSize > 0 And padObj.Plated = True And padObj.HoleType = eSlotHole Then
+          ' We have found a pad with a circular plated hole in it!
+          count = count + 1
+       End If
+
+       Set padObj = iterator.NextPCBObject
+    Loop
+
+    board.BoardIterator_Destroy(iterator)
+
+    CountNumPadsWithSlottedPlatedHoles = count
+
+End Function
+
+Function CountNumPadsWithSlottedUnplatedHoles(board)
+
+     Dim iterator
+     Set iterator = board.BoardIterator_Create
+     iterator.AddFilter_ObjectSet(MkSet(ePadObject))
+     iterator.AddFilter_LayerSet(AllLayers)
+     iterator.AddFilter_Method(eProcessAll)
+
+     Dim padObj
+     Set padObj = iterator.FirstPCBObject
+
+     Dim count
+     count = 0
+
+     ' Iterate through all pads
+     Do While Not (padObj Is Nothing)
+          ' Note that unlike vias, not all pads will have holes in them, we have to find this out now...
+          If padObj.HoleSize > 0 And padObj.Plated = False And padObj.HoleType = eSlotHole Then
+               ' We have found a pad with a slotted unplated hole in it!
+               count = count + 1
+          End If
+
+          Set padObj = iterator.NextPCBObject
+     Loop
+
+     board.BoardIterator_Destroy(iterator)
+
+     CountNumPadsWithSlottedUnplatedHoles = count
 
 End Function
 
