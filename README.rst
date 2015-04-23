@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-04-14
-- Version: v22.6.0.0
+- Last Modified: 2015-04-23
+- Version: v22.7.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -25,6 +25,10 @@ A collection of useful Altium scripts, written in VBScript.
 
 Description
 ===========
+
+Welcome to AltiumScriptCentral! A collection of useful scripts to enhance the capabilities of Altium Designer, a popular EDA software program.
+
+When run, modules save user defaults in the file :code:`%UserProfile%/AltiumScriptCentral_UserData.ini` so that they automatically appear in the fields next time the module is run again.
 
 Core Files
 ----------
@@ -195,6 +199,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.7.0.0 2015-04-23 Added the ability to save user configuration data, closes #180. 'ResizeDesignators.vbs' now remembers the last used designator width and height.
 v22.6.0.0 2015-04-14 Added 'Num. of Plated Slots' and 'Num. of Unplated Slots' to PCB statistics, closes #121.
 v22.5.3.0 2015-04-14 Added check to make sure manf. part number is visible if part is an IC (i.e. has a 'U?' designator), closes #179.
 v22.5.2.0 2015-04-14 Added 'MP?' as a valid designator for mechanical parts, closes #110.

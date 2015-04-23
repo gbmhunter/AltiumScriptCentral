@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-23
+' @last-modified      2015-04-23
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -183,6 +183,18 @@ Sub ButtonViaStamper_Click(Sender)
 End Sub
 
 Sub ButtonExit_Click(Sender)
+
     ' Just close the main form
     FormMainScript.Close
+End Sub
+
+Sub Test1
+
+    ' Save some data
+    SaveString "testModuleName", "testKey", "testValue"
+
+	Dim getString1
+	getString1 = GetString("testModuleName", "testKey")
+
+	ShowMessage("GetSring = " + getString1)
 End Sub

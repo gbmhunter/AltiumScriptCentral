@@ -2,8 +2,8 @@
 ' @file               Util.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2014-12-22
-' @brief              
+' @last-modified      2015-04-23
+' @brief              General utility functions used across many of the modules.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
@@ -113,4 +113,19 @@ Function SfFormat(dblInput, intSF)
         Loop
     End If
 
+End Function
+
+' @brief	Returns the user's home folder.
+' @details	Used by the UserData.vbs module.
+' @returns	The user's home folder as a absolute path string.
+Function GetUsersHomeFolder(dummyVar)
+
+	' Get the user's home folder
+    Dim oShell
+	Set oShell = CreateObject("WScript.Shell")
+	Dim homeFolder
+	homeFolder = oShell.ExpandEnvironmentStrings("%USERPROFILE%")
+
+	' Return the user's home folder as a string
+	GetUsersHomeFolder = homeFolder
 End Function

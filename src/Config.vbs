@@ -2,7 +2,7 @@
 ' @file               Config.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-04-14
+' @last-modified      2015-04-23
 ' @brief              Configuration settings and variables for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -12,6 +12,8 @@ Option Explicit
 
 Private ModuleName
 ModuleName = "Config.vbs"
+
+Dim DEFAULT_FILE_NAME_FOR_USER_DATA
 
 Dim BOARD_OUTLINE_LAYER
 Dim PCB_INFO_LAYER
@@ -55,6 +57,9 @@ Dim SCHEMATIC_SHEET_COUNT_PARAM_NAME    ' As String
 ' @brief     Initialisation function which sets up environment for the rest of
 '            AltiumScriptCentral to work correctly.                               
 Sub ConfigInit(dummyVar)
+
+	DEFAULT_FILE_NAME_FOR_USER_DATA = "AltiumScriptCentral_UserData"
+
     ' BOARD LAYERS
     BOARD_OUTLINE_LAYER     = eMechanical1
     PCB_INFO_LAYER          = eMechanical2
