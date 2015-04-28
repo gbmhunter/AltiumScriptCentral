@@ -2,7 +2,7 @@
 ' @file               CurrentCalculator.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-24
-' @last-modified      2015-01-14
+' @last-modified      2015-04-29
 ' @brief              Script allows user to determine the maximum allowed current
 '                     of a particular track for a given temperature rise.
 ' @details
@@ -11,10 +11,11 @@
 ' Forces us to explicitly define all variables before using them
 Option Explicit
 
-Private b
-b = 0.44
-Private c
-c = 0.725
+' @brief    Module name is used for storing user data in INI file.
+Private Const moduleName = "CurrentCalculator.vbs"
+
+Private Const b = 0.44
+Private Const c = 0.725
 
 Private k
 
@@ -24,9 +25,17 @@ Sub CurrentCalculator(DummyVar)
 
     Dim status
 
+    '===== LOAD ANY SAVED VARIABLES ====='
+
+    Dim allowedTempRiseC
+    allowedTempRiseC = GetUserData(moduleName, "AllowedTempRiseC")
+    'ShowMessage("Got user data AllowedTempRise = " + allowedTempRiseC)
+    If allowedTempRiseC <> "" Then
+        EditAllowedTempRise.Text = allowedTempRiseC
+    End If
+
     Dim foundTrack
     foundTrack = False
-
     Do While Not foundTrack
         status = GetTrackAndUpdateVals(DummyVar)
 
@@ -136,6 +145,10 @@ Function GetTrackAndUpdateVals(DummyVar)
 
     Dim AllowedTempRise
     AllowedTempRise = StrToFloat(EditAllowedTempRise.Text)
+
+    '===== SAVE USER VARIABLES ====='
+    'ShowMessage("Saving AllowedTempRiseC = " + EditAllowedTempRise.Text)
+    Call SaveUserData(moduleName, "AllowedTempRiseC", EditAllowedTempRise.Text)
 
    ' Dim MaxCurrentA
     'MaxCurrentA = k * AllowedTempRise^b * CrossSectionalAreaMill2^c
