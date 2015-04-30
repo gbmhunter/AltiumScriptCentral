@@ -10,7 +10,8 @@
 ' Forces us to explicitly define all variables before using them
 Option Explicit
 
-' @brief    Name of this module. Used for debugging/warning/error message purposes.
+' @brief    Name of this module. Used for debugging/warning/error message purposes and for
+'			saving user data.
 Private Const moduleName = "DeleteSchematicParameters.vbs"
 
 ' @brief    Enables/disables debug information.

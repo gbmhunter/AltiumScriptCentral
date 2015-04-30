@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-04-30
-- Version: v22.7.2.0
+- Version: v22.3.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -59,6 +59,7 @@ CheckComponentLinks.vbs                  Loads up the "Edit Component Links" win
 CheckLayers.vbs                          Checks that the mechanical layers of the PCB have the correct objects on them.
 CheckNameVersionDate.vbs                 Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
 CheckNoSupplierPartNumShown.vbs          Checks that no supplier part numbers are shown on the schematics.
+CheckPcbCompDesignatorRotation.vbs       Checks that there are no component designators on the PCB which are rotated 180 degrees with respect to one other.
 CheckPcbTextHasCorrectOrientation.vbs    Checks that PCB text has the correct orientation (so it is readable), that is text on the top overlay IS NOT mirrored, and text on the bottom layer IS mirrored.
 CheckProjectCompiles.vbs                 Makes sure that the project compiles successfully.
 CheckTentedVias.vbs                      Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
@@ -199,6 +200,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v23.0.0.0 2015-04-30 Added script that checks that PCB designators have the correct rotation, closes #104. Added relevant information to the README.
 v22.7.2.0 2015-04-30 Fixed bug where 'DeleteSchematicParameters.vbs' did not inform Altium that schematics was modified, closes #184. Fixed bug where 'AddSpecialSchParams.vbs' did not inform Altium that schematic was modified, closes #183.
 v22.7.1.0 2015-04-29 User data is now saved for CurrentCalculator.vbs script, closes #182. Fixed bug where SfFormat() in Util.vbs crashes if input number (dblInput) is 0, closes #181.
 v22.7.0.0 2015-04-23 Added the ability to save user configuration data, closes #180. 'ResizeDesignators.vbs' now remembers the last used designator width and height.
