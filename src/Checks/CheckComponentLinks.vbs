@@ -2,16 +2,16 @@
 ' @file               CheckComponentLinks.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-04-13
-' @last-modified      2014-11-11
+' @last-modified      2015-04-30
 ' @brief              Script checks component links.
 ' @details
 '                     See README.rst in repo root dir for more info.
 
-' Forces us to explicitly define all variables before using them
+' @brief	Forces us to explicitly define all variables before using them
 Option Explicit
 
-Private ModuleName
-ModuleName = "CheckComponentLinks.vbs"
+' @brief    Name of this module. Used for debugging/warning/error message purposes.
+Private Const moduleName = "CheckComponentLinks.vbs"
 
 Sub CheckComponentLinks(DummyVar)
 

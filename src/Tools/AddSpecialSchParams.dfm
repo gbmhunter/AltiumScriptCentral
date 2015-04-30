@@ -26,6 +26,15 @@ object FormAddSpecialSchParams: TFormAddSpecialSchParams
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label2: TLabel
+    Left = 77
+    Top = 221
+    Width = 310
+    Height = 13
+    Caption = 
+      'Parameters will be added to all schematics in the current projec' +
+      't.'
+  end
   object CbDocumentName: TCheckBox
     Left = 41
     Top = 98

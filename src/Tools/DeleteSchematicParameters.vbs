@@ -2,7 +2,7 @@
 ' @file               DeleteSchematicParameters.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-01-24
+' @last-modified      2015-04-30
 ' @brief              Deletes a user-selectable range of schematic parameters in the current project.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -10,6 +10,10 @@
 ' Forces us to explicitly define all variables before using them
 Option Explicit
 
+' @brief    Name of this module. Used for debugging/warning/error message purposes.
+Private Const moduleName = "DeleteSchematicParameters.vbs"
+
+' @brief    Enables/disables debug information.
 Private DEBUG
 DEBUG = 0
 
@@ -26,7 +30,7 @@ Const DELETE_FROM_ALL_SCHEMATICS_IN_ACTIVE_PROJECT = 1
 ' @brief     Deletes all schematic parameters.
 ' @param     DummyVar    Dummy variable so that this sub does not show up to the user when
 '                        they click "Run Script".
-Sub DeleteSchematicParameters(DummyVar)
+Sub DeleteSchematicParameters(dummyVar)
     FormDeleteSchematicParameters.ShowModal
 End Sub
 
@@ -194,7 +198,7 @@ Function DeleteParametersFromSchematic(schematic, deleteOneOrAll, paramName)
     Dim schParameter
     Set schParameter = ParamIterator.FirstSchObject
 
-
+    Call SchServer.RobotManager.SendMessage(schematic.I_ObjectAddress, c_BroadCast, SCHM_BeginModify, c_NoEventData)
 
     ' Iterate through schematic parameters and delete them
     Do While Not (schParameter Is Nothing)
@@ -215,6 +219,7 @@ Function DeleteParametersFromSchematic(schematic, deleteOneOrAll, paramName)
               If schParameter.Name = paramName Then
                    PrintDebug("Removing parameter '" + schParameter.Name + "'.")
                    schematic.RemoveSchObject(schParameter)
+                   Call SchServer.RobotManager.SendMessage(schematic.I_ObjectAddress, c_BroadCast, SCHM_PrimitiveRegistration, schParameter.I_ObjectAddress)
 
                    deletedParamCount = deletedParamCount + 1
 
@@ -231,16 +236,18 @@ Function DeleteParametersFromSchematic(schematic, deleteOneOrAll, paramName)
          Set schParameter = paramIterator.NextSchObject
     Loop
 
-     schematic.SchIterator_Destroy(paramIterator)
+    schematic.SchIterator_Destroy(paramIterator)
 
-     ' End of undo block
-     Call SchServer.ProcessControl.PostProcess(schematic, "")
+    Call SchServer.RobotManager.SendMessage(schematic.I_ObjectAddress, c_BroadCast, SCHM_EndModify, c_NoEventData)
 
-     ' Redraw schematic sheet
-     schematic.GraphicallyInvalidate
+    ' End of undo block
+    Call SchServer.ProcessControl.PostProcess(schematic, "")
 
-     ' Return the number of deleted parameters
-     DeleteParametersFromSchematic = deletedParamCount
+    ' Redraw schematic sheet
+    schematic.GraphicallyInvalidate
+
+    ' Return the number of deleted parameters
+    DeleteParametersFromSchematic = deletedParamCount
 
 End Function
 
@@ -248,7 +255,7 @@ Sub ButtonExit_Click(Sender)
     FormDeleteSchematicParameters.Close
 End Sub
 
-Sub PrintDebug(msg)
+Private Sub PrintDebug(msg)
     If DEBUG = 1 Then
        ShowMessage(msg)
     End If

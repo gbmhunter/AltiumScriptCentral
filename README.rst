@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-04-23
-- Version: v22.7.0.0
+- Last Modified: 2015-04-30
+- Version: v22.7.2.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -199,6 +199,8 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v22.7.2.0 2015-04-30 Fixed bug where 'DeleteSchematicParameters.vbs' did not inform Altium that schematics was modified, closes #184. Fixed bug where 'AddSpecialSchParams.vbs' did not inform Altium that schematic was modified, closes #183.
+v22.7.1.0 2015-04-29 User data is now saved for CurrentCalculator.vbs script, closes #182. Fixed bug where SfFormat() in Util.vbs crashes if input number (dblInput) is 0, closes #181.
 v22.7.0.0 2015-04-23 Added the ability to save user configuration data, closes #180. 'ResizeDesignators.vbs' now remembers the last used designator width and height.
 v22.6.0.0 2015-04-14 Added 'Num. of Plated Slots' and 'Num. of Unplated Slots' to PCB statistics, closes #121.
 v22.5.3.0 2015-04-14 Added check to make sure manf. part number is visible if part is an IC (i.e. has a 'U?' designator), closes #179.
