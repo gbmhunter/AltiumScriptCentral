@@ -188,13 +188,12 @@ Sub ButtonExit_Click(Sender)
     FormMainScript.Close
 End Sub
 
-Sub Test1
+Sub ButtonComponentParameterStamperClick(Sender)
+    FormMainScript.Hide
+	FormMainScript.Close
 
-    ' Save some data
-    SaveString "testModuleName", "testKey", "testValue"
+    ' Call via stamper script
+    CompParamVisibilityStamper(dummyVar)
 
-	Dim getString1
-	getString1 = GetString("testModuleName", "testKey")
 
-	ShowMessage("GetSring = " + getString1)
 End Sub

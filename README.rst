@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-04-30
-- Version: v22.3.0.0
+- Last Modified: 2015-05-14
+- Version: v24.0.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -120,6 +120,13 @@ Copies all project parameters to the schematic documents, which can be useful fo
 
 NOTE: This tool has been made somewhat redudant with the update to Altium Designer 13, which makes schematic sheets automatically inherit project parameters if there is no local sheet parameter with the same name.
 
+Schematic Component Parameter Stamper
+-------------------------------------
+
+File :code:`src/Schematics/SchCompParamStamper.vbs`
+
+Copies the parameter visibility settings from a source schematic component to a destination schematic component. Useful for people who like to show many of the component's parameters on the schematic for information purposes, and don't want to go and manually unhide all of the parameters for duplicate components.
+
 PCB Tools
 =========
 
@@ -200,6 +207,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.0.0.0 2015-05-14 Added a 'src/Schematcis/SchCompParamStamper.vbs' module which copies parameter visibility from a source to a destination schematic component, closes #187. Added relevant information to the README.
 v23.0.0.0 2015-04-30 Added script that checks that PCB designators have the correct rotation, closes #104. Added relevant information to the README.
 v22.7.2.0 2015-04-30 Fixed bug where 'DeleteSchematicParameters.vbs' did not inform Altium that schematics was modified, closes #184. Fixed bug where 'AddSpecialSchParams.vbs' did not inform Altium that schematic was modified, closes #183.
 v22.7.1.0 2015-04-29 User data is now saved for CurrentCalculator.vbs script, closes #182. Fixed bug where SfFormat() in Util.vbs crashes if input number (dblInput) is 0, closes #181.

@@ -68,6 +68,15 @@ object FormMainScript: TFormMainScript
     Height = 320
     ParentBackground = False
     TabOrder = 13
+    object ButtonComponentParameterStamper: TButton
+      Left = 41
+      Top = 147
+      Width = 205
+      Height = 25
+      Caption = 'Component Parameter Stamper'
+      TabOrder = 0
+      OnClick = ButtonComponentParameterStamperClick
+    end
   end
   object Panel1: TPanel
     Left = 34

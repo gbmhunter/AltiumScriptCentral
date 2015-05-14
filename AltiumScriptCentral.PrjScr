@@ -28,6 +28,8 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
+FSMCodingStyle=eFMSDropDownList_OneProcess
+FSMEncodingStyle=eFMSDropDownList_OneHot
 OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
@@ -462,7 +464,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document26]
-DocumentPath=src\Stats\Stats.vbs
+DocumentPath=src\Schematic\SchCompParamStamper.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -479,7 +481,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document27]
-DocumentPath=src\UserData\UserData.vbs
+DocumentPath=src\Stats\Stats.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -496,7 +498,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document28]
-DocumentPath=src\Util\Util.vbs
+DocumentPath=src\UserData\UserData.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -513,7 +515,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document29]
-DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
+DocumentPath=src\Util\Util.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -530,7 +532,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document30]
-DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -547,7 +549,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document31]
-DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -564,7 +566,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document32]
-DocumentPath=src\Tools\ViaStamper.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -581,7 +583,41 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document33]
+DocumentPath=src\Tools\ViaStamper.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
+[Document34]
 DocumentPath=src\Checks\ComponentValidators\ValidateIC.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
+[Document35]
+DocumentPath=old\Test.pas
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -609,6 +645,10 @@ StartProcName=src\Main.vbs>RunMainScript
 5=RadioGroupWhichParameters.ItemIndex
 6=PadObj.HoleType
 7=pcbObject.designator
+8=schSourcePrim
+9=schSourcePrim
+10=eSchComponent
+11=param.Visible
 
 [OutputGroup1]
 Name=Netlist Outputs
@@ -1125,11 +1165,6 @@ OutputName5=Environment configuration compliance check
 OutputDocumentPath5=
 OutputVariantName5=
 OutputDefault5=0
-OutputType6=Component states check
-OutputName6=Vault's components states check
-OutputDocumentPath6=
-OutputVariantName6=
-OutputDefault6=0
 
 [OutputGroup9]
 Name=Export Outputs
@@ -1156,6 +1191,11 @@ OutputName4=Export IDF
 OutputDocumentPath4=
 OutputVariantName4=
 OutputDefault4=0
+OutputType5=PDF3D
+OutputName5=Export PDF3D
+OutputDocumentPath5=
+OutputVariantName5=
+OutputDefault5=0
 
 [Modification Levels]
 Type1=1
@@ -1393,6 +1433,7 @@ Type107=2
 Type108=2
 Type109=1
 Type110=0
+Type111=1
 
 [ERC Connection Matrix]
 L1=NNNNNNNNNNNWNNNWW
@@ -1431,6 +1472,7 @@ NetClassAutoBusEnabled=1
 NetClassAutoCompEnabled=0
 NetClassAutoNamedHarnessEnabled=0
 NetClassManualEnabled=1
+NetClassSeparateForBusSections=0
 
 [LibraryUpdateOptions]
 SelectedOnly=0
