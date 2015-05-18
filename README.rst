@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-05-18
-- Version: v24.1.0.0
+- Last Modified: 2015-05-19
+- Version: v24.2.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -135,7 +135,7 @@ Current Calculator
 
 File: :code:`src/Tools/CurrentCalculator.vbs`
 
-Allows the user to calculate the the maximum allowed current of a particular track on a PCB for a given temperature rise. Calculated in accordance with the equations in IPC-2221A Section 6.2 (formerly IPC-D-275).
+Allows the user to calculate the the maximum allowed current of a particular track or via on a PCB for a given temperature rise. Calculated in accordance with the equations in IPC-2221A Section 6.2 (formerly IPC-D-275).
 
 Based on the calculator found at `http://www.mbedded.ninja/online-calculators/pcb-design/track-width-calculator 
 <http://www.mbedded.ninja/online-calculators/pcb-design/track-width-calculator>`_.
@@ -209,6 +209,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.2.0.0 2015-05-19 Added via current calculating functionality to the 'CurrentCalculator.vbs' module, closes #192.
 v24.1.0.0 2015-05-18 Added maximum aspect ratio calculation in 'Stats.vbs' module, closes #186.
 v24.0.1.0 2015-05-18 Removed test.pas from the Altium project and repo. Added note about project file hierarchy in Altium Designer (or lack thereof). Fixed bug where the function which modifies the parameter visibility in the 'SchCompParamStamper' module does not notify the schematic server that the schematic has changed, closes #190. Added ability for 'SchCompParamStamper.vbs' module to also copy across the parameter location (relative to the component), closes #188.
 v24.0.0.0 2015-05-14 Added a 'src/Schematcis/SchCompParamStamper.vbs' module which copies parameter visibility from a source to a destination schematic component, closes #187. Added relevant information to the README.

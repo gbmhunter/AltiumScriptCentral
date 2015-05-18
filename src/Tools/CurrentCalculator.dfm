@@ -2,8 +2,8 @@ object FormCurrentCalculator: TFormCurrentCalculator
   Left = 0
   Top = 0
   Caption = 'Current Calculator'
-  ClientHeight = 219
-  ClientWidth = 304
+  ClientHeight = 367
+  ClientWidth = 288
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,7 +13,7 @@ object FormCurrentCalculator: TFormCurrentCalculator
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object Label1: TLabel
+  object LabelTrackThicknessUmText: TLabel
     Left = 16
     Top = 30
     Width = 104
@@ -27,7 +27,7 @@ object FormCurrentCalculator: TFormCurrentCalculator
     Height = 13
     Caption = '35'
   end
-  object Label2: TLabel
+  object LabelTrackWidthMmTitle: TLabel
     Left = 16
     Top = 46
     Width = 88
@@ -41,21 +41,21 @@ object FormCurrentCalculator: TFormCurrentCalculator
     Height = 13
     Caption = '0.4'
   end
-  object Label4: TLabel
+  object LabelTrackLayerTitle: TLabel
     Left = 16
     Top = 62
-    Width = 31
+    Width = 60
     Height = 13
-    Caption = 'Layer:'
+    Caption = 'Track Layer:'
   end
-  object LabelLayer: TLabel
+  object LabelTrackLayer: TLabel
     Left = 200
     Top = 62
     Width = 40
     Height = 13
     Caption = 'External'
   end
-  object Label6: TLabel
+  object LabelTrackCrossSectionalAreaMm2Title: TLabel
     Left = 16
     Top = 78
     Width = 173
@@ -71,7 +71,7 @@ object FormCurrentCalculator: TFormCurrentCalculator
   end
   object Label7: TLabel
     Left = 16
-    Top = 134
+    Top = 278
     Width = 111
     Height = 16
     Caption = 'Max Current (A):'
@@ -84,7 +84,7 @@ object FormCurrentCalculator: TFormCurrentCalculator
   end
   object LabelMaxCurrentA: TLabel
     Left = 200
-    Top = 134
+    Top = 278
     Width = 30
     Height = 16
     Caption = '1.2A'
@@ -97,14 +97,91 @@ object FormCurrentCalculator: TFormCurrentCalculator
   end
   object Label8: TLabel
     Left = 16
-    Top = 102
+    Top = 254
     Width = 111
     Height = 13
     Caption = 'Allowed Temp Rise (C):'
   end
+  object LabelViaFinishedHoleDiameterMmTitle: TLabel
+    Left = 16
+    Top = 118
+    Width = 157
+    Height = 13
+    Caption = 'Via Finished Hole Diameter (mm):'
+  end
+  object LabelViaHeightMmTitle: TLabel
+    Left = 16
+    Top = 166
+    Width = 79
+    Height = 13
+    Caption = 'Via Height (mm):'
+  end
+  object LabelViaStartLayerTitle: TLabel
+    Left = 16
+    Top = 134
+    Width = 75
+    Height = 13
+    Caption = 'Via Start Layer:'
+  end
+  object LabelViaStopLayerTitle: TLabel
+    Left = 16
+    Top = 150
+    Width = 73
+    Height = 13
+    Caption = 'Via Stop Layer:'
+  end
+  object LabelViaFinishedHoleDiameterMm: TLabel
+    Left = 200
+    Top = 118
+    Width = 16
+    Height = 13
+    Caption = '0.2'
+  end
+  object LabelViaStartLayer: TLabel
+    Left = 200
+    Top = 134
+    Width = 48
+    Height = 13
+    Caption = 'Top Layer'
+  end
+  object LabelViaStopLayer: TLabel
+    Left = 200
+    Top = 150
+    Width = 64
+    Height = 13
+    Caption = 'Bottom Layer'
+  end
+  object LabelViaHeightMm: TLabel
+    Left = 200
+    Top = 166
+    Width = 16
+    Height = 13
+    Caption = '1.6'
+  end
+  object LabelViaPlatingThicknessUmTitle: TLabel
+    Left = 16
+    Top = 182
+    Width = 127
+    Height = 13
+    Caption = 'Via Plating Thickness (um):'
+  end
+  object LabelViaCrossSectionalAreaMm2Title: TLabel
+    Left = 16
+    Top = 206
+    Width = 161
+    Height = 13
+    Caption = 'Via Cross-sectional Area (mm^2):'
+  end
+  object LabelViaCrossSectionalAreaMm2: TLabel
+    Left = 200
+    Top = 206
+    Width = 28
+    Height = 13
+    Caption = '0.002'
+  end
   object EditAllowedTempRise: TEdit
     Left = 195
-    Top = 99
+    Top = 251
     Width = 69
     Height = 21
     TabOrder = 0
@@ -113,11 +190,19 @@ object FormCurrentCalculator: TFormCurrentCalculator
   end
   object ButtonFindAnotherTrack: TButton
     Left = 82
-    Top = 169
+    Top = 313
     Width = 134
     Height = 25
-    Caption = 'Find Another Track'
+    Caption = 'Find Another Track/Via'
     TabOrder = 1
     OnClick = ButtonFindAnotherTrackClick
+  end
+  object EditViaPlatingThicknessUm: TEdit
+    Left = 198
+    Top = 180
+    Width = 66
+    Height = 21
+    TabOrder = 2
+    Text = '35'
   end
 end

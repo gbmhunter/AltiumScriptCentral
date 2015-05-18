@@ -10,6 +10,9 @@
 ' Forces us to explicitly define all variables before using them
 Option Explicit
 
+Dim pi
+pi = 4 * Atn(1)
+
 ' @brief   Function tests whether the input argument is an integer.
  ' @returns True if VarToTest is an integer, otherwise False.
  Function IsInt(VarToTest)
