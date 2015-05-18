@@ -632,6 +632,8 @@ StartProcName=src\Main.vbs>RunMainScript
 9=schSourcePrim
 10=eSchComponent
 11=param.Visible
+12=via.StartLayer.Height
+13=layerIterator.LayerObject.CopperThickness
 
 [OutputGroup1]
 Name=Netlist Outputs

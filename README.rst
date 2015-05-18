@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-05-18
-- Version: v24.0.1.0
+- Version: v24.1.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -209,6 +209,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.1.0.0 2015-05-18 Added maximum aspect ratio calculation in 'Stats.vbs' module, closes #186.
 v24.0.1.0 2015-05-18 Removed test.pas from the Altium project and repo. Added note about project file hierarchy in Altium Designer (or lack thereof). Fixed bug where the function which modifies the parameter visibility in the 'SchCompParamStamper' module does not notify the schematic server that the schematic has changed, closes #190. Added ability for 'SchCompParamStamper.vbs' module to also copy across the parameter location (relative to the component), closes #188.
 v24.0.0.0 2015-05-14 Added a 'src/Schematcis/SchCompParamStamper.vbs' module which copies parameter visibility from a source to a destination schematic component, closes #187. Added relevant information to the README.
 v23.0.0.0 2015-04-30 Added script that checks that PCB designators have the correct rotation, closes #104. Added relevant information to the README.

@@ -82,17 +82,17 @@ End Function
 ' @brief    Returns input number rounded to specified number of significant figures.
 ' @param    dblInput   The input number.
 ' @param    intSF      The number of significant figures you want the number rounded to.
-' @returns	The rounded number.
+' @returns  The rounded number.
 Function SfFormat(dblInput, intSF)
 
     Dim intCorrPower         'Exponent used in rounding calculation
     Dim intSign              'Holds sign of dblInput since logs are used in calculations
 
-	' Catch edge-case when input number is 0
-	If dblInput = 0 Then
-		SfFormat = 0
-		Exit Function
-	End If
+    ' Catch edge-case when input number is 0
+    If dblInput = 0 Then
+        SfFormat = 0
+        Exit Function
+    End If
 
     ' Store sign of dblInput
     intSign = Sgn(dblInput)
@@ -135,4 +135,59 @@ Function GetUsersHomeFolder(dummyVar)
 
     ' Return the user's home folder as a string
     GetUsersHomeFolder = homeFolder
+End Function
+
+' @brief    Gets the height of either a via or hole object.
+' @details  Correctly calculates the actual height of any via or hole (even blind or buried) by using it's start and stop layers
+'               and iterating through the layer stack, adding up the thicknesses of everything in between.
+' @note     Will return a height slightly less that the total height of the PCB for vias that go from the top
+'               layer to the bottom layer, as it does not include the soldermask of silkscreen thickness.
+Function GetViaOrHoleHeightMm(board, viaOrHole)
+
+
+    Dim layerIterator
+    layerIterator = board.ElectricalLayerIterator
+
+    Dim startLayerFound, stopLayerFound
+    Dim heightSumTCoord
+    heightSumTCoord = 0
+
+    Do While layerIterator.Next
+        'ShowMessage("Layer name = '" + layerIterator.LayerObject.Name + "', layerID = '" + CStr(layerIterator.LayerObject.LayerID) + "', copper height = '" + CStr(layerIterator.LayerObject.CopperThickness) + "', di-electric Height = '" + CStr(CoordToMMs(layerIterator.LayerObject.Dielectric.DielectricHeight)) + "'.")
+
+        'ShowMessage("Via/hole.ObjectID = " +  CStr(viaOrHole.ObjectID) + "'.")
+        If viaOrHole.ObjectID = eViaObject Then
+            If viaOrHole.StartLayer.LayerID = layerIterator.LayerObject.LayerID Then
+                'ShowMessage("Via/hole start layer = '" + layerIterator.LayerObject.Name + "'.")
+                startLayerFound = true
+            End If
+        ElseIf viaOrHole.ObjectID = ePadObject Then
+            startLayerFound = true
+        End If
+
+        If viaOrHole.ObjectID = eViaObject Then
+            If viaOrHole.StopLayer.LayerID = layerIterator.LayerObject.LayerID Then
+                'ShowMessage("Via/hole stop layer = '" + layerIterator.LayerObject.Name + "'.")
+                stopLayerFound = true
+            End If
+        End If
+
+        If startLayerFound = true And stopLayerFound = false Then
+            ' We are on OR past the layer that the via starts on, AND we are not on the layer that the via stops on.
+            heightSumTCoord = heightSumTCoord + layerIterator.LayerObject.CopperThickness + layerIterator.LayerObject.Dielectric.DielectricHeight
+        End If
+
+        If stopLayerFound = true Then
+            ' We are on the layer that the via stops at!
+            heightSumTCoord = heightSumTCoord + layerIterator.LayerObject.CopperThickness
+            GetViaOrHoleHeightMm = CoordToMMs(heightSumTCoord)
+            'ShowMessage("Via/hole height = '" + CStr(CoordToMMs(heightSumTCoord)) + "mm'.")
+            Exit Function
+        End If
+
+    Loop
+
+    ' We will only get here if it is a pad!
+    GetViaOrHoleHeightMm = CoordToMMs(heightSumTCoord)
+
 End Function

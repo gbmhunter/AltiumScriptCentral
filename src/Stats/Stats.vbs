@@ -11,7 +11,7 @@
 Option Explicit
 
 Sub GetStats(DummyVar)
-     'StdOut("Displaying PCB stats...")
+    'ShowMessage("Displaying PCB stats...")
 
     ' Get the current PCB board, which we will pass to all
     ' the child functions
@@ -47,21 +47,22 @@ Sub GetStats(DummyVar)
 
     ' Get the smallest, largest and number of different hole sizes
     Dim HoleStatA
-    HoleStatA = GetHoleStats(Board)
+    HoleStatA = GetHoleStats(board)
     LabelSmallestHoleSizeMm.Caption = HoleStatA(0)
     LabelLargestHoleSizeMm.Caption = HoleStatA(1)
     LabelNumDiffHoleSizes.Caption = HoleStatA(2)
 
-    ' Minimum widths
-    LabelMinAnnularRingMm.Caption = CStr(FindMinAnnularRingMm(Board))
-    LabelMinTrackWidthMm.Caption = CStr(FindMinTrackWidthMm(Board))
+    ' Annular ring, aspect ratio and min track width
+    LabelMinAnnularRingMm.Caption = CStr(FindMinAnnularRingMm(board))
+    LabelMaxAspectRatio.Caption = CStr(FindMaxAspectRatio(board))
+    LabelMinTrackWidthMm.Caption = CStr(FindMinTrackWidthMm(board))
 
     ' Number copper layers on PCB
-    LabelNumCopperLayers.Caption = CountNumCopperLayers(Board)
+    LabelNumCopperLayers.Caption = CountNumCopperLayers(board)
 
     ' Get board height and width
     Dim Dimensions
-    Dimensions = GetPcbBoundingRectangleDimensions(Board)
+    Dimensions = GetPcbBoundingRectangleDimensions(board)
     LabelBoardWidthMm.Caption = Dimensions(0)
     LabelBoardHeightMm.Caption = Dimensions(1)
     LabelBoardAreaMm.Caption = Dimensions(2)
@@ -77,7 +78,10 @@ Const NUM_BLIND_VIAS = 1
 Const NUM_BURIED_VIAS = 2
 Const TOTAL_NUM_VIAS = 3
 
-Function CountVias(Board)
+' @brief    Counts the number of normal, blind, buried and total vias on the PCB.
+' @param    board   (IPCB_Board) The PCB board to count the vias on.
+' @returns  A 4-member array containing the via information.
+Function CountVias(board)
     'Dim Count                ' As Integer
 
     ' (0): num. of normal vias
@@ -132,6 +136,9 @@ Function CountVias(Board)
 
 End Function
 
+' @brief    Counts the number of pads with circular plated holed on a PCB.
+' @param    board   (IPCB_Board) The PCB board to count the number of pads with circular plated holes on.
+' @returns  (Integer) The number of pads with circular plated holes.
 Function CountNumPadsWithCircularPlatedHoles(Board)
 
      Dim Iterator
@@ -334,17 +341,86 @@ Function FindMinAnnularRingMm(Board)
 
 End Function
 
-Function FindMinTrackWidthMm(Board)
+' @brief    Finds the maximum aspect ratio on a PCB.
+' @details  The aspect ratio of a hole is defined as hole (via or pad hole) depth/drilled hole diameter
+' @param    board   (IPCB_Board) The PCB board to find the maximum aspect ratio on.
+' @returns  (Float) The maximum aspect ratio of the PCB.
+Function FindMaxAspectRatio(board)
+
+    Dim maxAspectRatio
+    maxAspectRatio = 0
+
+    Dim FirstTime
+    FirstTime = True
+
+    '===== CHECK VIAS ====='
+
+    Dim iterator
+    Set iterator = board.BoardIterator_Create
+    iterator.AddFilter_ObjectSet(MkSet(eViaObject, ePadObject))
+    iterator.AddFilter_LayerSet(AllLayers)
+    iterator.AddFilter_Method(eProcessAll)
+
+    Dim via
+    Set via = iterator.FirstPCBObject
+
+    Dim aspectRatio
+
+     ' Iterate through all objects
+    Do While Not (via Is Nothing)
+
+        ' We first need to get the depth (length) of the via, this is dependent
+        ' on it's starting layer, end layer, and the PCB stackup.
+
+        Dim viaHeightMm
+        ' Call function from Util.vbs
+        viaHeightMm = GetViaOrHoleHeightMm(board, via)
+
+        Dim viaDrillDiameterMm
+        viaDrillDiameterMm = CoordToMMs(via.HoleSize)
+
+		' Some pads can have a drill diameter of 0, let's make
+		' sure not to include them in our calculations
+		If Not viaDrillDiameterMm = 0 Then
+
+
+	        ' Now we can easily calculate the aspect ratio
+	        aspectRatio = viaHeightMm/viaDrillDiameterMm
+
+	        'ShowMessage("aspectRatio = '" + CStr(aspectRatio) + "'.")
+
+	        If firstTime = True Then
+	            ' First time through we don't care if it's higher/lower
+	            ' than anything else
+	            maxAspectRatio = aspectRatio
+	            firstTime = False
+	        Else
+	            If aspectRatio > maxAspectRatio Then
+	                maxAspectRatio = aspectRatio
+	            End If
+	        End If
+		End If
+
+        Set via = iterator.NextPCBObject
+    Loop
+
+    board.BoardIterator_Destroy(iterator)
+
+    FindMaxAspectRatio = maxAspectRatio
+
+End Function
+
+Function FindMinTrackWidthMm(board)
 
      Dim Iterator
      Set Iterator = Board.BoardIterator_Create
      iterator.AddFilter_ObjectSet(MkSet(eTrackObject))
      ' We only want to check copper layers for tracks
-     Iterator.AddFilter_LayerSet(MkSet(eTopLayer, eMidLayer1, eMidLayer2, eMidLayer3, eMidLayer4, eMidLayer5, eMidLayer6, eMidLayer7, eMidLayer8, eMidLayer9, eMidLayer10, eMidLayer11, eMidLayer12, eMidLayer13, eMidLayer14, eMidLayer15, eMidLayer16, eMidLayer17, eMidLayer18, eMidLayer19, eMidLayer20, eMidLayer21, eMidLayer22, eMidLayer23, eMidLayer24, eMidLayer25, eMidLayer26, eMidLayer27, eMidLayer28, eMidLayer29, eMidLayer30, eBottomLayer))
-     Iterator.AddFilter_Method(eProcessAll)
+     iterator.AddFilter_LayerSet(MkSet(eTopLayer, eMidLayer1, eMidLayer2, eMidLayer3, eMidLayer4, eMidLayer5, eMidLayer6, eMidLayer7, eMidLayer8, eMidLayer9, eMidLayer10, eMidLayer11, eMidLayer12, eMidLayer13, eMidLayer14, eMidLayer15, eMidLayer16, eMidLayer17, eMidLayer18, eMidLayer19, eMidLayer20, eMidLayer21, eMidLayer22, eMidLayer23, eMidLayer24, eMidLayer25, eMidLayer26, eMidLayer27, eMidLayer28, eMidLayer29, eMidLayer30, eBottomLayer))
+     iterator.AddFilter_Method(eProcessAll)
 
-     Dim Track
-     Set Track = Iterator.FirstPCBObject
+     Dim track
+     Set track = iterator.FirstPCBObject
 
      Dim MinTrackWidthMm
      MinTrackWidthMm = 0
@@ -380,45 +456,48 @@ Function FindMinTrackWidthMm(Board)
 End Function
 
 
-Function CountNumCopperLayers(Board)
+' @brief    Counts the number of copper layers for a given PCB.
+' @returns  (Integer) The number of copper layers on the PCB.
+Function CountNumCopperLayers(board)
 
-     Dim LayerClass
-     LayerClass = eLayerClass_Electrical
+     Dim layerClass
+     layerClass = eLayerClass_Electrical
 
-     Dim LayerStack
-     LayerStack = Board.LayerStack
+     Dim layerStack
+     layerStack = board.LayerStack
 
-     If LayerStack Is Nothing Then
+     If layerStack Is Nothing Then
           ShowMessage("ERROR: Could not get layer stack info for current PCB.")
           Exit Function
      End If
 
      ' Get first layer of the class type.
-     Dim LayerObj
-     LayerObj = LayerStack.First(LayerClass)
+     Dim layerObj
+     layerObj = layerStack.First(layerClass)
 
      ' Exit if layer type is not available in stack
-     If LayerObj Is Nothing Then
+     If layerObj Is Nothing Then
           ShowMessage("ERROR: Could not get a layer object from the layer stack.")
           Exit Function
      End If
 
-     Dim NumCopperLayers
-     NumCopperLayers = 1
+     Dim numCopperLayers
+     numCopperLayers = 1
 
      ' Iterate through layers and display each layer name
      Do
           'ShowMessage(layerObj.Name)
-          LayerObj = LayerStack.Next(LayerClass, LayerObj)
-          NumCopperLayers = NumCopperLayers + 1
+          layerObj = layerStack.Next(layerClass, layerObj)
+          numCopperLayers = numCopperLayers + 1
 
         ' For some reason we cannot compare the layer objects directly,
         ' so as a workaround I will compare the names. This will be buggy
         ' if there are two layers with the same name (and one of them is the
         ' last layer)
-     Loop Until LayerObj.Name = LayerStack.Last(LayerClass).Name
+     Loop Until layerObj.Name = layerStack.Last(layerClass).Name
 
-  CountNumCopperLayers = NumCopperLayers
+    ' Return the number of copper layers
+    CountNumCopperLayers = numCopperLayers
 
 End Function
 

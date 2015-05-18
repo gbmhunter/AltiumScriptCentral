@@ -2,8 +2,8 @@ object FormStats: TFormStats
   Left = 0
   Top = 0
   Caption = 'PCB Stats'
-  ClientHeight = 470
-  ClientWidth = 378
+  ClientHeight = 512
+  ClientWidth = 417
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -83,56 +83,56 @@ object FormStats: TFormStats
   end
   object Label5: TLabel
     Left = 26
-    Top = 337
+    Top = 353
     Width = 111
     Height = 13
     Caption = 'Min. Track Width (mm):'
   end
   object LabelMinTrackWidthMm: TLabel
     Left = 154
-    Top = 337
+    Top = 353
     Width = 6
     Height = 13
     Caption = '0'
   end
   object Label6: TLabel
     Left = 26
-    Top = 353
+    Top = 369
     Width = 102
     Height = 13
     Caption = 'Num. Copper Layers:'
   end
   object LabelNumCopperLayers: TLabel
     Left = 154
-    Top = 353
+    Top = 369
     Width = 6
     Height = 13
     Caption = '0'
   end
   object Label7: TLabel
     Left = 26
-    Top = 385
+    Top = 401
     Width = 189
     Height = 13
     Caption = 'Board Width (bounding rectangle, mm):'
   end
   object Label8: TLabel
     Left = 26
-    Top = 401
+    Top = 417
     Width = 192
     Height = 13
     Caption = 'Board Height (bounding rectangle, mm):'
   end
   object LabelBoardWidthMm: TLabel
     Left = 234
-    Top = 385
+    Top = 401
     Width = 6
     Height = 13
     Caption = '0'
   end
   object LabelBoardHeightMm: TLabel
     Left = 234
-    Top = 401
+    Top = 417
     Width = 6
     Height = 13
     Caption = '0'
@@ -153,14 +153,14 @@ object FormStats: TFormStats
   end
   object Label10: TLabel
     Left = 26
-    Top = 417
+    Top = 433
     Width = 198
     Height = 13
     Caption = 'Board Area (bounding rectangle, mm^2):'
   end
   object LabelBoardAreaMm: TLabel
     Left = 234
-    Top = 417
+    Top = 433
     Width = 6
     Height = 13
     Caption = '0'
@@ -328,5 +328,19 @@ object FormStats: TFormStats
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Label21: TLabel
+    Left = 26
+    Top = 337
+    Width = 92
+    Height = 13
+    Caption = 'Max. Aspect Ratio:'
+  end
+  object labelMaxAspectRatio: TLabel
+    Left = 154
+    Top = 337
+    Width = 6
+    Height = 13
+    Caption = '0'
   end
 end
