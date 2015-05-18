@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-05-14
-- Version: v24.0.0.0
+- Last Modified: 2015-05-18
+- Version: v24.0.1.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -68,7 +68,7 @@ PowerPortChecker.vbs                     Checks that power ports are orientated 
 
 The following component validators are run as part of the pre-release checks.
 
-The component validator checks makes sure that all the schematic components have recognised designators and are showing the correct parameters (which is dependant on the component type, as given by the designator). All component validator scripts are located in :code:`src/Checks/ComponentValidators`.
+The component validator checks makes sure that all the schematic components have recognised designators and are showing the correct parameters (which is dependent on the component type, as given by the designator). All component validator scripts are located in :code:`src/Checks/ComponentValidators`.
 
 ======================================== ==================================================================
 Filename                                 Description
@@ -118,7 +118,7 @@ File: :code:`src/Tools/PushProjectParametersToSchematics.vbs`
 
 Copies all project parameters to the schematic documents, which can be useful for automatically filling in title block information (using special strings).
 
-NOTE: This tool has been made somewhat redudant with the update to Altium Designer 13, which makes schematic sheets automatically inherit project parameters if there is no local sheet parameter with the same name.
+NOTE: This tool has been made somewhat redundant with the update to Altium Designer 13, which makes schematic sheets automatically inherit project parameters if there is no local sheet parameter with the same name.
 
 Schematic Component Parameter Stamper
 -------------------------------------
@@ -200,6 +200,8 @@ Usage
 1. Add the AltiumScriptCentral project (:code:`AltiumScriptCentral.PrjScr`) to your current Altium workspace.
 2. Open the "DXP->Run Script" window by holding Alt, and then pressing X, S.
 3. Run AltiumScriptCentral by selecting "AltiumScriptCentral.PrjScr->Main.vbs->RunAltiumScriptCentral" from the "Select script to run" window.
+
+Unfortunately, Altium does not show the project files in the 'Projects' pane of Altium Designer in the same hierarchy as in the repository. This can be a little confusion when you are trying to find a particular script. I have ordered them alphabetically to help with this.
 	
 Changelog
 =========
@@ -207,6 +209,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.0.1.0 2015-05-18 Removed test.pas from the Altium project and repo. Added note about project file hierarchy in Altium Designer (or lack thereof). Fixed bug where the function which modifies the parameter visibility in the 'SchCompParamStamper' module does not notify the schematic server that the schematic has changed, closes #190. Added ability for 'SchCompParamStamper.vbs' module to also copy across the parameter location (relative to the component), closes #188.
 v24.0.0.0 2015-05-14 Added a 'src/Schematcis/SchCompParamStamper.vbs' module which copies parameter visibility from a source to a destination schematic component, closes #187. Added relevant information to the README.
 v23.0.0.0 2015-04-30 Added script that checks that PCB designators have the correct rotation, closes #104. Added relevant information to the README.
 v22.7.2.0 2015-04-30 Fixed bug where 'DeleteSchematicParameters.vbs' did not inform Altium that schematics was modified, closes #184. Fixed bug where 'AddSpecialSchParams.vbs' did not inform Altium that schematic was modified, closes #183.

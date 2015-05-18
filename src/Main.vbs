@@ -190,10 +190,10 @@ End Sub
 
 Sub ButtonComponentParameterStamperClick(Sender)
     FormMainScript.Hide
-	FormMainScript.Close
+    FormMainScript.Close
 
     ' Call via stamper script
-    CompParamVisibilityStamper(dummyVar)
+    SchCompParamStamper(dummyVar)
 
 
 End Sub
