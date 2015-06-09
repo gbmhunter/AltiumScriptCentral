@@ -13,7 +13,7 @@ Option Explicit
 Private ModuleName
 ModuleName = "Config.vbs"
 
-Dim DEFAULT_FILE_NAME_FOR_USER_DATA
+Const DEFAULT_FILE_NAME_FOR_USER_DATA = "AltiumScriptCentral_UserData"
 
 Dim BOARD_OUTLINE_LAYER
 Dim PCB_INFO_LAYER
@@ -25,40 +25,41 @@ Dim TOP_COURTYARD_LAYER
 Dim BOT_COURTYARD_LAYER
 Dim UNUSED_LAYERS
 
-Dim MIN_TENTED_VIA_RATIO
+Const MIN_TENTED_VIA_RATIO    	= 0.90
 
-Dim DESIGNATOR_BATTERY              ' As String
-Dim DESIGNATOR_CAPACITOR            ' As String
-Dim DESIGNATOR_DIODE                ' As String
-Dim DESIGNATOR_ANTENNA              ' As String
-Dim DESIGNATOR_FUSE                 ' As String
-Dim DESIGNATOR_FERRITE_BEAD         ' As String
-Dim DESIGNATOR_FIDUCIAL             ' As String
-Dim DESIGNATOR_JACK                 ' As String
-Dim DESIGNATOR_INDUCTOR             ' As String
-Dim DESIGNATOR_MECHANICAL_PART      ' As String
-Dim DESIGNATOR_MOTOR                ' As String
-Dim DESIGNATOR_CONNECTOR            ' As String
-Dim DESIGNATOR_SOLAR_PANEL          ' As String
-Dim DESIGNATOR_TRANSISTOR           ' As String
-Dim DESIGNATOR_RESISTOR             ' As String
-Dim DESIGNATOR_SWITCH               ' As String
-Dim DESIGNATOR_IC                   ' As String
-Dim DESIGNATOR_TRANSFORMER          ' As String
-Dim DESIGNATOR_TEST_POINT           ' As String
-Dim DESIGNATOR_VARIABLE_RESISTOR    ' As String
-Dim DESIGNATOR_CABLE                ' As String
-Dim DESIGNATOR_CRYSTAL              ' As String
-Dim DESIGNATOR_FUSE_HOLDER          ' As String
+Const DESIGNATOR_BATTERY              = "BT"
+Const DESIGNATOR_CAPACITOR            = "C"
+Const DESIGNATOR_DIODE                = "D"
+Const DESIGNATOR_ANTENNA              = "E"
+Const DESIGNATOR_FUSE                 = "F"
+Const DESIGNATOR_FERRITE_BEAD         = "FB"
+Const DESIGNATOR_FIDUCIAL             = "FD"
+Const DESIGNATOR_JACK                 = "J"
+Const DESIGNATOR_INDUCTOR             = "L"
+Const DESIGNATOR_MECHANICAL_PART      = "MP"
+Const DESIGNATOR_MOTOR                = "M"
+Const DESIGNATOR_CONNECTOR            = "P"
+Const DESIGNATOR_SOLAR_PANEL          = "PV"
+Const DESIGNATOR_TRANSISTOR           = "Q"
+Const DESIGNATOR_RESISTOR             = "R"
+Const DESIGNATOR_SWITCH               = "SW"
+Const DESIGNATOR_IC                   = "U"
+Const DESIGNATOR_TRANSFORMER          = "T"
+Const DESIGNATOR_TEST_POINT           = "TP"
+Const DESIGNATOR_VARIABLE_RESISTOR    = "VR"
+Const DESIGNATOR_CABLE                = "W"
+Const DESIGNATOR_CRYSTAL              = "XC"
+Const DESIGNATOR_FUSE_HOLDER          = "XF"
 
-Dim TOTAL_SHEET_PARAM_NAME              ' As String
-Dim SCHEMATIC_SHEET_COUNT_PARAM_NAME    ' As String
+' @brief	The parameter name for the scheamtic number
+Const SCHEMATIC_SHEET_COUNT_PARAM_NAME    = "SheetNumber"
+
+' @brief 	The parameter name for the total number of schematic sheets
+Const TOTAL_SHEET_PARAM_NAME              = "SheetTotal"
 
 ' @brief     Initialisation function which sets up environment for the rest of
-'            AltiumScriptCentral to work correctly.                               
+'            AltiumScriptCentral to work correctly.
 Sub ConfigInit(dummyVar)
-
-	DEFAULT_FILE_NAME_FOR_USER_DATA = "AltiumScriptCentral_UserData"
 
     ' BOARD LAYERS
     BOARD_OUTLINE_LAYER     = eMechanical1
@@ -71,34 +72,4 @@ Sub ConfigInit(dummyVar)
     BOT_COURTYARD_LAYER     = eMechanical16
     UNUSED_LAYERS           = MkSet(eMechanical3, eMechanical4, eMechanical5, eMechanical6, eMechanical7, eMechanical8, eMechanical9, eMechanical10)
 
-    MIN_TENTED_VIA_RATIO    = 0.90
-
-    DESIGNATOR_BATTERY              = "BT"
-    DESIGNATOR_CAPACITOR            = "C"
-    DESIGNATOR_DIODE                = "D"
-    DESIGNATOR_ANTENNA              = "E"
-    DESIGNATOR_FUSE                 = "F"
-    DESIGNATOR_FERRITE_BEAD         = "FB"
-    DESIGNATOR_FIDUCIAL             = "FD"
-    DESIGNATOR_JACK                 = "J"
-    DESIGNATOR_INDUCTOR             = "L"
-    DESIGNATOR_MECHANICAL_PART      = "MP"
-    DESIGNATOR_MOTOR                = "M"
-    DESIGNATOR_CONNECTOR            = "P"
-    DESIGNATOR_SOLAR_PANEL          = "PV"
-    DESIGNATOR_TRANSISTOR           = "Q"
-    DESIGNATOR_RESISTOR             = "R"
-    DESIGNATOR_SWITCH               = "SW"
-    DESIGNATOR_IC                   = "U"
-    DESIGNATOR_TRANSFORMER          = "T"
-    DESIGNATOR_TEST_POINT           = "TP"
-    DESIGNATOR_VARIABLE_RESISTOR    = "VR"
-    DESIGNATOR_CABLE                = "W"
-    DESIGNATOR_CRYSTAL              = "XC"
-    DESIGNATOR_FUSE_HOLDER          = "XF"
-
-    ' The parameter name for the scheamtic number
-    SCHEMATIC_SHEET_COUNT_PARAM_NAME    = "SheetNumber"
-    ' The parameter name for the total number of schematic sheets
-    TOTAL_SHEET_PARAM_NAME              = "SheetTotal"
 End Sub

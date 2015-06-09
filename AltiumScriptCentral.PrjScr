@@ -362,7 +362,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document20]
-DocumentPath=src\Tools\PushProjectParametersToSchematics.vbs
+DocumentPath=src\Checks\PreReleaseChecks.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -379,7 +379,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document21]
-DocumentPath=src\Tools\SwapComponents.vbs
+DocumentPath=src\Tools\PushProjectParametersToSchematics.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -396,7 +396,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document22]
-DocumentPath=src\Tools\RenumberPads.vbs
+DocumentPath=src\Tools\SwapComponents.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -413,7 +413,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document23]
-DocumentPath=src\Tools\ResizeDesignators.vbs
+DocumentPath=src\Tools\RenumberPads.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -430,7 +430,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document24]
-DocumentPath=src\Tools\RotateDesignators.vbs
+DocumentPath=src\Tools\ResizeDesignators.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -447,7 +447,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document25]
-DocumentPath=src\Checks\RunPreReleaseChecks.vbs
+DocumentPath=src\Tools\RotateDesignators.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0

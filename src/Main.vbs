@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-04-23
+' @last-modified      2015-06-10
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -132,7 +132,7 @@ Sub ButtonCurrentCalculator_Click(Sender)
     FormMainScript.Height = 100
     FormMainScript.Width = 100
 
-    Call CurrentCalculator(DummyVar)
+    Call CurrentCalculator(dummyVar)
 
     FormMainScript.Close
 End Sub
@@ -143,7 +143,7 @@ Sub ButtonRunPreReleaseChecks_Click(Sender)
     FormMainScript.Hide
 
     ' Show form, do not return until form is closed
-    FormPreReleaseChecks.ShowModal
+    PreReleaseChecksMain(dummyVar)
 
     ' Close main form
     FormMainScript.Close
@@ -154,7 +154,7 @@ Sub ButtonSwapComponents_Click(Sender)
     ' Hide main form
     FormMainScript.Hide
 
-    Call SwapComponents(DummyVar)
+    Call SwapComponents(dummyVar)
 
     ' Close main form
     FormMainScript.Close
@@ -163,7 +163,7 @@ End Sub
 
 Sub ButtonExitActiveCommand_Click(Sender)
 
-    Call ExitActiveCommand(DummyVar)
+    Call ExitActiveCommand(dummyVar)
 
     ' Close main form
     FormMainScript.Close
@@ -177,7 +177,7 @@ Sub ButtonViaStamper_Click(Sender)
     FormMainScript.Width = 1
 
     ' Call via stamper script
-    ViaStamper(DummyVar)
+    ViaStamper(dummyVar)
 
     FormMainScript.Close
 End Sub

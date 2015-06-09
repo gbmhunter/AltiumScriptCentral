@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-05-19
-- Version: v24.2.0.0
+- Last Modified: 2015-06-10
+- Version: v24.2.1.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -209,6 +209,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.2.1.0 2015-06-10 Fixed bug where 'FormPreReleaseChecksCreate(sender)' is being called as soon as main form is setup, closes #196. Replaced 'ConfigInit()' function with 'const' variables that can be assigned at declaration, closes #195. Fixed bug where if project has no PCB file (e.g. a simulation project), then the script crashes in 'CheckWeHavePcbDocAccess.vbs' on the line 'If PcbBoard Is Nothing Then', closes #194.
 v24.2.0.0 2015-05-19 Added via current calculating functionality to the 'CurrentCalculator.vbs' module, closes #192.
 v24.1.0.0 2015-05-18 Added maximum aspect ratio calculation in 'Stats.vbs' module, closes #186.
 v24.0.1.0 2015-05-18 Removed test.pas from the Altium project and repo. Added note about project file hierarchy in Altium Designer (or lack thereof). Fixed bug where the function which modifies the parameter visibility in the 'SchCompParamStamper' module does not notify the schematic server that the schematic has changed, closes #190. Added ability for 'SchCompParamStamper.vbs' module to also copy across the parameter location (relative to the component), closes #188.
