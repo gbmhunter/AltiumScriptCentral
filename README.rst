@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-06-10
-- Version: v24.2.1.0
+- Last Modified: 2015-08-05
+- Version: v24.2.2.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -78,6 +78,36 @@ ValidateCapacitor.vbs                    Makes sure that all the capacitors on t
 ValidateInductor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
 ValidateResistor.vbs                     Makes sure that all the inductors on the schematic are showing the correct parameters.
 ======================================== ==================================================================
+
+The following designators are allowed:
+
+========== ======================
+Designator Name                
+========== ======================
+BT         Battery
+C          Capacitor
+D          Diode
+E          Antenna
+F          Fuse
+FB         Ferrite bead
+J          Jack
+L          Inductor
+M          Motor
+MP         Mechanical part
+P          Connector (plug)
+PV         Solar panel
+Q          Transistor
+R          Resistor
+RV         Varistor
+SW         Switch
+T          Transformer
+TP         Test point
+U          IC
+VR         Variable resistor
+W          Cable
+XC         Crystal/oscillator
+XF         Fuse holder
+=================================
 
 Exit Active Command
 -------------------
@@ -209,6 +239,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.2.2.0 2015-08-05 Added 'RV' as a recognised designator (for varistors), closes #198. Renamed 'DESIGNATOR_CONNECTOR' and 'DESIGNATOR_JACK', closes #199. Added table of allowed designators to README.
 v24.2.1.0 2015-06-10 Fixed bug where 'FormPreReleaseChecksCreate(sender)' is being called as soon as main form is setup, closes #196. Replaced 'ConfigInit()' function with 'const' variables that can be assigned at declaration, closes #195. Fixed bug where if project has no PCB file (e.g. a simulation project), then the script crashes in 'CheckWeHavePcbDocAccess.vbs' on the line 'If PcbBoard Is Nothing Then', closes #194.
 v24.2.0.0 2015-05-19 Added via current calculating functionality to the 'CurrentCalculator.vbs' module, closes #192.
 v24.1.0.0 2015-05-18 Added maximum aspect ratio calculation in 'Stats.vbs' module, closes #186.

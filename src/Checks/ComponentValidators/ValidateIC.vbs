@@ -2,7 +2,7 @@
 ' @file               ValidateIC.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2015-04-14
-' @last-modified      2015-04-14
+' @last-modified      2015-08-04
 ' @brief              Validates a IC component that is on a schematic.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -53,7 +53,7 @@ Function ValidateIC(component)
     component.SchIterator_Destroy(compIterator)
 
     If(manfPartNumFound = false) Then
-        Call StdErr(ModuleName, "'" + component.Designator.Text + "' does not show it's manf. part number.")
+        Call StdErr(ModuleName, "'" + component.Designator.Text + "' does not show it's manf. part number (looking for the parameter 'Manufacturer Part Number' with optional numbers at the end.")
     End If
 
     If manfPartNumFound = false Then

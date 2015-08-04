@@ -2,7 +2,7 @@
 ' @file               ComponentValidator.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-04-14
+' @last-modified      2015-08-03
 ' @brief              Validates schematic components.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -116,43 +116,49 @@ Sub ComponentValidator(DummyVar)
 
                     ' Designator symbols are defined in Config.vbs
                     Select Case MatchColl.Item(0).Value
-                        Case DESIGNATOR_BATTERY
+
+                        Case DESIGNATOR_ANTENNA
+                        Case DESIGNATOR_CABLE
                         Case DESIGNATOR_CAPACITOR
                             If ValidateCapacitor(component) = False Then
                                 violationCount = violationCount + 1
                             End If
+
+                        Case DESIGNATOR_CONNECTOR_JACK
+                        Case DESIGNATOR_CONNECTOR_PLUG
+                        Case DESIGNATOR_CRYSTAL
                         Case DESIGNATOR_DIODE
-                        Case DESIGNATOR_ANTENNA
                         Case DESIGNATOR_FUSE
                         Case DESIGNATOR_FERRITE_BEAD
                         Case DESIGNATOR_FIDUCIAL
-                        Case DESIGNATOR_JACK
-                        Case DESIGNATOR_INDUCTOR
-                            If ValidateInductor(component) = False Then
-                                 violationCount = violationCount + 1
-                            End If
-                        Case DESIGNATOR_MECHANICAL_PART
-                        Case DESIGNATOR_MOTOR
-                        Case DESIGNATOR_CONNECTOR
-                        Case DESIGNATOR_SOLAR_PANEL
-                        Case DESIGNATOR_TRANSISTOR
-                        Case DESIGNATOR_RESISTOR
-                            If ValidateResistor(component) = False Then
-                                violationCount = violationCount + 1
-                            End If
-                        Case DESIGNATOR_SWITCH
+                        Case DESIGNATOR_FUSE_HOLDER
                         Case DESIGNATOR_IC
                             If ValidateIC(component) = False Then
                                 violationCount = violationCount + 1
                             End If
-                        Case DESIGNATOR_TRANSFORMER
+
+                        Case DESIGNATOR_INDUCTOR
+                            If ValidateInductor(component) = False Then
+                                 violationCount = violationCount + 1
+                            End If
+
+                        Case DESIGNATOR_MECHANICAL_PART
+                        Case DESIGNATOR_MOTOR
+                        Case DESIGNATOR_RESISTOR
+                            If ValidateResistor(component) = False Then
+                                violationCount = violationCount + 1
+                            End If
+
+                        Case DESIGNATOR_SOLAR_PANEL
+                        Case DESIGNATOR_SWITCH
                         Case DESIGNATOR_TEST_POINT
+                        Case DESIGNATOR_TRANSISTOR
+                        Case DESIGNATOR_TRANSFORMER
                         Case DESIGNATOR_VARIABLE_RESISTOR
-                        Case DESIGNATOR_CABLE
-                        Case DESIGNATOR_CRYSTAL
-                        Case DESIGNATOR_FUSE_HOLDER
+                        Case DESIGNATOR_VARISTOR
+
                         Case Else
-                            Call StdErr(ModuleName, "'" + MatchColl.Item(0).Value + "' is not a recognised designator.")
+                            Call StdErr(ModuleName, "'" + MatchColl.Item(0).Value + "' is not a recognised designator (" + component.Designator.Text + ").")
                     End Select
                 Else
                     Call StdErr(ModuleName, "Designator '" + component.Designator.Text + "' does not follow the valid designator syntax.")
