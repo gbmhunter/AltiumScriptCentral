@@ -634,6 +634,9 @@ StartProcName=src\Main.vbs>RunMainScript
 11=param.Visible
 12=via.StartLayer.Height
 13=layerIterator.LayerObject.CopperThickness
+14=pcbObject.StartLayer.LayerId
+15=pcbObject.GetState_IsTenting_Top
+16=CoordsToMMs(pcbObject.x)
 
 [OutputGroup1]
 Name=Netlist Outputs

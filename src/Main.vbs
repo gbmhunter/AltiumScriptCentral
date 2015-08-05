@@ -139,11 +139,13 @@ End Sub
 
 Sub ButtonRunPreReleaseChecks_Click(Sender)
 
+	'CheckTentedVias(dummyVar)
+
      ' Hide main form
     FormMainScript.Hide
 
     ' Show form, do not return until form is closed
-    PreReleaseChecksMain(dummyVar)
+    Call PreReleaseChecksMain(dummyVar)
 
     ' Close main form
     FormMainScript.Close

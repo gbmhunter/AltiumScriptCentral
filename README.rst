@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-08-05
-- Version: v24.2.2.0
+- Version: v24.2.3.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -239,6 +239,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.2.3.0 2015-08-05 Fixed bug where via tenting check doesn't work correctly when blind or buried vias are used (it reports buried ends of vias as not tented), closes #200.
 v24.2.2.0 2015-08-05 Added 'RV' as a recognised designator (for varistors), closes #198. Renamed 'DESIGNATOR_CONNECTOR' and 'DESIGNATOR_JACK', closes #199. Added table of allowed designators to README.
 v24.2.1.0 2015-06-10 Fixed bug where 'FormPreReleaseChecksCreate(sender)' is being called as soon as main form is setup, closes #196. Replaced 'ConfigInit()' function with 'const' variables that can be assigned at declaration, closes #195. Fixed bug where if project has no PCB file (e.g. a simulation project), then the script crashes in 'CheckWeHavePcbDocAccess.vbs' on the line 'If PcbBoard Is Nothing Then', closes #194.
 v24.2.0.0 2015-05-19 Added via current calculating functionality to the 'CurrentCalculator.vbs' module, closes #192.

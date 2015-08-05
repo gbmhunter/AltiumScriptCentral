@@ -39,6 +39,7 @@ Sub PreReleaseChecksMain(dummyVar)
     ' PROJECT
     ' Important to check if project compiles first
     If CheckProjectCompiles(dummyVar) = False Then
+		ShowMessage("ERROR: Could not compile project.")    
         Exit Sub
     End If
 
@@ -62,6 +63,7 @@ Sub PreReleaseChecksMain(dummyVar)
         ' script out
         'CheckComponentLinks(DummyVar)
     End If
+
 
     FormPreReleaseChecks.ShowModal
 
