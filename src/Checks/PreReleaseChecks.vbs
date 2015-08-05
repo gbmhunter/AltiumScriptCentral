@@ -2,7 +2,7 @@
 ' @file               RunPreReleaseChecks.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-25
-' @last-modified      2015-06-10
+' @last-modified      2015-08-05
 ' @brief              Main entry point for the pre-release checks.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -39,16 +39,17 @@ Sub PreReleaseChecksMain(dummyVar)
     ' PROJECT
     ' Important to check if project compiles first
     If CheckProjectCompiles(dummyVar) = False Then
-		ShowMessage("ERROR: Could not compile project.")    
+        ShowMessage("ERROR: Could not compile project.")    
         Exit Sub
     End If
 
-    ' SCHEMATICS
+    ' ============== SCHEMATICS =================
     PowerPortChecker(dummyVar)
     CheckNoSupplierPartNumShown(dummyVar)
     ComponentValidator(dummyVar)
+	CheckEmbeddedImages(dummyVar)
 
-    ' ===== PCB =====
+    ' ================== PCB ===================
 
     ' First we want to make sure we have access to a PCB document
     If CheckWeHavePcbDocAccess(dummyVar) = True Then
