@@ -13,7 +13,7 @@ A collection of useful Altium scripts, written in VBScript.
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
 - Last Modified: 2015-08-06
-- Version: v24.3.1.0
+- Version: v24.4.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -61,6 +61,7 @@ CheckLayers.vbs                          Checks that the mechanical layers of th
 CheckNameVersionDate.vbs                 Checks that the version and date of the project are included as silkscreen text somewhere on the PCB.
 CheckNoSupplierPartNumShown.vbs          Checks that no supplier part numbers are shown on the schematics.
 CheckPcbCompDesignatorRotation.vbs       Checks that there are no component designators on the PCB which are rotated 180 degrees with respect to one other.
+CheckPcbCompPrimitivesLocked.vbs         Checks to make sure all PCB component primitives are locked. 
 CheckPcbTextHasCorrectOrientation.vbs    Checks that PCB text has the correct orientation (so it is readable), that is text on the top overlay IS NOT mirrored, and text on the bottom layer IS mirrored.
 CheckProjectCompiles.vbs                 Makes sure that the project compiles successfully.
 CheckTentedVias.vbs                      Checks that a certain proportion of the vias are fully tented. If the ratio is less than a threshold, the script assumes you have forgotten to tent vias. Some are allowed to not be tented for test-point purposes.
@@ -241,6 +242,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.4.0.0 2015-08-06 Added check to make sure that all components have locked primitives as part of the PCB release process, closes #189.
 v24.3.1.0 2015-08-06 Fixed issue where debug messages were being printed when current calculator is used, closes #201. Mentioned in README how via current in the 'CurrentCalculator.vbs' module uses worst-case k value (same for an internal track) when calculating max current, closes #193.
 v24.3.0.0 2015-08-05 Added check for non-embedded images in 'PreReleaseChecks.vbs', closes #197.
 v24.2.3.0 2015-08-05 Fixed bug where via tenting check doesn't work correctly when blind or buried vias are used (it reports buried ends of vias as not tented), closes #200.

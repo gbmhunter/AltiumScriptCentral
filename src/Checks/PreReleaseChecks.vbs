@@ -2,7 +2,7 @@
 ' @file               RunPreReleaseChecks.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-25
-' @last-modified      2015-08-05
+' @last-modified      2015-08-06
 ' @brief              Main entry point for the pre-release checks.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -47,7 +47,7 @@ Sub PreReleaseChecksMain(dummyVar)
     PowerPortChecker(dummyVar)
     CheckNoSupplierPartNumShown(dummyVar)
     ComponentValidator(dummyVar)
-	CheckEmbeddedImages(dummyVar)
+    CheckEmbeddedImages(dummyVar)
 
     ' ================== PCB ===================
 
@@ -59,6 +59,7 @@ Sub PreReleaseChecksMain(dummyVar)
         CheckNameVersionDate(dummyVar)
         CheckPcbTextHasCorrectOrientation(dummyVar)
         CheckPcbCompDesignatorRotation(dummyVar)
+		CheckPcbCompPrimitivesLocked(dummyVar)
         ' 2014-11-11: CheckComponentLinks() doesn't actually check the links automatically, it
         ' just opens up the component link window for the user, so I've commented this
         ' script out
