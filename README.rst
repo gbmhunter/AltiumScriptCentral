@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-08-05
-- Version: v24.3.0.0
+- Last Modified: 2015-08-06
+- Version: v24.3.1.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -168,6 +168,8 @@ File: :code:`src/Tools/CurrentCalculator.vbs`
 
 Allows the user to calculate the the maximum allowed current of a particular track or via on a PCB for a given temperature rise. Calculated in accordance with the equations in IPC-2221A Section 6.2 (formerly IPC-D-275).
 
+Note: For via current calculations, the value used for the k constant is the worst-case value (the same for an internal track).
+
 Based on the calculator found at `http://www.mbedded.ninja/online-calculators/pcb-design/track-width-calculator 
 <http://www.mbedded.ninja/online-calculators/pcb-design/track-width-calculator>`_.
 
@@ -226,8 +228,7 @@ Issues
 See GitHub Issues.
 
 Usage
-=====
-
+ 
 1. Add the AltiumScriptCentral project (:code:`AltiumScriptCentral.PrjScr`) to your current Altium workspace.
 2. Open the "DXP->Run Script" window by holding Alt, and then pressing X, S.
 3. Run AltiumScriptCentral by selecting "AltiumScriptCentral.PrjScr->Main.vbs->RunAltiumScriptCentral" from the "Select script to run" window.
@@ -240,6 +241,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v24.3.1.0 2015-08-06 Fixed issue where debug messages were being printed when current calculator is used, closes #201. Mentioned in README how via current in the 'CurrentCalculator.vbs' module uses worst-case k value (same for an internal track) when calculating max current, closes #193.
 v24.3.0.0 2015-08-05 Added check for non-embedded images in 'PreReleaseChecks.vbs', closes #197.
 v24.2.3.0 2015-08-05 Fixed bug where via tenting check doesn't work correctly when blind or buried vias are used (it reports buried ends of vias as not tented), closes #200.
 v24.2.2.0 2015-08-05 Added 'RV' as a recognised designator (for varistors), closes #198. Renamed 'DESIGNATOR_CONNECTOR' and 'DESIGNATOR_JACK', closes #199. Added table of allowed designators to README.
