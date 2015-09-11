@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-08-06
-- Version: v24.4.0.0
+- Last Modified: 2015-09-11
+- Version: v25.0.0.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -155,9 +155,16 @@ NOTE: This tool has been made somewhat redundant with the update to Altium Desig
 Schematic Component Parameter Stamper
 -------------------------------------
 
-File :code:`src/Schematics/SchCompParamStamper.vbs`
+File: :code:`src/Schematics/SchCompParamStamper.vbs`
 
 Copies the parameter visibility settings from a source schematic component to a destination schematic component. Useful for people who like to show many of the component's parameters on the schematic for information purposes, and don't want to go and manually unhide all of the parameters for duplicate components.
+
+Swap Designators
+----------------
+
+File: :code:`src/Schematics/SwapSchematicDesignators.vbs`
+
+Allows the user to quickly swap pairs of schematic component designators (e.g. switch the text U9 with U11). This is useful when adjusting the layout of the PCB, and you want to swap two components with the same footprint, without actually having to switch them around on the PCB.
 
 PCB Tools
 =========
@@ -234,7 +241,7 @@ Usage
 2. Open the "DXP->Run Script" window by holding Alt, and then pressing X, S.
 3. Run AltiumScriptCentral by selecting "AltiumScriptCentral.PrjScr->Main.vbs->RunAltiumScriptCentral" from the "Select script to run" window.
 
-Unfortunately, Altium does not show the project files in the 'Projects' pane of Altium Designer in the same hierarchy as in the repository. This can be a little confusion when you are trying to find a particular script. I have ordered them alphabetically to help with this.
+Unfortunately, Altium does not show the project files in the 'Projects' pane of Altium Designer in the same hierarchy as in the repository. This can be confusing when you are trying to find a particular script. I have ordered them alphabetically to help with this.
 	
 Changelog
 =========
@@ -242,6 +249,8 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v25.0.0.0 2015-09-11 Added 'SwapSchematicDesignators' script which allows the user to quickly switch pairs of designators on schematic components.
+v24.4.1.0 2015-08-10 Fixed bug where 'Delete Schematic Parameters' script doesn't seem to be able to work with schematic sheets that are not already open, closes #202.
 v24.4.0.0 2015-08-06 Added check to make sure that all components have locked primitives as part of the PCB release process, closes #189.
 v24.3.1.0 2015-08-06 Fixed issue where debug messages were being printed when current calculator is used, closes #201. Mentioned in README how via current in the 'CurrentCalculator.vbs' module uses worst-case k value (same for an internal track) when calculating max current, closes #193.
 v24.3.0.0 2015-08-05 Added check for non-embedded images in 'PreReleaseChecks.vbs', closes #197.

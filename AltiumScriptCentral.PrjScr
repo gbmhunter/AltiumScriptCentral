@@ -430,23 +430,6 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document24]
-DocumentPath=src\Tools\SwapComponents.vbs
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document25]
 DocumentPath=src\Tools\RenumberPads.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -463,7 +446,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document26]
+[Document25]
 DocumentPath=src\Tools\ResizeDesignators.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -480,7 +463,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document27]
+[Document26]
 DocumentPath=src\Tools\RotateDesignators.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -497,7 +480,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document28]
+[Document27]
 DocumentPath=src\Schematic\SchCompParamStamper.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -514,7 +497,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document29]
+[Document28]
 DocumentPath=src\Stats\Stats.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -531,8 +514,25 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
+[Document29]
+DocumentPath=src\Schematic\SwapSchematicDesignators.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
 [Document30]
-DocumentPath=src\UserData\UserData.vbs
+DocumentPath=src\Tools\SwapComponents.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -549,7 +549,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document31]
-DocumentPath=src\Util\Util.vbs
+DocumentPath=src\UserData\UserData.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -566,7 +566,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document32]
-DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
+DocumentPath=src\Util\Util.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -583,7 +583,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document33]
-DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateCapacitor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -600,7 +600,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document34]
-DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateResistor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -617,7 +617,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document35]
-DocumentPath=src\Checks\ComponentValidators\ValidateIC.vbs
+DocumentPath=src\Checks\ComponentValidators\ValidateInductor.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -634,6 +634,23 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document36]
+DocumentPath=src\Checks\ComponentValidators\ValidateIC.vbs
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
+[Document37]
 DocumentPath=src\Tools\ViaStamper.vbs
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -653,24 +670,14 @@ DocumentUniqueId=
 [Generic_ScriptingSystem]
 StartProcName=src\Main.vbs>RunMainScript
 
+[Generic_ScriptingSystemBreakpoints]
+ModuleName1=C:\Users\gbmhunter\GoogleDrive\Projects\AltiumScriptCentral\src\Schematic\SchCompParamStamper.vbs
+Line1=21
+Condition1=
+Enabled1=True
+
 [Generic_Watches]
-2=holeSizeList.Contains()
-0=via.HighLayer
-1=exisViaCache.SolderMaskExpansion
-3=newVia.IsTentedTop
-4=exisViaCache.IsTented
-5=RadioGroupWhichParameters.ItemIndex
-6=PadObj.HoleType
-7=pcbObject.designator
-8=schSourcePrim
-9=schSourcePrim
-10=eSchComponent
-11=param.Visible
-12=via.StartLayer.Height
-13=layerIterator.LayerObject.CopperThickness
-14=pcbObject.StartLayer.LayerId
-15=pcbObject.GetState_IsTenting_Top
-16=CoordsToMMs(pcbObject.x)
+17=sourceSchComp.Designator.Text
 
 [OutputGroup1]
 Name=Netlist Outputs

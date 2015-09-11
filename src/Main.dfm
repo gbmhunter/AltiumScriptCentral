@@ -77,6 +77,15 @@ object FormMainScript: TFormMainScript
       TabOrder = 0
       OnClick = ButtonComponentParameterStamperClick
     end
+    object ButtonSwapSchematicDesignators: TButton
+      Left = 41
+      Top = 179
+      Width = 205
+      Height = 25
+      Caption = 'Swap Designators'
+      TabOrder = 1
+      OnClick = ButtonSwapSchematicDesignatorsClick
+    end
   end
   object Panel1: TPanel
     Left = 34

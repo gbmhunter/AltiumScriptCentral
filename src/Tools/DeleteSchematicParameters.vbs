@@ -11,7 +11,7 @@
 Option Explicit
 
 ' @brief    Name of this module. Used for debugging/warning/error message purposes and for
-'			saving user data.
+'           saving user data.
 Private Const moduleName = "DeleteSchematicParameters.vbs"
 
 ' @brief    Enables/disables debug information.
@@ -128,16 +128,21 @@ Sub ButtonDelete_Click(Sender)
 
 
        ' Loop through all project documents
-        Dim DocNum
-        For DocNum = 0 To PcbProject.DM_LogicalDocumentCount - 1
-            Dim Document
-            Set Document = PcbProject.DM_LogicalDocuments(DocNum)
+        Dim docNum
+        For docNum = 0 To pcbProject.DM_LogicalDocumentCount - 1
+            Dim document
+            Set document = pcbProject.DM_LogicalDocuments(DocNum)
 
             ' Check to see if this is SCH document
             If document.DM_DocumentKind = "SCH" Then
 
-               ' Cool, it is a schematic, lets delete parameter(s) from it!
-                Set schematic = SCHServer.GetSchDocumentByPath(Document.DM_FullPath)
+               ' Cool, it is a schematic, lets open it and then delete parameter(s) from it!
+
+				' 2015-08-10, gbmhunter: Added this next line so that this script can work even if the
+				' schematics are not open in Altium
+				Call Client.OpenDocument("SCH", document.DM_FullPath)
+
+                Set schematic = SCHServer.GetSchDocumentByPath(document.DM_FullPath)
                 'ShowMessage(document.DM_FullPath);
                 If schematic Is Nothing Then
                     ShowMessage("ERROR: Sheet '" + Document.DM_FullPath + "' could not be retrieved." + VbCr + VbLf)

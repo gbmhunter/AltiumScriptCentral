@@ -2,7 +2,7 @@
 ' @file               Main.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-06-10
+' @last-modified      2015-09-11
 ' @brief              Main entry point for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -198,4 +198,11 @@ Sub ButtonComponentParameterStamperClick(Sender)
     SchCompParamStamper(dummyVar)
 
 
+End Sub
+
+Sub ButtonSwapSchematicDesignatorsClick(Sender)
+	FormMainScript.Hide 
+    FormMainScript.Close
+
+	Call SwapSchematicDesignators(dummyVar)
 End Sub
