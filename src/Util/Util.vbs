@@ -2,7 +2,7 @@
 ' @file               Util.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2015-04-29
+' @last-modified      2015-09-25
 ' @brief              General utility functions used across many of the modules.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -40,23 +40,31 @@ End Function
 '           for strings such as "2-", while IsNumeric will return true.
 Function IsPerfectlyNumeric(VarToTest)
 
+
+	' First make sure variable is not an empty string
      If VarToTest = "" Then
           IsPerfectlyNumeric = False
           Exit Function
      End If
 
-     If Not IsNumeric(VarToTest) Then
-          IsPerfectlyNumeric = False
-          Exit Function
-     End If
+	' Is numeric will return true if a valid number is at the
+	' start of the string, but doesn't detect invalid characters
+	' after the number (e.g. IsNumeric("2-") would return true).
+	If Not IsNumeric(VarToTest) Then
+	     IsPerfectlyNumeric = False
+	     Exit Function
+	End If
 
-     If CStr(CDbl(VarToTest)) = VarToTest Then
-          IsPerfectlyNumeric = True
-          Exit Function
-     Else
-          IsPerfectlyNumeric = False
-          Exit Function
-     End If
+	' This makes sure that things like "2-" still get detected.
+	' Convert variable to double, then back to string. If it's equal
+	' to the original variable, then it is a valid number.
+	If CStr(CDbl(VarToTest)) = VarToTest Then
+	     IsPerfectlyNumeric = True
+	     Exit Function
+	Else
+	     IsPerfectlyNumeric = False
+	     Exit Function
+	End If
 
 End Function
 

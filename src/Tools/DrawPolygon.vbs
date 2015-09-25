@@ -2,7 +2,7 @@
 ' @file               DrawPolygon.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2014-12-23
+' @last-modified      2015-09-25
 ' @brief              Script draws a polygon made from tracks.
 '                     Ability to specify the number of edges, track width, rotation, e.t.c.
 ' @details
@@ -16,6 +16,9 @@ Private Board
 
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub DrawPolygon(DummyVar)
+
+	' Set Locale to Austria
+	'SetLocale(3079)
 
     ' Load current board
     If PCBServer Is Nothing Then
