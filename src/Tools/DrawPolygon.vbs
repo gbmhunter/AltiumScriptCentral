@@ -2,7 +2,7 @@
 ' @file               DrawPolygon.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2015-09-25
+' @last-modified      2015-09-28
 ' @brief              Script draws a polygon made from tracks.
 '                     Ability to specify the number of edges, track width, rotation, e.t.c.
 ' @details
@@ -17,17 +17,17 @@ Private Board
 ' @param     DummyVar     Dummy variable to stop function appearing in the Altium "Run Script" dialogue.
 Sub DrawPolygon(DummyVar)
 
-	' Set Locale to Austria
-	'SetLocale(3079)
+    ' Set Locale to Austria
+    'SetLocale(3079)
 
     ' Load current board
     If PCBServer Is Nothing Then
-        ShowMessage("Not a PCB or footprint editor activated.")
+        ShowMessage("ERROR: Not a PCB or footprint editor activated.")
     End If
 
-    Set Board = PCBServer.GetCurrentPCBBoard
-    If Board Is Nothing Then
-        ShowMessage("Not a PCB or footprint loaded.")
+    Set board = PCBServer.GetCurrentPCBBoard
+    If board Is Nothing Then
+        ShowMessage("ERROR: Not a PCB or footprint loaded.")
         Exit Sub
     End If
 
@@ -44,27 +44,29 @@ Sub ButtonDrawOnPcbClick(Sender)
      '========== RETRIEVE AND VALIDATE USER INPUT =========='
      '======================================================'
 
-     Dim NumEdges
-     NumEdges = EditNumEdges.Text
+     Dim numEdges
+     numEdges = EditNumEdges.Text
      ' Validate
-     If Not IsInt(NumEdges) Then
+     If Not IsInt(numEdges) Then
           ShowMessage("ERROR: 'Num. Edges' input must be an integer")
           Exit Sub
      End If
 
-     If NumEdges < 3 Then
+     If numEdges < 3 Then
          ShowMessage("ERROR: 'Num. Edges' input must be equal to or greater than 3.")
          Exit Sub
      End If
 
-     Dim VertexRadiusSelected, EdgeRadiusSelected, EdgeLengthSelected
+     Dim vertexRadiusSelected
+	 Dim edgeRadiusSelected
+	 Dim edgeLengthSelected
 
      ' Get values of radio buttons, only one of these should be checked
-     VertexRadiusSelected = RadioButtonVertexRadiusMm.Checked
-     EdgeRadiusSelected = RadioButtonEdgeRadiusMm.Checked
-     EdgeLengthSelected = RadioButtonEdgeLengthMm.Checked
+     vertexRadiusSelected = RadioButtonVertexRadiusMm.Checked
+     edgeRadiusSelected = RadioButtonEdgeRadiusMm.Checked
+     edgeLengthSelected = RadioButtonEdgeLengthMm.Checked
 
-     If VertexRadiusSelected Then
+     If vertexRadiusSelected Then
         If Not IsPerfectlyNumeric(EditVertexRadiusMm.Text) Then
             ShowMessage("ERROR: 'Vertex Radius (mm)' input must be a valid number.")
             Exit Sub
@@ -73,7 +75,7 @@ Sub ButtonDrawOnPcbClick(Sender)
             ShowMessage("ERROR: 'Vertex Radius (mm)' input must be greater than 0.")
             Exit Sub
         End If
-     ElseIf EdgeRadiusSelected Then
+     ElseIf edgeRadiusSelected Then
         If Not IsPerfectlyNumeric(EditEdgeRadiusMm.Text) Then
             ShowMessage("ERROR: 'Edge Radius (mm)' input must be a valid number.")
             Exit Sub
@@ -82,7 +84,7 @@ Sub ButtonDrawOnPcbClick(Sender)
             ShowMessage("ERROR: 'Edge Radius (mm)' input must be greater than 0.")
             Exit Sub
         End If
-     ElseIf EdgeLengthSelected Then
+     ElseIf edgeLengthSelected Then
         If Not IsPerfectlyNumeric(EditEdgeLengthMm.Text) Then
             ShowMessage("ERROR: 'Edge Length (mm)' input must be a valid number.")
             Exit Sub
@@ -98,25 +100,25 @@ Sub ButtonDrawOnPcbClick(Sender)
          ShowMessage("ERROR: 'Rotation' input must be a valid number.")
          Exit Sub
      End If
-     Dim RotationDeg
-     RotationDeg = StrToFloat(EditRotationDeg.Text)
+     Dim rotationDeg
+     rotationDeg = StrToFloat(EditRotationDeg.Text)
 
      ' Line thickness
      If Not IsPerfectlyNumeric(EditLineThicknessMm.Text) Then
          ShowMessage("ERROR: 'Line Thickness (mm)' input must be a valid number.")
          Exit Sub
      End If
-     Dim LineThicknessMm
-     LineThicknessMm = StrToFloat(EditLineThicknessMm.Text)
-     If LineThicknessMm < 0 Then
+     Dim lineThicknessMm
+     lineThicknessMm = StrToFloat(EditLineThicknessMm.Text)
+     If lineThicknessMm < 0 Then
          ShowMessage("ERROR: 'Line Thickness (mm)' input must be greater than 0.")
          Exit Sub
      End If
 
-     Dim Layer
+     Dim layer
      ' Convert the string to a valid Altium layer
-     Layer = String2Layer(EditDrawLayer.Text)
-     If Layer = 0 Then
+     layer = String2Layer(EditDrawLayer.Text)
+     If layer = 0 Then
           ' Show error msg, close "DrawPolygon" form and exit
           ShowMessage("ERROR: '" + EditDrawLayer.Text + "' in 'Draw Layer' box is not a valid layer!")
           'FormDrawPolygon.Close
@@ -131,41 +133,46 @@ Sub ButtonDrawOnPcbClick(Sender)
 
      ' Get user to choose where the centre of the hexeagon is going to go
      Dim xm, ym
-     Call Board.ChooseLocation(xm, ym, "Select the centre of the hexagon.")
+     Call board.ChooseLocation(xm, ym, "Select the centre of the hexagon.")
 
      ' Initialise systems
      Call PCBServer.PreProcess
 
      ' Calculate the sector angle. This is the angle a single sector of the polygon encompasses, as
      ' measured around the origin of the polygon.
-     Dim SectorAngle
-     SectorAngle = 360.0/NumEdges
+     Dim sectorAngle
+     sectorAngle = 360.0/numEdges
 
      ' Get first points, this depends on the method choosen to define the
      ' polygon's size
-     Dim VertexRadiusMm, EdgeRadiusMm, EdgeLengthMm
-     Dim x1, y1, x2, y2
-     If VertexRadiusSelected Then
-        VertexRadiusMm = CDbl(EditVertexRadiusMm.Text)
-        x1 = -VertexRadiusMm * sin((SectorAngle/2)*Pi/180)
-        y1 = VertexRadiusMm * cos((SectorAngle/2)*Pi/180)
+     Dim vertexRadiusMm
+	 Dim edgeRadiusMm
+	 Dim EdgeLengthMm
+     Dim x1
+	 Dim y1
+	 Dim x2
+	 Dim y2
+     If vertexRadiusSelected Then
+        vertexRadiusMm = CDbl(EditVertexRadiusMm.Text)
+        x1 = -vertexRadiusMm * sin((sectorAngle/2)*Pi/180)
+        y1 = vertexRadiusMm * cos((sectorAngle/2)*Pi/180)
 
-        x2 = VertexRadiusMm * sin((SectorAngle/2)*Pi/180)
-        y2 = VertexRadiusMm * cos((SectorAngle/2)*Pi/180)
-     ElseIf EdgeRadiusSelected Then
-        EdgeRadiusMm = CDbl(EditEdgeRadiusMm.Text)
-        x1 = -EdgeRadiusMm * tan((SectorAngle/2)*Pi/180)
-        y1 = EdgeRadiusMm
+        x2 = vertexRadiusMm * sin((sectorAngle/2)*Pi/180)
+        y2 = vertexRadiusMm * cos((sectorAngle/2)*Pi/180)
+     ElseIf edgeRadiusSelected Then
+        edgeRadiusMm = CDbl(EditEdgeRadiusMm.Text)
+        x1 = -edgeRadiusMm * tan((SectorAngle/2)*Pi/180)
+        y1 = edgeRadiusMm
 
-        x2 = EdgeRadiusMm * tan((SectorAngle/2)*Pi/180)
-        y2 = EdgeRadiusMm
-     ElseIf EdgeLengthSelected Then
-        EdgeLengthMm = CDbl(EditEdgeLengthMm.Text)
-        x1 = -EdgeLengthMm/2
-        y1 = EdgeLengthMm/(2*tan((SectorAngle/2)*Pi/180))
+        x2 = edgeRadiusMm * tan((SectorAngle/2)*Pi/180)
+        y2 = edgeRadiusMm
+     ElseIf edgeLengthSelected Then
+        edgeLengthMm = CDbl(EditEdgeLengthMm.Text)
+        x1 = -edgeLengthMm/2
+        y1 = edgeLengthMm/(2*tan((SectorAngle/2)*Pi/180))
 
-        x2 = EdgeLengthMm/2
-        y2 = EdgeLengthMm/(2*tan((SectorAngle/2)*Pi/180))
+        x2 = edgeLengthMm/2
+        y2 = edgeLengthMm/(2*tan((SectorAngle/2)*Pi/180))
      End If
 
      ' Perform initial rotation as user specified
@@ -183,27 +190,27 @@ Sub ButtonDrawOnPcbClick(Sender)
 
 
      ' Create each track seperately
-     Dim Index
-     For Index = 0 To (NumEdges - 1)
+     Dim index
+     For index = 0 To (NumEdges - 1)
 
-          ' Create a new via object
-          Dim Track
-          Track = PCBServer.PCBObjectFactory(eTrackObject, eNoDimension, eCreate_Default)
+          ' Create a new track object
+          Dim track
+          track = PCBServer.PCBObjectFactory(eTrackObject, eNoDimension, eCreate_Default)
 
           'ShowMessage("x1 = " + CStr(x1) + ", y1 = " + CStr(y1))
 
           ' Place track in correct position
-          Track.x1 = xm + MMsToCoord(x1)
-          Track.y1 = ym + MMsToCoord(y1)
+          track.x1 = xm + MMsToCoord(x1)
+          track.y1 = ym + MMsToCoord(y1)
 
-          Track.x2 = xm + MMsToCoord(x2)
-          Track.y2 = ym + MMsToCoord(y2)
+          track.x2 = xm + MMsToCoord(x2)
+          track.y2 = ym + MMsToCoord(y2)
 
-          Track.Width = MMsToCoord(LineThicknessMm)
-          Track.Layer = Layer
+          track.Width = MMsToCoord(LineThicknessMm)
+          track.Layer = Layer
 
           ' Add track to PCB
-          Board.AddPCBObject(Track)
+          board.AddPCBObject(Track)
 
           ' Rotate points for next iteration of loop
           newX1 = x1*cos(SectorAngle*Pi/180) + y1*sin(SectorAngle*Pi/180)
@@ -228,12 +235,12 @@ Sub ButtonDrawOnPcbClick(Sender)
     ' Initialise systems
     Call PCBServer.PostProcess
 
-    ' Close "DrawHexagon" form
+    ' Close form
     FormDrawPolygon.Close
 
 End Sub
 
 Sub ButtonCancelClick(Sender)
-    ' Close "DrawHexagon" form
+    ' Close form
     FormDrawPolygon.Close
 End Sub

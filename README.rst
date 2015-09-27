@@ -12,8 +12,8 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2015-09-25
-- Version: v25.0.1.0
+- Last Modified: 2015-09-28
+- Version: v25.0.2.0
 - Company: mbedded.ninja
 - Language: VBScript
 - Compiler: Altium Script Engine
@@ -249,6 +249,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version   Date       Comment
 ========= ========== ===================================================================================================
+v25.0.2.0 2015-09-28 Fixed up the variable names in 'DrawPolygon.vbs'.
 v25.0.1.0 2015-09-25 Added more comments to 'Utils.vbs' module, in attempt to find out why locale where ',' is used as decimal separator would cause IsPerfectlyNumeric() to return false (see issue #204).
 v25.0.0.0 2015-09-11 Added 'SwapSchematicDesignators' script which allows the user to quickly switch pairs of designators on schematic components.
 v24.4.1.0 2015-08-10 Fixed bug where 'Delete Schematic Parameters' script doesn't seem to be able to work with schematic sheets that are not already open, closes #202.

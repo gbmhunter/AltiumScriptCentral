@@ -41,30 +41,30 @@ End Function
 Function IsPerfectlyNumeric(VarToTest)
 
 
-	' First make sure variable is not an empty string
+    ' First make sure variable is not an empty string
      If VarToTest = "" Then
           IsPerfectlyNumeric = False
           Exit Function
      End If
 
-	' Is numeric will return true if a valid number is at the
-	' start of the string, but doesn't detect invalid characters
-	' after the number (e.g. IsNumeric("2-") would return true).
-	If Not IsNumeric(VarToTest) Then
-	     IsPerfectlyNumeric = False
-	     Exit Function
-	End If
+    ' Is numeric will return true if a valid number is at the
+    ' start of the string, but doesn't detect invalid characters
+    ' after the number (e.g. IsNumeric("2-") would return true).
+    If Not IsNumeric(VarToTest) Then
+         IsPerfectlyNumeric = False
+         Exit Function
+    End If
 
-	' This makes sure that things like "2-" still get detected.
-	' Convert variable to double, then back to string. If it's equal
-	' to the original variable, then it is a valid number.
-	If CStr(CDbl(VarToTest)) = VarToTest Then
-	     IsPerfectlyNumeric = True
-	     Exit Function
-	Else
-	     IsPerfectlyNumeric = False
-	     Exit Function
-	End If
+    ' This makes sure that things like "2-" still get detected.
+    ' Convert variable to double, then back to string. If it's equal
+    ' to the original variable, then it is a valid number.
+    If CStr(CDbl(VarToTest)) = VarToTest Then
+         IsPerfectlyNumeric = True
+         Exit Function
+    Else
+         IsPerfectlyNumeric = False
+         Exit Function
+    End If
 
 End Function
 
