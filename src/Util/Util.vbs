@@ -45,6 +45,8 @@ Function IsPerfectlyNumeric(VarToTest)
           Exit Function
      End If
 
+	VarToTest = LocalizeNumberStr(VarToTest)
+
      If Not IsNumeric(VarToTest) Then
           IsPerfectlyNumeric = False
           Exit Function
@@ -192,5 +194,19 @@ Function GetViaOrHoleHeightMm(board, viaOrHole)
 
     ' We will only get here if it is a pad!
     GetViaOrHoleHeightMm = CoordToMMs(heightSumTCoord)
+
+End Function
+
+
+' @brief    Localizes fractional separator in strings, which contains numbers
+'
+Function LocalizeNumberStr(str)
+
+    ' check locale
+    if( CStr(0.1) = "0,1" ) then
+        LocalizeNumberStr = Replace(str,".",",")
+    else
+        LocalizeNumberStr = Replace(str,",",".")
+    end if
 
 End Function
