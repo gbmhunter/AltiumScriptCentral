@@ -58,21 +58,27 @@ Sub SchCompParamStamper(dummyVar)
 
     '============ DESTINATION COMPONENT ============'
 
-    Dim destSchComp
-    Set destSchComp = GetSchComponentFromUser(currentSch, "Choose destination component.")
+    ' Lets loop this indefinitely, we will exit if the user presses the ESC key
+    While True
+        Dim destSchComp
 
-    If destSchComp Is Nothing Then
-        Exit Sub
-    End If
+        ' Note that if ESC is pressed now, Altium will display an error message all by itself,
+        ' there is no way of disabling this
+        Set destSchComp = GetSchComponentFromUser(currentSch, "Choose destination component.")
 
-    If Not destSchComp.ObjectId = eSchComponent Then
-        ShowMessage("ERROR: Selected object is not a schematic component!")
-        Exit Sub
-    End If
+        If destSchComp Is Nothing Then
+            Exit Sub
+        End If
 
-    '============ COPY ACROSS PARAMETER VISIBILITY AND LOCATION ============'
+        If Not destSchComp.ObjectId = eSchComponent Then
+            ShowMessage("ERROR: Selected object is not a schematic component!")
+            Exit Sub
+        End If
 
-    Call CopyParameterVisibilityAndLocation(sourceSchComp, destSchComp)
+        '============ COPY ACROSS PARAMETER VISIBILITY AND LOCATION ============'
+
+        Call CopyParameterVisibilityAndLocation(sourceSchComp, destSchComp)
+    Wend
 
 End Sub
 
@@ -140,9 +146,9 @@ Function GetSchComponentFromUser(schDoc, locationMsg)
 End Function
 
 ' @brief    Copies across the parameter visibilities and locations (relative to each component) from the source component to the destination component.
-' @details	If the parameter in the source component is not found in the destination component, nothing happens.
-' @param	sourceSchComp	The shcematic component to copy parameter visibility and location settings from.
-' @param	destSchComp		The shcematic component to copy parameter visibility and location settings to.
+' @details  If the parameter in the source component is not found in the destination component, nothing happens.
+' @param    sourceSchComp   The shcematic component to copy parameter visibility and location settings from.
+' @param    destSchComp     The shcematic component to copy parameter visibility and location settings to.
 Function CopyParameterVisibilityAndLocation(sourceSchComp, destSchComp)
 
     Dim paramIterator
@@ -180,7 +186,7 @@ Function CopyParameterVisibilityAndLocation(sourceSchComp, destSchComp)
 End Function
 
 ' @brief    Changes the isHidden property (which hides or makes visible) of the specified component parameter.
-' @details	If the parameter is not found in the component, nothing happens.
+' @details  If the parameter is not found in the component, nothing happens.
 ' @param    schComp     The schematic component to operate on.
 ' @param    paramName   The parameter name to change the isHidden property of.
 ' @param    isHidden    (boolean) The value to set the isHidden property to. True
@@ -199,8 +205,8 @@ Function SetSchCompParamVisibility(schComp, paramName, isHidden)
             ' Set the parameter visibility to whatever was provided to this funciton
             param.IsHidden = isHidden
 
-			' Notify the schematic server of the change (so we can save)
-			Call SchServer.RobotManager.SendMessage(param.I_ObjectAddress, c_BroadCast, SCHM_EndModify, c_NoEventData)
+            ' Notify the schematic server of the change (so we can save)
+            Call SchServer.RobotManager.SendMessage(param.I_ObjectAddress, c_BroadCast, SCHM_EndModify, c_NoEventData)
         End If
         Set param = paramIterator.NextSchObject
     Loop
@@ -210,18 +216,18 @@ Function SetSchCompParamVisibility(schComp, paramName, isHidden)
 End Function
 
 ' @brief    Changes a parameter location for a specified schematic component.
-' @details	If the parameter is not found in the component, nothing happens.
-' @param	schComp		The schematic component that the parameter belongs to.
-' @param	paramName	(String) The name of the parameter.
-' @param	xLocation	(Integer) The x-location of the to set the parameter to, in Altium units.
-' @param	xLocation	(Integer) The y-location of the to set the parameter to, in Altium units.
+' @details  If the parameter is not found in the component, nothing happens.
+' @param    schComp     The schematic component that the parameter belongs to.
+' @param    paramName   (String) The name of the parameter.
+' @param    xLocation   (Integer) The x-location of the to set the parameter to, in Altium units.
+' @param    xLocation   (Integer) The y-location of the to set the parameter to, in Altium units.
 Function SetSchCompParamLocation(schComp, paramName, xLocation, yLocation)
     Dim paramIterator
     paramIterator = schComp.SchIterator_Create
     paramIterator.AddFilter_ObjectSet(MkSet(eParameter))
 
     Dim param
-	' Iterate through the component's parameters until we find the one whose name matches paramName
+    ' Iterate through the component's parameters until we find the one whose name matches paramName
     param = paramIterator.FirstSchObject
     Do Until param Is Nothing
         If param.Name = paramName Then
@@ -229,21 +235,21 @@ Function SetSchCompParamLocation(schComp, paramName, xLocation, yLocation)
             ' We have found the correct parameter
             'ShowMessage("Setting parameter '" + paramName + "' of '" + schComp.Designator.Text + "' to xLocation = '" + CStr(xLocation) + "', yLocation = '" + CStr(yLocation) + "'.")
 
-			' NOTE: We have to create a TLocation object! We can't just go param.Location.X = xLocation, e.t.c, this does NOT work!!!
-			Dim location1
-			location1 = TLocation
-			location1.X = xLocation
-			location1.Y = yLocation
+            ' NOTE: We have to create a TLocation object! We can't just go param.Location.X = xLocation, e.t.c, this does NOT work!!!
+            Dim location1
+            location1 = TLocation
+            location1.X = xLocation
+            location1.Y = yLocation
 
-			' Start of schematic modifiation
-			Call SchServer.RobotManager.SendMessage(param.I_ObjectAddress, c_BroadCast, SCHM_BeginModify, c_NoEventData)
-			param.Location = location1
-			' Notify the schematic server of the change (so we can save)
+            ' Start of schematic modifiation
+            Call SchServer.RobotManager.SendMessage(param.I_ObjectAddress, c_BroadCast, SCHM_BeginModify, c_NoEventData)
+            param.Location = location1
+            ' Notify the schematic server of the change (so we can save)
             Call SchServer.RobotManager.SendMessage(param.I_ObjectAddress, c_BroadCast, SCHM_EndModify, c_NoEventData)
         End If
         Set param = paramIterator.NextSchObject
     Loop
 
-	' Get rid of the iterator
+    ' Get rid of the iterator
     schComp.SchIterator_Destroy(paramIterator)
 End Function
