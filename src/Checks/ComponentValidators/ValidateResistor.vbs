@@ -39,8 +39,8 @@ Function ValidateResistor(component)
         regex.Global = True
         ' Look for resistance
         ' This allows for resistances with the letters m, R, k or M at the end,
-        ' OR one of those prefixes AND an Ohm symbol
-        regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?([mRkM]|([mRkM]?O))$$"
+        ' OR one of those prefixes AND an Ohm symbol. 0389 is the hex number for capital Ohm symbol (use Windows charmap.exe to find this)
+        regex.Pattern = "^[0-9][0-9]*(\.[0-9][0-9]*)?([mRkM]|([mRkM]?" + ChrW(&H03A9) + "))$$"
 
         If regex.Test(parameter.Text) And parameter.IsHidden = false Then
             'StdOut("Resistance found!")
