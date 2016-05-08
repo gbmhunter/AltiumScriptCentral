@@ -2,7 +2,7 @@
 ' @file               Util.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2014-11-11
-' @last-modified      2015-09-25
+' @last-modified      2016-05-09
 ' @brief              General utility functions used across many of the modules.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -37,7 +37,8 @@ End Function
 
 ' @brief    Function tests whether the input argument is "perfectly" numeric.
 ' @details  This is a stricter test than the built-in IsNumeric. This test will return false
-'           for strings such as "2-", while IsNumeric will return true.
+'           for strings such as "2-", while IsNumeric will return true. UPDATE 2016-05-09: This
+'           is not really true anymore, as bug was found with current implementation.
 Function IsPerfectlyNumeric(VarToTest)
 
 
@@ -47,33 +48,30 @@ Function IsPerfectlyNumeric(VarToTest)
           Exit Function
      End If
 
-<<<<<<< HEAD
-    ' Is numeric will return true if a valid number is at the
+     ' Is numeric will return true if a valid number is at the
     ' start of the string, but doesn't detect invalid characters
     ' after the number (e.g. IsNumeric("2-") would return true).
-    If Not IsNumeric(VarToTest) Then
-         IsPerfectlyNumeric = False
-         Exit Function
-    End If
-=======
-	VarToTest = LocalizeNumberStr(VarToTest)
+    VarToTest = LocalizeNumberStr(VarToTest)
 
      If Not IsNumeric(VarToTest) Then
           IsPerfectlyNumeric = False
           Exit Function
      End If
->>>>>>> 88f03392c62a90db4fd6e94e7ad5ac415e5fbfce
 
     ' This makes sure that things like "2-" still get detected.
     ' Convert variable to double, then back to string. If it's equal
     ' to the original variable, then it is a valid number.
-    If CStr(CDbl(VarToTest)) = VarToTest Then
-         IsPerfectlyNumeric = True
-         Exit Function
-    Else
-         IsPerfectlyNumeric = False
-         Exit Function
-    End If
+    ' UPDATE 2016-05-09: This code below caused valid numbers like "1.0"
+    ' to fail, presumably because "1.0" was rounded to "1"
+    'If CStr(CDbl(VarToTest)) = VarToTest Then
+    '     IsPerfectlyNumeric = True
+    '     Exit Function
+   ' Else
+    '     IsPerfectlyNumeric = False
+    '     Exit Function
+    'End If
+
+    IsPerfectlyNumeric = True
 
 End Function
 

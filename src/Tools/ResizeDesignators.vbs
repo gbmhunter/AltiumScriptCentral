@@ -2,7 +2,7 @@
 ' @file               ResizeDesignators.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-04-23
+' @last-modified      2016-05-09
 ' @brief              Code to change the font size of many PCB designators all at once.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -16,19 +16,19 @@ moduleName = "ResizeDesignators.vbs"
 ' @brief    Called when 'Resize Designators' is called from the main AltiumScriptCentral form.
 Function ResizeDesignators(dummyVar)
 
-	' Get user data if present
+    ' Get user data if present
 
     Dim width
-	width = GetUserData(moduleName, "DesignatorWidth")
-	If width <> "" Then
-		EditWidthMm.Text = width
-	End If
+    width = GetUserData(moduleName, "DesignatorWidth")
+    If width <> "" Then
+        EditWidthMm.Text = width
+    End If
 
     Dim height
-	height = GetUserData(moduleName, "DesignatorHeight")
-	If height <> "" Then
-		EditHeightMm.Text = height
-	End If
+    height = GetUserData(moduleName, "DesignatorHeight")
+    If height <> "" Then
+        EditHeightMm.Text = height
+    End If
 
    ' Show form
    FormResizeDesignators.Show
@@ -103,9 +103,9 @@ Sub ButtonOkClick(Sender)
 
     ShowMessage(CStr(NumDesignatorsModified) + " designators modified.")
 
-	' Save values for next time
-	Call SaveUserData(moduleName, "DesignatorWidth", FloatToStr(EditWidthMm.Text))
-	Call SaveUserData(moduleName, "DesignatorHeight", FloatToStr(EditHeightMm.Text))
+    ' Save values for next time
+    Call SaveUserData(moduleName, "DesignatorWidth", FloatToStr(EditWidthMm.Text))
+    Call SaveUserData(moduleName, "DesignatorHeight", FloatToStr(EditHeightMm.Text))
 
     ' Finally close the form
     FormResizeDesignators.Close
