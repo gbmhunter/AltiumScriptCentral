@@ -47,6 +47,7 @@ Function IsPerfectlyNumeric(VarToTest)
           Exit Function
      End If
 
+<<<<<<< HEAD
     ' Is numeric will return true if a valid number is at the
     ' start of the string, but doesn't detect invalid characters
     ' after the number (e.g. IsNumeric("2-") would return true).
@@ -54,6 +55,14 @@ Function IsPerfectlyNumeric(VarToTest)
          IsPerfectlyNumeric = False
          Exit Function
     End If
+=======
+	VarToTest = LocalizeNumberStr(VarToTest)
+
+     If Not IsNumeric(VarToTest) Then
+          IsPerfectlyNumeric = False
+          Exit Function
+     End If
+>>>>>>> 88f03392c62a90db4fd6e94e7ad5ac415e5fbfce
 
     ' This makes sure that things like "2-" still get detected.
     ' Convert variable to double, then back to string. If it's equal
@@ -200,5 +209,19 @@ Function GetViaOrHoleHeightMm(board, viaOrHole)
 
     ' We will only get here if it is a pad!
     GetViaOrHoleHeightMm = CoordToMMs(heightSumTCoord)
+
+End Function
+
+
+' @brief    Localizes fractional separator in strings, which contains numbers
+'
+Function LocalizeNumberStr(str)
+
+    ' check locale
+    if( CStr(0.1) = "0,1" ) then
+        LocalizeNumberStr = Replace(str,".",",")
+    else
+        LocalizeNumberStr = Replace(str,",",".")
+    end if
 
 End Function
