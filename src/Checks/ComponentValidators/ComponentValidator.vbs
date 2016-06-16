@@ -2,7 +2,7 @@
 ' @file               ComponentValidator.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-08-03
+' @last-modified      2016-05-30
 ' @brief              Validates schematic components.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -150,6 +150,7 @@ Sub ComponentValidator(DummyVar)
                             End If
 
                         Case DESIGNATOR_SOLAR_PANEL
+                        Case DESIGNATOR_SPARK_GAP
                         Case DESIGNATOR_SWITCH
                         Case DESIGNATOR_TEST_POINT
                         Case DESIGNATOR_TRANSISTOR
