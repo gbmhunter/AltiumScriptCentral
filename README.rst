@@ -12,7 +12,7 @@ A collection of useful Altium scripts, written in VBScript.
 
 - Author: gbmhunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 - First Ever Commit: 2013-08-08
-- Last Modified: 2016-05-09
+- Last Modified: 2019-05-20
 - Version: v25.1.0
 - Company: mbedded.ninja
 - Language: VBScript
@@ -247,3 +247,4 @@ Changelog
 =========
 
 See :code:`changelog.md`.
+
