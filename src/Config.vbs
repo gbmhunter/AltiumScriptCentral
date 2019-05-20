@@ -2,7 +2,7 @@
 ' @file               Config.vbs
 ' @author             Geoffrey Hunter <gbmhunter@gmail.com> (www.mbedded.ninja)
 ' @created            2013-08-08
-' @last-modified      2015-08-04
+' @last-modified      2016-05-30
 ' @brief              Configuration settings and variables for AltiumScriptCentral.
 ' @details
 '                     See README.rst in repo root dir for more info.
@@ -50,6 +50,7 @@ Const DESIGNATOR_SOLAR_PANEL          = "PV"
 Const DESIGNATOR_TRANSISTOR           = "Q"
 Const DESIGNATOR_RESISTOR             = "R"
 Const DESIGNATOR_VARISTOR             = "RV"
+Const DESIGNATOR_SPARK_GAP            = "SG"
 Const DESIGNATOR_SWITCH               = "SW"
 Const DESIGNATOR_TRANSFORMER          = "T"
 Const DESIGNATOR_TEST_POINT           = "TP"
